@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<h:head>
+	<link rel="shortcut icon" type="image/x-icon"
+		href="#{resource['img/spdm_favicon.ico']}" />
+
+	<ui:insert name="titulo">
+	</ui:insert>
+
+	<link rel="stylesheet" type="text/css"
+		href="#{resource['css/normalize.css']}" />
+
+</h:head>
+
+<h:body>
+	<script>
+		PrimeFaces.locales['pt'] = {
+			closeText : 'Fechar',
+			prevText : 'Anterior',
+			nextText : 'Próximo',
+			currentText : 'Começo',
+			monthNames : [ 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio',
+					'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro',
+					'Novembro', 'Dezembro' ],
+			monthNamesShort : [ 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun',
+					'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez' ],
+			dayNames : [ 'Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta',
+					'Sexta', 'Sábado' ],
+			dayNamesShort : [ 'Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb' ],
+			dayNamesMin : [ 'D', 'S', 'T', 'Q', 'Q', 'S', 'S' ],
+			weekHeader : 'Semana',
+			firstDay : 0,
+			isRTL : false,
+			showMonthAfterYear : false,
+			yearSuffix : '',
+			timeOnlyTitle : 'Só Horas',
+			timeText : 'Tempo',
+			hourText : 'Hora',
+			minuteText : 'Minuto',
+			secondText : 'Segundo',
+			ampm : false,
+			month : 'Mês',
+			week : 'Semana',
+			day : 'Dia',
+			allDayText : 'Todo o Dia'
+		};
+	</script>
+<p:growl id="messages" autoUpdate="true" life="3000" />
+	<div id="cabecalho" style="background-image: linear-gradient(to bottom, DarkSeaGreen, white);" >
+		
+
+		<h:form rendered="#{usuarioLogado != null}">
+			<h:panelGrid columns="2" style="font-size: 12px; position:absolute; top:0; right:0;" >
+				
+				<p:menuButton value="#{usuarioLogado.login}">
+					
+					<p:menuitem value="Home" action="home?faces-redirect=true"	
+						icon="fa fa-fw fa-home" />
+					
+					<p:menuitem value="Wareline DOS" action="wareline?faces-redirect=true"
+						icon="fa fa-fw fa-folder-open" />		
+					
+					<p:menuitem value="Sandor" action="sandor?faces-redirect=true"
+						icon="fa fa-fw fa-folder-open" />
+						
+					<p:separator />
+					
+					<p:menuitem value="Sair" action="#{loginBean.deslogar}" 
+						icon="fa fa-fw fa-sign-out" />
+						
+				</p:menuButton>
+				
+				
+			
+			</h:panelGrid>
+		</h:form>
+
+		<div align="center">
+			<h:panelGrid columns="5">
+
+				<h:graphicImage library="img" name="pais.png" style="margin-top:5px; margin-botton:5px;"/>
+				<h:graphicImage library="img" name="spdm.png" style="margin-top:5px; margin-botton:5px;"/>
+				<h1 style="text-align: center; font-family: verdana; font-weight:bold; color:DarkOliveGreen; font-size: 24px; margin-left:100px; margin-right:100px;  margin-top:5px; margin-botton:5px; padding:0;">
+					PRONTUÁRIOS ANTIGOS
+				</h1>
+				<h:graphicImage library="img" name="irma.png" style="margin-top:5px; margin-botton:5px;"/>
+				<h:graphicImage library="img" name="prefeitura.png" style="margin-top:5px; margin-botton:5px;"/>
+			</h:panelGrid>
+		</div>
+
+	</div>
+
+	<div id="conteudo"
+		style="font-size: 12px;">
+			
+		<h1>
+			<ui:insert name="titulo"></ui:insert>
+		</h1>
+
+		<ui:insert name="conteudo">
+		</ui:insert>
+	</div>
+</h:body>
+
+</html>

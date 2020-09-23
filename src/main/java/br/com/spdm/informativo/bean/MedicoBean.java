@@ -1,0 +1,84 @@
+package br.com.spdm.informativo.bean;
+
+import java.io.Serializable;
+import java.util.List;
+
+import javax.enterprise.context.ConversationScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import org.primefaces.PrimeFaces;
+
+import br.com.spdm.informativo.dao.EspecialidadeDao;
+import br.com.spdm.informativo.dao.MedicoDao;
+import br.com.spdm.informativo.model.Especialidade;
+import br.com.spdm.informativo.model.Medico;
+
+@Named
+@ConversationScoped 
+public class MedicoBean implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+	
+	private Medico medico = new Medico();
+	private List<Medico> medicos;
+	
+	@Inject
+	private MedicoDao medicoDao;
+	
+	@Inject
+	private FacesContext context;
+	
+	@Inject
+	private EspecialidadeDao especialidadeDao;
+	
+	public List<Especialidade> getEspecialidades(){
+		return this.especialidadeDao.listaTodos();
+	}
+	
+	//método para listar todos os medicos do banco
+	public List<Medico> getMedicos() {
+		this.medicos = medicoDao.listaTodos();
+		return this.medicos;
+	}
+	
+	//método para gravar médico no banco
+	public void salvar() {
+		System.out.println("Gravando medico " + this.medico.getNome());
+		
+		if(this.medico.getId() == null) {
+			medicoDao.adiciona(this.medico);
+			context.addMessage(null,
+					new FacesMessage("Médico cadastrado! "));
+		} else {
+			medicoDao.atualiza(this.medico);
+			context.addMessage(null,
+					new FacesMessage("Médico atualizado! "));
+		}
+		this.medico = new Medico();
+	}
+	
+	public void limpar(){
+		this.medico = new Medico();
+		PrimeFaces.current().resetInputs("formMedico:panelGridCadastro");
+	}
+	
+	//método para remover médico do banco
+	public void remover(Medico medico) {
+		System.out.println("Removendo Médico " + medico.getNome());
+		medicoDao.remove(medico);
+		context.addMessage(null,
+				new FacesMessage("Médico removido! "));
+	}
+	
+	public Medico getMedico() {
+		return medico;
+	}
+
+	public void setMedico(Medico medico) {
+		this.medico = medico;
+	}
+
+}

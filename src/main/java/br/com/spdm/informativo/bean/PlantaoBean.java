@@ -1,0 +1,93 @@
+package br.com.spdm.informativo.bean;
+
+import java.io.Serializable;
+import java.util.List;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import br.com.spdm.informativo.dao.MedicoDao;
+import br.com.spdm.informativo.dao.PlantaoDao;
+import br.com.spdm.informativo.model.Medico;
+import br.com.spdm.informativo.model.Plantao;
+
+@Named
+@ViewScoped 
+public class PlantaoBean implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+
+	@Inject
+	private FacesContext context;
+	@Inject
+	private PlantaoDao plantaoDao;
+	@Inject
+	private MedicoDao medicoDao;
+	
+	private Plantao plantao = new Plantao();
+	private Integer medicoId;
+	
+	//método p/ listar médicos cadastrados
+	public List<Medico> getMedicos() {
+		return this.medicoDao.listaTodos();
+	}
+	
+	public void gravarMedico() {
+		Medico medico = this.medicoDao.buscaPorId(this.medicoId);
+		this.plantao.adicionaMedico(medico);
+		System.out.println("Gravando médico " + medico.getNome() + " no plantão.");
+	}
+	
+	public void removerMedicoDoPlantao(Medico medico) {
+		this.plantao.removeMedico(medico);
+	}
+	
+	public List<Medico> getMedicosDoPlantao() {
+		return this.plantao.getMedicos();
+	}
+	
+	public String formMedico() {
+		System.out.println("Chamanda do formulário do Médico.");
+		return "medico?faces-redirect=true";
+	}
+	
+	//método para gravar médico no banco
+		public void salvar() {
+			System.out.println("Gravando medico do plantão ");
+			
+		/*	for (Medico medico : medicosSelecionados) {
+				this.plantao.adicionaMedico(medico);
+			}
+			*/
+			if(plantao.getId() == null){
+				plantaoDao.adiciona(this.plantao);
+				context.addMessage(null,
+						new FacesMessage("Plantão cadastrado! "));
+			}else{
+				plantaoDao.atualiza(this.plantao);
+				context.addMessage(null,
+						new FacesMessage("Plantão atualizado! "));
+			}
+			this.plantao = new Plantao();
+		}
+	
+	//getters and setters
+	public Plantao getPlantao() {
+		return plantao;
+	}
+	public void setPlantao(Plantao plantao) {
+		this.plantao = plantao;
+	}
+
+	public Integer getMedicoId() {
+		return medicoId;
+	}
+
+	public void setMedicoId(Integer medicoId) {
+		this.medicoId = medicoId;
+	}
+	
+}

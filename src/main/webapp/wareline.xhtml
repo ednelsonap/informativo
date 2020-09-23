@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<ui:composition template="_template.xhtml">
+
+	<ui:define name="titulo">
+		<title>Wareline DOS</title>
+	</ui:define>
+
+	<ui:define name="conteudo">
+
+		<h:form id="formPesquisa">
+			<div align="center">
+				<p:fieldset legend="Pesquisa Cadastro Wareline DOS"
+					style="width:50%;">
+					<p:panelGrid columns="4" id="panelGridPesquisa">
+
+						<p:outputLabel value="Nome:" for="nome" />
+						<p:inputText id="nome" value="#{warelineBean.nomePaciente}"
+							required="true" requiredMessage="Preencha o campo nome" />
+
+						<p:commandButton value="Buscar" icon="fa fa-fw fa-search"
+							action="#{warelineBean.pesquisarPorNome}" ajax="true"
+							process="@form"
+							update=":formTabelaPacientes:tabelaPacientes" />
+
+						<p:commandButton value="Limpar" icon="fa fa-fw fa-eraser"
+							action="#{warelineBean.limparPesquisa}" immediate="true"
+							ajax="false" style="margin-right:20px;">
+							<p:resetInput target="panelGridPesquisa" />
+						</p:commandButton>
+						
+					</p:panelGrid>
+				</p:fieldset>
+				
+				<p:ajaxStatus onstart="PF('statusDialog').show()"
+					onsuccess="PF('statusDialog').hide()" />
+
+				<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+					closable="false" resizable="false" showHeader="false">
+					<p:graphicImage name="/img/ajaxloadingbar.gif" />
+				</p:dialog>
+				
+			</div>
+		</h:form>
+
+		<!-- TABELA RESULTADO DE PACIENTES PESQUISADOS -->
+
+		<h:form id="formTabelaPacientes">
+
+			<p:dataTable id="tabelaPacientes" var="paciente"
+				value="#{warelineBean.pacientesFiltrados}"
+				emptyMessage="Nenhum paciente para exibir" paginator="true"
+				rows="10"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
+				rowsPerPageTemplate="10,20,50,100"
+				style="margin-bottom:20px; text-align:center;">
+
+				<f:facet name="header">
+					Pacientes
+				</f:facet>
+
+				<p:column headerText="Código" style="width: 70px;">
+					<h:outputText value="#{paciente.codPac}" />
+				</p:column>
+
+				<p:column headerText="Número de Pasta" style="width: 60px;">
+					<h:outputText value="#{paciente.numPas}" />
+				</p:column>
+
+				<p:column headerText="Nome" style="width: 300px;">
+					<h:outputText value="#{paciente.nomPac}" />
+				</p:column>
+
+				<p:column headerText="Data Nasc." style="width: 80px;">
+					<h:outputText value="#{paciente.datNas}" />
+				</p:column>
+
+				<p:column headerText="Sexo" style="width: 50px;">
+					<h:outputText value="#{paciente.sexPac}" />
+				</p:column>
+
+				<p:column headerText="Mãe">
+					<h:outputText value="#{paciente.maePac}" />
+				</p:column>
+
+				<p:column headerText="Pai">
+					<h:outputText value="#{paciente.paiPac}" />
+				</p:column>
+
+				<p:column headerText="Ações" style="width: 50px;">
+					<h:panelGrid id="panelGridAcoes" columns="3"
+						style="float:right;padding-top: 5px;">
+
+						<p:commandButton update="formDetalhes:pacienteDetalhes"
+							oncomplete="PF('pacienteDialog').show()" title="Visualizar"
+							icon="fa fa-fw fa-search">
+
+							<f:setPropertyActionListener value="#{paciente}"
+								target="#{warelineBean.wareline}" />
+						</p:commandButton>
+
+						<p:autoUpdate />
+					</h:panelGrid>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+
+		<!-- JANELA DE DIÁLOGO COM OS DETALHES DO PACIENTE -->
+
+		<h:form id="formDetalhes">
+			<p:dialog header="Detalhes do Paciente" widgetVar="pacienteDialog"
+				modal="true" showEffect="fade" hideEffect="fade" resizable="false"
+				height="auto" width="auto">
+				<div align="center">
+					<p:outputPanel id="pacienteDetalhes"
+						style="text-align:center; font-size:10px; horizontal-align:center;">
+						<p:panelGrid columns="2"
+							rendered="#{not empty warelineBean.wareline}"
+							columnClasses="label,value"
+							style="text-align:center; horizontal-align:center;">
+							<f:facet name="header">
+
+							</f:facet>
+
+							<h:outputText value="Código" />
+							<h:outputText value="#{warelineBean.wareline.codPac}" />
+
+							<h:outputText value="Nome" />
+							<h:outputText value="#{warelineBean.wareline.nomPac}" />
+
+							<h:outputText value="Data Nasc." />
+							<h:outputText value="#{warelineBean.wareline.datNas}" />
+
+							<h:outputText value="Sexo" />
+							<h:outputText value="#{warelineBean.wareline.sexPac}" />
+
+							<h:outputText value="Mãe" />
+							<h:outputText value="#{warelineBean.wareline.maePac}" />
+
+							<h:outputText value="Pai" />
+							<h:outputText value="#{warelineBean.wareline.paiPac}" />
+
+							<h:outputText value="Naturalidade" />
+							<h:outputText value="#{warelineBean.wareline.natura}" />
+
+							<h:outputText value="UF Nascimento" />
+							<h:outputText value="#{warelineBean.wareline.ufNatPac}" />
+
+							<h:outputText value="Endereço" />
+							<h:outputText value="#{warelineBean.wareline.endPac}" />
+
+							<h:outputText value="Número Residência" />
+							<h:outputText value="#{warelineBean.wareline.numResid}" />
+
+							<h:outputText value="CEP" />
+							<h:outputText value="#{warelineBean.wareline.cepPac}" />
+
+							<h:outputText value="Bairro" />
+							<h:outputText value="#{warelineBean.wareline.baiPac}" />
+
+							<h:outputText value="Cód. Município" />
+							<h:outputText value="#{warelineBean.wareline.codMun}" />
+
+							<h:outputText value="Telefone" />
+							<h:outputText value="#{warelineBean.wareline.telPac}" />
+
+							<h:outputText value="Documento" />
+							<h:outputText value="#{warelineBean.wareline.docPac}" />
+
+							<h:outputText value="CPF" />
+							<h:outputText value="#{warelineBean.wareline.cpfPac}" />
+
+							<h:outputText value="PIS" />
+							<h:outputText value="#{warelineBean.wareline.pisPac}" />
+
+							<h:outputText value="Número de Pasta" />
+							<h:outputText value="#{warelineBean.wareline.numPas}" />
+
+							<h:outputText value="Convênio" />
+							<h:outputText value="#{warelineBean.wareline.codCon}" />
+
+							<h:outputText value="Usuário" />
+							<h:outputText value="#{warelineBean.wareline.usuario}" />
+
+							<h:outputText value="Data Cadastro" />
+							<h:outputText value="#{warelineBean.wareline.dtCadast}" />
+
+							<h:outputText value="PIS" />
+							<h:outputText value="#{warelineBean.wareline.pis}" />
+
+							<h:outputText value="Certidão Nasc." />
+							<h:outputText value="#{warelineBean.wareline.certNasc}" />
+
+							<h:outputText value="Data Óbito." />
+							<h:outputText value="#{warelineBean.wareline.dtObito}" />
+
+						</p:panelGrid>
+					</p:outputPanel>
+				</div>
+			</p:dialog>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<ui:composition template="_template.xhtml">
+	
+	<!-- ATUALIZA A PÁGINA A CADA 5 MINUTOS -->
+	<ui:define name="Atualiza Página">
+		<meta http-equiv="refresh" content="300" />
+	</ui:define>
+	
+	<ui:define name="Título Página">
+		<title><ui:insert name="title">Painel</ui:insert></title>
+	</ui:define>
+	
+	<ui:define name="conteudo">
+	<div>
+		<!-- MÉDICOS DO PLANTÃO -->
+
+		<h:form>
+			<div align="center">
+				<p:imageSwitch effect="fade" speed="5000" style="width:100%; margin: auto; allowResize: true;">
+					<ui:repeat value="#{medicoBean.medicos}" var="medico">
+						<p:panel header="MÉDICOS DE PLANTÃO" style="width:100%; margin: auto; text-align:center; font-weight: bold; text-align: center; font-size:45px;">
+            				<h:panelGrid columns="1"  style="width:100%; margin: auto; font-weight: bold; text-align: center; font-size:50px;">
+                				<h:outputText value="#{medico.nome}" style="font-size: 85px; color:DarkGreen; text-transform: uppercase;"/>
+                				<h:outputText value="CRM: #{medico.crm}" />
+                				<h:outputText value="ESPECIALIDADE: #{medico.especialidade}" style="text-transform: uppercase;" />
+                				<h:outputText value="ATENDIMENTO: #{medico.inicioAtendimento} ÀS #{medico.fimAtendimento}"/>
+            				</h:panelGrid>
+       					</p:panel>
+       				</ui:repeat>
+				</p:imageSwitch>
+			</div>
+		</h:form>
+			
+			<p:outputPanel deferred="true" deferredMode="visible" style="position:absolute; bottom:0; width:100%; margin: 0px auto; font-weight: bold; text-align: center; font-size:25px;" >
+			<p>OBS: INFORMAMOS QUE O CONTROLE DE MEDIÇÃO DOS PROFISSIONAIS, ENCONTRA-SE DISPONÍVEL PARA CONSULTA DE QUALQUER CIDADÃO, NA SALA DA COORDENAÇÃO.</p>
+		</p:outputPanel>
+	</div>
+	</ui:define>
+</ui:composition>
+</html>
