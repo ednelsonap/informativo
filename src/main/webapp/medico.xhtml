@@ -22,13 +22,14 @@
 		<h:form id="formMedico">
 		
 			<p:growl id="growl" life="3000" />
-			<div align="center">
-			<h:panelGrid id="panelGridCadastro" columns="2" style="width:50%; margin-bottom:10px">
+			<div>
+			
 			<p:fieldset legend="Dados do Médico">
-				<h:panelGrid id="panelGridMedico" columns="2" cellpadding="5">
+				<h:panelGrid id="panelGridCadastro" columns="8" cellpadding="5">
 
 					<p:outputLabel value="Nome:" for="nome" />
 					<p:inputText id="nome" value="#{medicoBean.medico.nome}"
+						size="60"
 						required="true" requiredMessage="Nome é um campo obrigatório" maxlength="100">
 						<f:ajax event="blur" render="messages" />
 					</p:inputText>
@@ -50,7 +51,7 @@
 									itemValue="#{especialidade}"/>
 						<f:ajax event="blur" render="messages" />
 					</p:selectOneMenu>
-				</h:panelGrid>
+				
 				
 				<p:commandButton value="Salvar" action="#{medicoBean.salvar}"
 					style="margin-right:20px;" ajax="false" process="formMedico"
@@ -59,8 +60,8 @@
 					<p:commandButton value="Limpar" action="#{medicoBean.limpar}" immediate="true" ajax="false" style="margin-right:20px;">
                 		<p:resetInput target="panelGridCadastro" />
             		</p:commandButton>
+            	</h:panelGrid>
 			</p:fieldset>
-			</h:panelGrid>
 			</div>
 		</h:form>	
 	

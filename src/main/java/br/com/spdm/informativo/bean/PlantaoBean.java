@@ -9,6 +9,8 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.primefaces.PrimeFaces;
+
 import br.com.spdm.informativo.dao.MedicoDao;
 import br.com.spdm.informativo.dao.PlantaoDao;
 import br.com.spdm.informativo.model.Medico;
@@ -72,6 +74,11 @@ public class PlantaoBean implements Serializable{
 						new FacesMessage("Plantão atualizado! "));
 			}
 			this.plantao = new Plantao();
+		}
+	
+		public void limpar(){
+			this.plantao = new Plantao();
+			PrimeFaces.current().resetInputs("formPlantao:panelGridCadastro");
 		}
 	
 	//getters and setters
