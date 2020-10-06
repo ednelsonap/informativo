@@ -38,6 +38,11 @@ public class PlantaoDao implements Serializable{
 	public List<Plantao> listaTodos() {
 		return dao.listaTodos();
 	}
-	
-	
+
+	public List<Plantao> listar() {
+		String jpql = "select distinct(p) from Plantao p "
+				+ " join fetch p.medicos where p.id=1";
+		
+		return em.createQuery(jpql, Plantao.class).getResultList();
+	}
 }
