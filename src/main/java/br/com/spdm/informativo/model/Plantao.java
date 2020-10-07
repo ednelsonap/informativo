@@ -22,7 +22,7 @@ public class Plantao implements Serializable{
 	private String horaInicio;
 	private String horaFim;
 	@ManyToMany
-	private List<Medico> medicos = new ArrayList<Medico>();;
+	private List<Medico> medicos = new ArrayList<Medico>();
 	private String mensagemGerencia;
 	
 	public void adicionaMedico(Medico medico){

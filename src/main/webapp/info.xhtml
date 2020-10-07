@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<!-- <ui:composition template="_template.xhtml"> -->
+<h:head>
+	<title>Informações</title>
+	<link rel="shortcut icon" type="image/x-icon"
+		href="#{resource['img/ps_favicon.ico']}" />
+</h:head>
+<h:body style="background-color:#F0FFF0;">
+
+	<!-- FORMULÁRIO DE CADASTRO DE INFORMAÇÕES DO PLANTÃO -->
+
+<div>
+	<p:fieldset legend="Cadastro de Informações do Plantão">
+	<h:form id="formCadInfo">
+
+		<p:growl id="growl" life="3000" />
+					
+			<h:panelGrid columns="5">
+				
+				<p:outputLabel value="Coordenador Médico:" for="coordMedico"/>
+				<p:inputText id="coordMedico" value="#{plantaoBean.plantao.coordenadorMedico}"
+					required="true" requiredMessage="Coordenador Médico é um campo necessário"
+					validatorMessage="O campo Coordenador Médico não pode ser superior a 60 caracteres">
+							<f:validateLength maximum="60" />
+							<f:ajax event="blur" render="messages" />
+				</p:inputText>
+				
+				<p:outputLabel value="Coordenador Administrativo:" for="coordAdm"/>
+				<p:inputText id="coordAdm" value="#{plantaoBean.plantao.coordenadorAdministrativo}"
+					required="true" requiredMessage="Coordenador Administrativo é um campo necessário"
+					validatorMessage="O campo Coordenador Administrativo não pode ser superior a 60 caracteres">
+							<f:validateLength maximum="60" />
+							<f:ajax event="blur" render="messages" />
+				</p:inputText>
+				
+				<p:commandButton value="Salvar"
+					action="#{plantaoBean.salvar}" process="@this"
+					update="formInfo:tabelaInfo">
+				</p:commandButton>
+
+			</h:panelGrid>
+
+		<br />
+
+	</h:form>
+
+	<h:form id="formInfo">
+
+
+			<p:dataTable id="tabelaInfo" var="plantao" value="#{plantaoBean.plantaoPrincipal}">
+				
+				<f:facet name="header">
+					MÉDICOS DO PLANTÃO
+				</f:facet>
+				
+				<p:column headerText="Coordenador Médico">
+					<h:outputText value="#{plantao.coordenadorMedico}" />
+				</p:column>
+
+				<p:column headerText="Coordenador Administrativo">
+					<h:outputText value="#{plantao.coordenadorAdministrativo}" />
+				</p:column>
+
+				<p:column headerText="Mensagem da Gerência">
+					<h:outputText value="#{plantao.mensagemGerencia}" />
+				</p:column>	
+				
+				<p:column headerText="Remover">
+					<p:commandButton update="@form" process="@this" actionListener="#{plantaoBean.removerMedicoDoPlantao(medico)}" icon="fa fa-fw fa-remove" />
+				</p:column>	
+				
+			</p:dataTable>
+		
+
+	</h:form>
+</p:fieldset>
+</div>
+</h:body>
+</html>

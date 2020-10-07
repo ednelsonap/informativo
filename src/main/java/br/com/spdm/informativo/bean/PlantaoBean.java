@@ -61,7 +61,7 @@ public class PlantaoBean implements Serializable {
 		return this.plantao.getMedicos();
 	}
 
-	public List<Medico> getPlantaoPrincipal() {
+	public List<Medico> getMedicosPlantaoPrincipal() {
 		
 		List<Medico> medicosPlantao = new ArrayList<>();
 		List<Plantao> listPlantao = plantaoDao.listar();
@@ -75,6 +75,11 @@ public class PlantaoBean implements Serializable {
 		return medicosPlantao;
 	}
 
+	public Plantao getPlantaoPrincipal() {
+		Plantao plantaoPrincipal = plantaoDao.buscaPlantaoIdUm();
+		return plantaoPrincipal;
+	}
+	
 	public String formMedico() {
 		System.out.println("Chamanda do formulário do Médico.");
 		return "medico?faces-redirect=true";

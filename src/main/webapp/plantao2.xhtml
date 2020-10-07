@@ -22,7 +22,7 @@
 	<!-- FORMULÁRIO DE CADASTRO DOS MÉDICOS NO PLANTAO -->
 
 <div style="width:50%;">
-	<p:fieldset legend="Início e Término">
+	<p:fieldset legend="Cadastro do Plantão">
 	<h:form id="formPlantao">
 
 		<p:growl id="growl" life="3000" />
@@ -62,7 +62,11 @@
 	<h:form id="formPlantaoCadastrado">
 
 
-			<p:dataTable id="tabelaMedicos" var="medico" value="#{plantaoBean.plantaoPrincipal}">
+			<p:dataTable id="tabelaMedicos" var="medico" value="#{plantaoBean.medicosPlantaoPrincipal}">
+				
+				<f:facet name="header">
+					MÉDICOS DO PLANTÃO
+				</f:facet>
 				
 				<p:column headerText="Nome">
 					<h:outputText value="#{medico.nome}" />
