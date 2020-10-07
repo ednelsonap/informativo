@@ -26,6 +26,7 @@ public class Plantao implements Serializable{
 	private String mensagemGerencia;
 	
 	public void adicionaMedico(Medico medico){
+		
 		this.medicos.add(medico);
 	}
 	

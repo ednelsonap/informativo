@@ -44,8 +44,17 @@ public class PlantaoBean implements Serializable {
 		System.out.println("Gravando médico " + medico.getNome() + " no plantão.");
 	}
 
+	public void adicionarNoPlantao(){
+		Medico medico = this.medicoDao.buscaPorId(this.medicoId);
+		Plantao plantaoPrincipal = this.plantaoDao.buscaPlantaoIdUm();
+		plantaoPrincipal.adicionaMedico(medico);
+		this.plantaoDao.adiciona(plantaoPrincipal);
+	}
+	
 	public void removerMedicoDoPlantao(Medico medico) {
-		this.plantao.removeMedico(medico);
+		Plantao plantaoPrincipal = this.plantaoDao.buscaPlantaoIdUm();
+		plantaoPrincipal.removeMedico(medico);
+		this.plantaoDao.atualiza(plantaoPrincipal);
 	}
 
 	public List<Medico> getMedicosDoPlantao() {
@@ -94,6 +103,11 @@ public class PlantaoBean implements Serializable {
 		PrimeFaces.current().resetInputs("formPlantao:panelGridCadastro");
 	}
 
+	public void carregar(Plantao plantao) {
+		System.out.println("Carregando plantao");
+		this.plantao = this.plantaoDao.buscaPorId(plantao.getId());
+	}
+	
 	// getters and setters
 	public Plantao getPlantao() {
 		return plantao;
