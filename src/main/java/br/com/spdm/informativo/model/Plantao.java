@@ -54,13 +54,30 @@ public class Plantao implements Serializable{
 	public Integer getId() {
 		return id;
 	}
+
 	public String getCoordenadorMedico() {
 		return coordenadorMedico;
 	}
+
+	public void setCoordenadorMedico(String coordenadorMedico) {
+		this.coordenadorMedico = coordenadorMedico;
+	}
+
 	public String getCoordenadorAdministrativo() {
 		return coordenadorAdministrativo;
 	}
+
+	public void setCoordenadorAdministrativo(String coordenadorAdministrativo) {
+		this.coordenadorAdministrativo = coordenadorAdministrativo;
+	}
+
 	public String getMensagemGerencia() {
 		return mensagemGerencia;
 	}
+
+	public void setMensagemGerencia(String mensagemGerencia) {
+		this.mensagemGerencia = mensagemGerencia;
+	}
+	
+	
 }

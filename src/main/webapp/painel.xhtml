@@ -23,8 +23,8 @@
 
 			<h:form id="medicosDePlantao">
 
-				<p:dataTable id="tabelaMedicosDoPlantao"
-					value="#{plantaoBean.medicosPlantaoPrincipal}" var="medico">
+					<p:dataTable id="tabelaMedicosDoPlantao"
+					value="#{plantaoBean.medicosPlantaoPrincipal}" var="medico" style="font-size: 30px;">
 					
 					<f:facet name="header">
 						MÉDICOS DO PLANTÃO
@@ -42,7 +42,7 @@
 						<h:outputText value="#{medico.especialidade.nome}" />
 					</p:column>
 				</p:dataTable>
-
+				
 			</h:form>
 
 			<p:outputPanel deferred="true" deferredMode="visible"
