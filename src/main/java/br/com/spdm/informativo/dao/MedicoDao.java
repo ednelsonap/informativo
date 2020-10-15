@@ -50,14 +50,32 @@ public class MedicoDao implements Serializable{
 		return dao.buscaPorId(id);
 	}
 
-	public boolean existe(Medico medico) {
+	public boolean nomeExiste(Medico medico) {
 		
 		EntityManager em = new JPAUtil().getEntityManager();
 		TypedQuery<Medico> query = em.createQuery(
-				  " select c from Medico c "
-				+ " where c.nome = :pNome", Medico.class);
+				  " select m from Medico m "
+				+ " where m.nome = :pNome", Medico.class);
 		
 		query.setParameter("pNome", medico.getNome());
+		
+		try {
+			Medico resultado =  query.getSingleResult();
+		} catch (NoResultException ex) {
+			return false;
+		}
+		
+		return true;
+	}
+	
+	public boolean crmExiste(Medico medico) {
+		
+		EntityManager em = new JPAUtil().getEntityManager();
+		TypedQuery<Medico> query = em.createQuery(
+				  " select m from Medico m "
+				+ " where m.crm = :pCrm", Medico.class);
+		
+		query.setParameter("pCrm", medico.getCrm());
 		
 		try {
 			Medico resultado =  query.getSingleResult();
