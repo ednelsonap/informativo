@@ -6,167 +6,94 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-<!-- <ui:composition template="_template.xhtml"> -->
-<h:head>
-	<title>Cadastro Plantão</title>
-	<link rel="shortcut icon" type="image/x-icon"
-		href="#{resource['img/ps_favicon.ico']}" />
-</h:head>
-<h:body style="background-color:#F0FFF0;">
+<ui:composition template="_template.xhtml">
+	<ui:define name="titulo">
+		<title>Plantão</title>
+	</ui:define>
 
-	<p:outputPanel
-		style="font-family:tahoma; text-align:center; margin-bottom: 0px; color:DarkGreen; font-size: 35px; font-weight:bold;">
-		<p>CADASTRO DO PLANTÃO</p>
-	</p:outputPanel>
+	<ui:define name="conteudo">
 
-	<!-- FORMULÁRIO DE CADASTRO DOS MÉDICOS NO PLANTAO -->
+		<p:outputPanel
+			style="font-family:tahoma; text-align:center; margin-bottom: 0px; color:Black; font-size: 30px; font-weight:bold;">
+			<p>Cadastro do Plantão</p>
+		</p:outputPanel>
 
-	<h:form id="formPlantao">
+		<!-- FORMULÁRIO DE CADASTRO DOS MÉDICOS NO PLANTAO -->
 
-		<p:growl id="growl" life="3000" />
+		<div style="width: 50%;">
+			<p:fieldset legend="Cadastro do Plantão">
+				<h:form id="formPlantao">
 
-		<p:fieldset legend="Início e Término">
-
-			<h:panelGrid id="panelGridCadastro" columns="4" cellpadding="5">
-
-				<p:outputLabel for="inicio" value="Das:" />
-				<p:selectOneMenu id="inicio"
-					value="#{plantaoBean.plantao.horaInicio}" style="width:130px"
-					required="true"
-					requiredMessage="Selecione o horário inicial de atendimento">
-					<f:selectItem itemLabel="Selecione" itemValue="" />
-					<f:selectItem itemLabel="00h" itemValue="00h" />
-					<f:selectItem itemLabel="01h" itemValue="01h" />
-					<f:selectItem itemLabel="02h" itemValue="02h" />
-					<f:selectItem itemLabel="03h" itemValue="03h" />
-					<f:selectItem itemLabel="04h" itemValue="04h" />
-					<f:selectItem itemLabel="05h" itemValue="05h" />
-					<f:selectItem itemLabel="06h" itemValue="06h" />
-					<f:selectItem itemLabel="07h" itemValue="07h" />
-					<f:selectItem itemLabel="08h" itemValue="08h" />
-					<f:selectItem itemLabel="09h" itemValue="09h" />
-					<f:selectItem itemLabel="10h" itemValue="10h" />
-					<f:selectItem itemLabel="11h" itemValue="11h" />
-					<f:selectItem itemLabel="12h" itemValue="12h" />
-					<f:selectItem itemLabel="13h" itemValue="13h" />
-					<f:selectItem itemLabel="14h" itemValue="14h" />
-					<f:selectItem itemLabel="15h" itemValue="15h" />
-					<f:selectItem itemLabel="16h" itemValue="16h" />
-					<f:selectItem itemLabel="17h" itemValue="17h" />
-					<f:selectItem itemLabel="18h" itemValue="18h" />
-					<f:selectItem itemLabel="19h" itemValue="19h" />
-					<f:selectItem itemLabel="20h" itemValue="20h" />
-					<f:selectItem itemLabel="21h" itemValue="21h" />
-					<f:selectItem itemLabel="22h" itemValue="22h" />
-					<f:selectItem itemLabel="23h" itemValue="23h" />
-					<f:ajax event="blur" render="messages" />
-				</p:selectOneMenu>
-
-				<p:outputLabel for="fimAtendimento" value="Às:" />
-				<p:selectOneMenu id="fimAtendimento"
-					value="#{plantaoBean.plantao.horaFim}" style="width:130px"
-					required="true"
-					requiredMessage="Selecione o horário final de atendimento">
-					<f:selectItem itemLabel="Selecione" itemValue="" />
-					<f:selectItem itemLabel="00h" itemValue="00h" />
-					<f:selectItem itemLabel="01h" itemValue="01h" />
-					<f:selectItem itemLabel="02h" itemValue="02h" />
-					<f:selectItem itemLabel="03h" itemValue="03h" />
-					<f:selectItem itemLabel="04h" itemValue="04h" />
-					<f:selectItem itemLabel="05h" itemValue="05h" />
-					<f:selectItem itemLabel="06h" itemValue="06h" />
-					<f:selectItem itemLabel="07h" itemValue="07h" />
-					<f:selectItem itemLabel="08h" itemValue="08h" />
-					<f:selectItem itemLabel="09h" itemValue="09h" />
-					<f:selectItem itemLabel="10h" itemValue="10h" />
-					<f:selectItem itemLabel="11h" itemValue="11h" />
-					<f:selectItem itemLabel="12h" itemValue="12h" />
-					<f:selectItem itemLabel="13h" itemValue="13h" />
-					<f:selectItem itemLabel="14h" itemValue="14h" />
-					<f:selectItem itemLabel="15h" itemValue="15h" />
-					<f:selectItem itemLabel="16h" itemValue="16h" />
-					<f:selectItem itemLabel="17h" itemValue="17h" />
-					<f:selectItem itemLabel="18h" itemValue="18h" />
-					<f:selectItem itemLabel="19h" itemValue="19h" />
-					<f:selectItem itemLabel="20h" itemValue="20h" />
-					<f:selectItem itemLabel="21h" itemValue="21h" />
-					<f:selectItem itemLabel="22h" itemValue="22h" />
-					<f:selectItem itemLabel="23h" itemValue="23h" />
-					<f:ajax event="blur" render="messages" />
-				</p:selectOneMenu>
+					<p:growl id="growl" life="3000" />
 
 
-			</h:panelGrid>
-		</p:fieldset>
-		<p:fieldset legend="Médicos">
-			<p:panelGrid columns="4">
-				<p:outputLabel value="Selecione o Médico:" for="medico" />
-				<p:selectOneMenu value="#{plantaoBean.medicoId}" id="medico">
-					<f:selectItem itemLabel="SELECIONE" itemValue="" />
-					<f:selectItems value="#{plantaoBean.medicos}" var="medico"
-						itemLabel="#{medico.nome}" itemValue="#{medico.id}" />
-				</p:selectOneMenu>
-				<p:commandButton value="Adicionar no plantão"
-					action="#{plantaoBean.gravarMedico}" process="@this medico"
-					update="tabelaMedicos">
-				</p:commandButton>
 
-				<p:commandLink value="Novo médico"
-					action="#{plantaoBean.formMedico}" immediate="true" update="@all" />
-			</p:panelGrid>
+					<h:panelGrid id="panelGridCadastro" columns="4" cellpadding="5">
 
-			<p:dataTable value="#{plantaoBean.medicosDoPlantao}" var="medico"
-				id="tabelaMedicos" emptyMessage="Nenhum médico adicionado">
-				<p:column>
-					<h:outputText value="#{medico.nome}" />
-				</p:column>
-				<p:column>
-					<p:commandLink value="X"
-						action="#{plantaoBean.removerMedicoDoPlantao(medico)}"
-						update="tabelaMedicos" process="@this" />
-				</p:column>
-			</p:dataTable>
-		</p:fieldset>
+						<p>Vou colocar algo aqui relacionado ao horário do plantão</p>
 
-		<br />
+					</h:panelGrid>
 
-		<p:fieldset style="text-align:center;">
-			<p:commandButton value="Salvar" action="#{plantaoBean.salvar}"
-				process="@form" update="@form" />
 
-			<p:commandButton value="Limpar" action="#{plantaoBean.limpar}"
-				immediate="true" ajax="false" style="margin-right:20px;">
-				<p:resetInput target="panelGridCadastro" />
-			</p:commandButton>
+					<p:fieldset legend="Médicos">
+						<p:panelGrid columns="4">
+							<p:outputLabel value="Selecione o Médico:" for="medico" />
+							<p:selectOneMenu value="#{plantaoBean.medicoId}" id="medico">
+								<f:selectItem itemLabel="SELECIONE" itemValue="" />
+								<f:selectItems value="#{plantaoBean.medicos}" var="medico"
+									itemLabel="#{medico.nome}" itemValue="#{medico.id}" />
+							</p:selectOneMenu>
+							<p:commandButton value="Adicionar no plantão"
+								action="#{plantaoBean.adicionarNoPlantao}"
+								process="@this medico"
+								update="formPlantaoCadastrado:tabelaMedicos">
+							</p:commandButton>
 
-		</p:fieldset>
-	</h:form>
+							<p:commandLink value="Novo médico"
+								action="#{plantaoBean.formMedico}" immediate="true"
+								update="@all" />
+						</p:panelGrid>
 
-	<h:form id="formPlantaoCadastrado">
+					</p:fieldset>
 
-		<p:fieldset legend="Plantão Cadastrado">
-			<p:dataTable var="medico" value="#{plantaoBean.plantaoPrincipal}">
-				
-				<f:facet name="header">
- 					<p:commandButton update=":formPlantao" process="@this" value="alterar" actionListener="#{plantaoBean.carregar(plantao)}" icon="fa fa-fw fa-edit" />   	
-    			</f:facet>
-				
-				<p:column headerText="Nome">
-					<h:outputText value="#{medico.nome}" />
-				</p:column>
+					<br />
 
-				<p:column headerText="CRM">
-					<h:outputText value="#{medico.crm}" />
-				</p:column>
+				</h:form>
 
-				<p:column headerText="Especialidade">
-					<h:outputText value="#{medico.especialidade.nome}" />
-				</p:column>	
-				
-			</p:dataTable>
-		</p:fieldset>
+				<h:form id="formPlantaoCadastrado">
 
-	</h:form>
 
-</h:body>
+					<p:dataTable id="tabelaMedicos" var="medico"
+						value="#{plantaoBean.medicosPlantaoPrincipal}">
+
+						<f:facet name="header">
+					MÉDICOS DO PLANTÃO
+				</f:facet>
+
+						<p:column headerText="Nome">
+							<h:outputText value="#{medico.nome}" />
+						</p:column>
+
+						<p:column headerText="CRM">
+							<h:outputText value="#{medico.crm}" />
+						</p:column>
+
+						<p:column headerText="Especialidade">
+							<h:outputText value="#{medico.especialidade.nome}" />
+						</p:column>
+
+						<p:column headerText="Remover">
+							<p:commandButton update="@form" process="@this"
+								actionListener="#{plantaoBean.removerMedicoDoPlantao(medico)}"
+								icon="fa fa-fw fa-remove" />
+						</p:column>
+
+					</p:dataTable>
+
+
+				</h:form>
+			</p:fieldset>
+		</div>
+	</ui:define>
+</ui:composition>
 </html>

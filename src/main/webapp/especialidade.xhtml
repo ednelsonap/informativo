@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<ui:composition template="_template.xhtml">
+	<ui:define name="titulo">
+		<title>Especialidade</title>
+	</ui:define>
+
+	<ui:define name="conteudo">
+
+		<p:outputPanel
+			style="font-family:tahoma; text-align:center; margin-bottom: 0px; color:Black; font-size: 30px; font-weight:bold;">
+			<p>Cadastro de Especialidades</p>
+		</p:outputPanel>
+
+		<!-- FORMULÁRIO DE CADASTRO DOS MÉDICOS-->
+
+		<h:form id="formEspecialidade">
+
+			<p:growl id="growl" life="5000" />
+			<div>
+
+				<p:fieldset legend="Dados de Especialidade">
+					<h:panelGrid id="panelGridCadastro" columns="8" cellpadding="5">
+
+						<p:outputLabel value="Descrição:" for="descricao" />
+						<p:inputText id="descricao" value="#{especialidadeBean.especialidade.nome}" size="60"
+							required="true" requiredMessage="Nome é um campo obrigatório"
+							maxlength="100">
+							<f:ajax event="blur" render="messages" />
+						</p:inputText>
+
+						<p:commandButton value="Salvar" action="#{especialidadeBean.salvar}"
+							style="margin-right:20px;" ajax="false" process="formMedico"
+							update=":formTabelaEspecialidades:tabelaEspecialidades" />
+
+						<p:commandButton value="Limpar" action="#{especialidadeBean.limpar}"
+							immediate="true" ajax="false" style="margin-right:20px;">
+							<p:resetInput target="panelGridCadastro" />
+						</p:commandButton>
+					</h:panelGrid>
+				</p:fieldset>
+			</div>
+		</h:form>
+
+		<!-- TABELA DE MÉDICOS CADASTRADOS -->
+
+		<h:form id="formTabelaEspecialidades">
+			<p:growl id="growl" life="3000" />
+
+			<p:dataTable value="#{especialidadeBean.medicos}" var="especialidade"
+				emptyMessage="Nenhuma Especialidade Cadastrada" id="tabelaEspecialidades"
+				paginator="true" rows="7" lazy="true"
+				style="font-size: 15px; text-transform: uppercase; text-align:center;">
+
+				<f:facet name="header">Especialidades</f:facet>
+
+				<p:column headerText="Código" style="width: 100px">
+					<h:outputText value="#{especialidade.id}" />
+				</p:column>
+
+				<p:column headerText="Nome">
+					<h:outputText value="#{especialidade.nome}" />
+				</p:column>
+
+				<p:column headerText="Alterar" style="width: 70px">
+					<p:commandButton update=":formEspecialidade" icon="fa fa-fw fa-edit"
+						title="Alterar" render="messages">
+						<f:setPropertyActionListener value="#{especialidade}"
+							target="#{especialidadeBean.especialidade}" />
+					</p:commandButton>
+				</p:column>
+
+				<p:column headerText="Excluir" style="width: 70px">
+					<p:commandButton icon="fa fa-fw fa-trash"
+						action="#{especialidadeBean.remover(especialidade)}" title="Excluir"
+						update="@form :formTabelaEspecialidades" render="messages" />
+				</p:column>
+
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

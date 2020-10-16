@@ -1,6 +1,7 @@
 package br.com.spdm.informativo.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -22,6 +23,9 @@ public class Medico implements Serializable {
 	private String nome;
 	@NotNull
 	private String crm;
+	@NotNull
+	private Date dataNasc;
+	
 	@ManyToOne(cascade=CascadeType.MERGE, fetch=FetchType.EAGER)
 	private Especialidade especialidade;
 	
@@ -51,6 +55,13 @@ public class Medico implements Serializable {
 	public void setEspecialidade(Especialidade especialidade) {
 		this.especialidade = especialidade;
 	}
+	public Date getDataNasc() {
+		return dataNasc;
+	}
+	public void setDataNasc(Date dataNasc) {
+		this.dataNasc = dataNasc;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

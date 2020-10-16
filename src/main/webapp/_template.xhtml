@@ -10,7 +10,7 @@
 	<link rel="shortcut icon" type="image/x-icon"
 		href="#{resource['img/spdm_favicon.ico']}" />
 
-	<ui:insert name="titulo">
+	<ui:insert name="tituloDaPagina">
 	</ui:insert>
 
 	<link rel="stylesheet" type="text/css"
@@ -51,54 +51,48 @@
 			allDayText : 'Todo o Dia'
 		};
 	</script>
-<p:growl id="messages" autoUpdate="true" life="3000" />
-	<div id="cabecalho" style="background-image: linear-gradient(to bottom, DarkSeaGreen, white);" >
-		
-
-		<h:form rendered="#{usuarioLogado != null}">
-			<h:panelGrid columns="2" style="font-size: 12px; position:absolute; top:0; right:0;" >
-				
-				<p:menuButton value="#{usuarioLogado.login}">
-					
-					<p:menuitem value="Home" action="home?faces-redirect=true"	
-						icon="fa fa-fw fa-home" />
-					
-					<p:menuitem value="Wareline DOS" action="wareline?faces-redirect=true"
-						icon="fa fa-fw fa-folder-open" />		
-					
-					<p:menuitem value="Sandor" action="sandor?faces-redirect=true"
-						icon="fa fa-fw fa-folder-open" />
-						
-					<p:separator />
-					
-					<p:menuitem value="Sair" action="#{loginBean.deslogar}" 
-						icon="fa fa-fw fa-sign-out" />
-						
-				</p:menuButton>
-				
-				
-			
-			</h:panelGrid>
-		</h:form>
+	<p:growl id="messages" autoUpdate="true" life="3000" />
+	<div id="cabecalho"
+		style="background-image: linear-gradient(to bottom, DarkSeaGreen, white);">
 
 		<div align="center">
 			<h:panelGrid columns="5">
 
-				<h:graphicImage library="img" name="pais.png" style="margin-top:0px; margin-botton:0px;"/>
-				<h:graphicImage library="img" name="spdm.png" style="margin-top:0px; margin-botton:0px;"/>
-				<h1 style="text-align: center; font-family: verdana; font-weight:bold; color:DarkOliveGreen; font-size: 24px; margin-left:100px; margin-right:100px;  margin-top:5px; margin-botton:5px; padding:0;">
-					PORTA DE ENTRADA HOSPITAL IRMÃ DULCE
-				</h1>
-				<h:graphicImage library="img" name="irma.png" style="margin-top:0px; margin-botton:0px;"/>
-				<h:graphicImage library="img" name="prefeitura.png" style="margin-top:0px; margin-botton:0px;"/>
+				<h:graphicImage library="img" name="pais.png"
+					style="margin-top:5px; margin-botton:5px;" />
+				<h:graphicImage library="img" name="spdm.png"
+					style="margin-top:5px; margin-botton:5px;" />
+				<h1
+					style="text-align: center; font-family: verdana; font-weight: bold; color: DarkOliveGreen; font-size: 24px; margin-left: 100px; margin-right: 100px; margin-top: 5px; margin-botton: 5px; padding: 0;">
+					PORTA DE ENTRADA HOSPITAL MUNICIPAL IRMÃ DULCE</h1>
+				<h:graphicImage library="img" name="irma.png"
+					style="margin-top:5px; margin-botton:5px;" />
+				<h:graphicImage library="img" name="prefeitura.png"
+					style="margin-top:5px; margin-botton:5px;" />
 			</h:panelGrid>
 		</div>
 
 	</div>
 
-	<div id="conteudo"
-		style="font-size: 12px;">
-			
+	<div id="conteudo" style="font-size: 12px;">
+
+		<h:form id="tabMenu">
+			<p:tabMenu activeIndex="#{param.i}">
+				<div align="center">
+					<p:menuitem value="Plantão" outcome="plantao" icon="pi pi-star">
+						<f:param name="i" value="0" />
+					</p:menuitem>
+					<p:menuitem value="Médicos" outcome="medico" icon="pi pi-search">
+						<f:param name="i" value="1" />
+					</p:menuitem>
+					<p:menuitem value="Especialidade" outcome="especialidade"
+						icon="pi pi-file">
+						<f:param name="i" value="2" />
+					</p:menuitem>
+				</div>
+			</p:tabMenu>
+		</h:form>
+
 		<h1>
 			<ui:insert name="titulo"></ui:insert>
 		</h1>

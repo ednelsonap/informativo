@@ -1,7 +1,10 @@
 package br.com.spdm.informativo.bean;
 
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.enterprise.context.ConversationScoped;
 import javax.faces.application.FacesMessage;
@@ -66,6 +69,19 @@ public class MedicoBean implements Serializable {
 		this.medico = new Medico();
 	}
 
+	public Date getDataMinima() {
+		Calendar dataAtual = Calendar.getInstance();
+		dataAtual.add(Calendar.DATE, +1);
+		return dataAtual.getTime();
+	}
+
+	/*public Date diasAposVencimento(int diaVencimento) {
+		Locale myLocale = Locale.getDefault();
+		Calendar dataAtual = Calendar.getInstance(myLocale);
+		dataAtual.add(Calendar.DATE, -diaVencimento);
+		return dataAtual.getTime();
+	}*/
+
 	public void limpar() {
 		this.medico = new Medico();
 		PrimeFaces.current().resetInputs("formMedico:panelGridCadastro");
@@ -78,8 +94,8 @@ public class MedicoBean implements Serializable {
 			medicoDao.remove(medico);
 			context.addMessage(null, new FacesMessage("Médico removido! "));
 		} catch (Exception ex) {
-			context.addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_WARN, "Não foi possível remover o médico, pois o mesmo está vinculado a um plantão", null));
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+					"Não foi possível remover o médico, pois o mesmo está vinculado a um plantão", null));
 		}
 	}
 
