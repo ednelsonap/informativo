@@ -13,11 +13,6 @@
 
 	<ui:define name="conteudo">
 
-		<p:outputPanel
-			style="font-family:tahoma; text-align:center; margin-bottom: 0px; color:Black; font-size: 30px; font-weight:bold;">
-			<p>Cadastro de Médicos</p>
-		</p:outputPanel>
-
 		<!-- FORMULÁRIO DE CADASTRO DOS MÉDICOS-->
 
 		<h:form id="formMedico">
@@ -25,28 +20,23 @@
 			<p:growl id="growl" life="5000" />
 			<div>
 
-				<p:fieldset legend="Dados do Médico">
+				<p:fieldset>
+					<div align="center">
+						<h2 style="margin-bottom: 5px; margin-top: 5px;">
+						Cadastro de Médicos</h2>
+					</div>
 					<h:panelGrid id="panelGridCadastro" columns="8" cellpadding="5">
 
 						<p:outputLabel value="Nome:" for="nome" />
-						<p:inputText id="nome" value="#{medicoBean.medico.nome}" size="60"
+						<p:inputText id="nome" value="#{medicoBean.medico.nome}" size="30"
 							required="true" requiredMessage="Nome é um campo obrigatório"
-							maxlength="100">
-							<f:ajax event="blur" render="messages" />
-						</p:inputText>
-
-						<p:outputLabel value="Data Nasc: " for="dataNasc" />
-						<p:calendar id="dataNasc" value="#{medicoBean.medico.dataNasc}"
-							pattern="dd/MM/yyyy" mask="true"
-							mindate="#{medicoBean.dataMinima}" readonlyInput="true" />
-
+							maxlength="100" />
+							
 
 						<p:outputLabel value="CRM:" for="crm" />
 						<p:inputText id="crm" value="#{medicoBean.medico.crm}"
 							required="true" requiredMessage="CRM é um campo obrigatório"
-							maxlength="100">
-							<f:ajax event="blur" render="messages" />
-						</p:inputText>
+							maxlength="100" />
 
 						<p:outputLabel for="especialidade" value="Especialidade:" />
 						<p:selectOneMenu id="especialidade"
@@ -57,9 +47,7 @@
 							<f:selectItems value="#{medicoBean.especialidades}"
 								var="especialidade" itemLabel="#{especialidade.nome}"
 								itemValue="#{especialidade}" />
-							<f:ajax event="blur" render="messages" />
 						</p:selectOneMenu>
-
 
 						<p:commandButton value="Salvar" action="#{medicoBean.salvar}"
 							style="margin-right:20px;" ajax="false" process="formMedico"
@@ -88,12 +76,6 @@
 
 				<p:column headerText="Nome">
 					<h:outputText value="#{medico.nome}" />
-				</p:column>
-
-				<p:column headerText="Data de Nascimento">
-					<h:outputText value="#{medico.dataNasc}">
-						<f:convertDateTime pattern="dd/MM/yyyy" />
-					</h:outputText>
 				</p:column>
 
 				<p:column headerText="CRM" style="width: 100px">

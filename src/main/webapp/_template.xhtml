@@ -72,27 +72,22 @@
 			</h:panelGrid>
 		</div>
 
+
+
 	</div>
 
 	<div id="conteudo" style="font-size: 12px;">
 
-		<h:form id="tabMenu">
-			<p:tabMenu activeIndex="#{param.i}">
-				<div align="center">
-					<p:menuitem value="Plantão" outcome="plantao" icon="pi pi-star">
-						<f:param name="i" value="0" />
-					</p:menuitem>
-					<p:menuitem value="Médicos" outcome="medico" icon="pi pi-search">
-						<f:param name="i" value="1" />
-					</p:menuitem>
-					<p:menuitem value="Especialidade" outcome="especialidade"
-						icon="pi pi-file">
-						<f:param name="i" value="2" />
-					</p:menuitem>
-				</div>
-			</p:tabMenu>
-		</h:form>
-
+		<div align="right">
+			<h:form id="menu">
+				<p:menuButton value="Menu" icon="fa fa-fw fa-list">
+					<p:menuitem value="Medicos" action="medico?faces-redirect=true" />
+					<p:menuitem value="Plantao" action="plantao?faces-redirect=true" />
+					<p:menuitem value="Especialidade"
+						action="especialidade?faces-redirect=true" />
+				</p:menuButton>
+			</h:form>
+		</div>
 		<h1>
 			<ui:insert name="titulo"></ui:insert>
 		</h1>

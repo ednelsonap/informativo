@@ -6,7 +6,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-<ui:composition template="_template.xhtml">
+<ui:composition template="_template_ps.xhtml">
 
 	<!-- ATUALIZA A PÁGINA A CADA 1 MINUTOS -->
 	<ui:define name="Atualiza Página">
@@ -18,40 +18,36 @@
 	</ui:define>
 
 	<ui:define name="conteudo">
-		<div>
-			<!-- MÉDICOS DO PLANTÃO -->
+
+		<!-- MÉDICOS DO PLANTÃO -->
 
 			<h:form id="medicosDePlantao">
 
 					<p:dataTable id="tabelaMedicosDoPlantao"
-					value="#{plantaoBean.medicosPlantaoPrincipal}" var="medico" style="font-size: 30px;">
+					value="#{plantaoBean.medicosPlantaoPrincipal}" var="medico" style="font-size: 30px; margin-top: 0px; margin-booton: 0px;">
 					
 					<f:facet name="header">
-						MÉDICOS DO PLANTÃO
+						MÉDICOS DE PLANTÃO
 					</f:facet>
 
-					<p:column headerText="Nome">
+					<p:column headerText="Nome" style="width:750px;">
 						<h:outputText value="#{medico.nome}" />
 					</p:column>
 
-					<p:column headerText="CRM">
+					<p:column headerText="CRM" style="width: 120px; text-align:center;">
 						<h:outputText value="#{medico.crm}" />
 					</p:column>
 
-					<p:column headerText="Especialidade">
+					<p:column headerText="Especialidade" style="text-align:center;">
 						<h:outputText value="#{medico.especialidade.nome}" />
 					</p:column>
 				</p:dataTable>
 				
 			</h:form>
-
-			<p:outputPanel deferred="true" deferredMode="visible"
-				style="position:absolute; bottom:0; width:100%; margin: 0px auto; font-weight: bold; text-align: center; font-size:25px;">
-				<p>OBS: INFORMAMOS QUE O CONTROLE DE MEDIÇÃO DOS PROFISSIONAIS,
-					ENCONTRA-SE DISPONÍVEL PARA CONSULTA DE QUALQUER CIDADÃO, NA SALA
-					DA COORDENAÇÃO.</p>
-			</p:outputPanel>
-		</div>
+	
+	</ui:define>
+	<ui:define name="rodape">
+		INFORMAMOS QUE O CONTROLE DE MEDIÇÃO DOS PROFISSIONAIS, ENCONTRA-SE DISPONÍVEL PARA CONSULTA DE QUALQUER CIDADÃO, NA SALA DA COORDENAÇÃO.
 	</ui:define>
 </ui:composition>
 </html>
