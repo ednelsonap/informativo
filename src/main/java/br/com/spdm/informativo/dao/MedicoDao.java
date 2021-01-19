@@ -10,6 +10,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
 import br.com.spdm.informativo.model.Medico;
+import br.com.spdm.informativo.util.JPAUtil;
 
 public class MedicoDao implements Serializable{
 	

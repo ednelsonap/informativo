@@ -45,7 +45,7 @@
 							requiredMessage="Especialidade é um campo obrigatório">
 							<f:selectItem itemLabel="Selecione" itemValue="" />
 							<f:selectItems value="#{medicoBean.especialidades}"
-								var="especialidade" itemLabel="#{especialidade.nome}"
+								var="especialidade" itemLabel="#{especialidade}"
 								itemValue="#{especialidade}" />
 						</p:selectOneMenu>
 
@@ -83,7 +83,7 @@
 				</p:column>
 
 				<p:column headerText="Especialidade">
-					<h:outputText value="#{medico.especialidade.nome}" />
+					<h:outputText value="#{medico.especialidade}" />
 				</p:column>
 
 				<p:column headerText="Alterar" style="width: 70px">

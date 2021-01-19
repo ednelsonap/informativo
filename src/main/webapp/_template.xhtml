@@ -19,38 +19,7 @@
 </h:head>
 
 <h:body>
-	<script>
-		PrimeFaces.locales['pt'] = {
-			closeText : 'Fechar',
-			prevText : 'Anterior',
-			nextText : 'Próximo',
-			currentText : 'Começo',
-			monthNames : [ 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio',
-					'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro',
-					'Novembro', 'Dezembro' ],
-			monthNamesShort : [ 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun',
-					'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez' ],
-			dayNames : [ 'Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta',
-					'Sexta', 'Sábado' ],
-			dayNamesShort : [ 'Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb' ],
-			dayNamesMin : [ 'D', 'S', 'T', 'Q', 'Q', 'S', 'S' ],
-			weekHeader : 'Semana',
-			firstDay : 0,
-			isRTL : false,
-			showMonthAfterYear : false,
-			yearSuffix : '',
-			timeOnlyTitle : 'Só Horas',
-			timeText : 'Tempo',
-			hourText : 'Hora',
-			minuteText : 'Minuto',
-			secondText : 'Segundo',
-			ampm : false,
-			month : 'Mês',
-			week : 'Semana',
-			day : 'Dia',
-			allDayText : 'Todo o Dia'
-		};
-	</script>
+
 	<p:growl id="messages" autoUpdate="true" life="3000" />
 	<div id="cabecalho"
 		style="background-image: linear-gradient(to bottom, DarkSeaGreen, white);">
@@ -83,8 +52,8 @@
 				<p:menuButton value="Menu" icon="fa fa-fw fa-list">
 					<p:menuitem value="Medicos" action="medico?faces-redirect=true" />
 					<p:menuitem value="Plantao" action="plantao?faces-redirect=true" />
-					<p:menuitem value="Especialidade"
-						action="especialidade?faces-redirect=true" />
+					<p:menuitem value="Gerencia"
+						action="gerencia?faces-redirect=true" />
 				</p:menuButton>
 			</h:form>
 		</div>

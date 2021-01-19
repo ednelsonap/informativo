@@ -1,10 +1,7 @@
 package br.com.spdm.informativo.bean;
 
 import java.io.Serializable;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import javax.enterprise.context.ConversationScoped;
 import javax.faces.application.FacesMessage;
@@ -14,7 +11,6 @@ import javax.inject.Named;
 
 import org.primefaces.PrimeFaces;
 
-import br.com.spdm.informativo.dao.EspecialidadeDao;
 import br.com.spdm.informativo.dao.MedicoDao;
 import br.com.spdm.informativo.model.Especialidade;
 import br.com.spdm.informativo.model.Medico;
@@ -34,13 +30,10 @@ public class MedicoBean implements Serializable {
 	@Inject
 	private FacesContext context;
 
-	@Inject
-	private EspecialidadeDao especialidadeDao;
-
-	public List<Especialidade> getEspecialidades() {
-		return this.especialidadeDao.listaTodos();
+	public Especialidade[] getEspecialidades() {
+		return Especialidade.values();
 	}
-
+	
 	// método para listar todos os medicos do banco
 	public List<Medico> getMedicos() {
 		this.medicos = medicoDao.listaTodos();
@@ -68,19 +61,6 @@ public class MedicoBean implements Serializable {
 		}
 		this.medico = new Medico();
 	}
-
-	public Date getDataMinima() {
-		Calendar dataAtual = Calendar.getInstance();
-		dataAtual.add(Calendar.DATE, +1);
-		return dataAtual.getTime();
-	}
-
-	/*public Date diasAposVencimento(int diaVencimento) {
-		Locale myLocale = Locale.getDefault();
-		Calendar dataAtual = Calendar.getInstance(myLocale);
-		dataAtual.add(Calendar.DATE, -diaVencimento);
-		return dataAtual.getTime();
-	}*/
 
 	public void limpar() {
 		this.medico = new Medico();

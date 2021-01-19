@@ -1,4 +1,4 @@
-package br.com.spdm.informativo.dao;
+package br.com.spdm.informativo.util;
 
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Disposes;

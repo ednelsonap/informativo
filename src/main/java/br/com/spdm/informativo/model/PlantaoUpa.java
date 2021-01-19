@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
 @Entity
-public class Plantao implements Serializable{
+public class PlantaoUpa implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 

@@ -2,13 +2,13 @@ package br.com.spdm.informativo.model;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -18,13 +18,19 @@ public class Medico implements Serializable {
 	
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
+	
 	@NotNull
 	private String nome;
+	
 	@NotNull
 	private String crm;
 	
-	@ManyToOne(cascade=CascadeType.MERGE, fetch=FetchType.EAGER)
+	@Column(length=30)
+	@Enumerated(EnumType.STRING)
 	private Especialidade especialidade;
+	
+	/*@ManyToOne(cascade=CascadeType.MERGE, fetch=FetchType.EAGER)
+	private Especialidad especialidade;*/
 	
 	public Integer getId() {
 		return id;

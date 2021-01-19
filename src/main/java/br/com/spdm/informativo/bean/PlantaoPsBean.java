@@ -13,24 +13,24 @@ import javax.inject.Named;
 import org.primefaces.PrimeFaces;
 
 import br.com.spdm.informativo.dao.MedicoDao;
-import br.com.spdm.informativo.dao.PlantaoDao;
+import br.com.spdm.informativo.dao.PlantaoPsDao;
 import br.com.spdm.informativo.model.Medico;
-import br.com.spdm.informativo.model.Plantao;
+import br.com.spdm.informativo.model.PlantaoPs;
 
 @Named
 @ViewScoped
-public class PlantaoBean implements Serializable {
+public class PlantaoPsBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Inject
 	private FacesContext context;
 	@Inject
-	private PlantaoDao plantaoDao;
+	private PlantaoPsDao plantaoDao;
 	@Inject
 	private MedicoDao medicoDao;
 
-	private Plantao plantao = new Plantao();
+	private PlantaoPs plantaoPs = new PlantaoPs();
 	private Integer medicoId;
 
 	// método p/ listar médicos cadastrados
@@ -40,43 +40,43 @@ public class PlantaoBean implements Serializable {
 
 	public void gravarMedico() {
 		Medico medico = this.medicoDao.buscaPorId(this.medicoId);
-		this.plantao.adicionaMedico(medico);
+		this.plantaoPs.adicionaMedico(medico);
 		System.out.println("Gravando médico " + medico.getNome() + " no plantão.");
 	}
 
 	public void adicionarNoPlantao(){
 		Medico medico = this.medicoDao.buscaPorId(this.medicoId);
-		Plantao plantaoPrincipal = this.plantaoDao.buscaPlantaoIdUm();
+		PlantaoPs plantaoPrincipal = this.plantaoDao.buscaPlantaoIdUm();
 		plantaoPrincipal.adicionaMedico(medico);
 		this.plantaoDao.adiciona(plantaoPrincipal);
 	}
 	
 	public void removerMedicoDoPlantao(Medico medico) {
-		Plantao plantaoPrincipal = this.plantaoDao.buscaPlantaoIdUm();
+		PlantaoPs plantaoPrincipal = this.plantaoDao.buscaPlantaoIdUm();
 		plantaoPrincipal.removeMedico(medico);
 		this.plantaoDao.atualiza(plantaoPrincipal);
 	}
 
 	public List<Medico> getMedicosDoPlantao() {
-		return this.plantao.getMedicos();
+		return this.plantaoPs.getMedicos();
 	}
 
 	public List<Medico> getMedicosPlantaoPrincipal() {
 		
 		List<Medico> medicosPlantao = new ArrayList<>();
-		List<Plantao> listPlantao = plantaoDao.listar();
+		List<PlantaoPs> listPlantao = plantaoDao.listar();
 		
-		for (Plantao plantao : listPlantao) {
+		for (PlantaoPs plantaoPs : listPlantao) {
 			
-			for (Medico medico : plantao.getMedicos()) {
+			for (Medico medico : plantaoPs.getMedicos()) {
 				medicosPlantao.add(medico);
 			}
 		}
 		return medicosPlantao;
 	}
 
-	public Plantao getPlantaoPrincipal() {
-		Plantao plantaoPrincipal = plantaoDao.buscaPlantaoIdUm();
+	public PlantaoPs getPlantaoPrincipal() {
+		PlantaoPs plantaoPrincipal = plantaoDao.buscaPlantaoIdUm();
 		return plantaoPrincipal;
 	}
 	
@@ -93,33 +93,33 @@ public class PlantaoBean implements Serializable {
 		 * for (Medico medico : medicosSelecionados) {
 		 * this.plantao.adicionaMedico(medico); }
 		 */
-		if (plantao.getId() == null) {
-			plantaoDao.adiciona(this.plantao);
+		if (plantaoPs.getId() == null) {
+			plantaoDao.adiciona(this.plantaoPs);
 			context.addMessage(null, new FacesMessage("Plantão cadastrado! "));
 		} else {
-			plantaoDao.atualiza(this.plantao);
+			plantaoDao.atualiza(this.plantaoPs);
 			context.addMessage(null, new FacesMessage("Plantão atualizado! "));
 		}
-		this.plantao = new Plantao();
+		this.plantaoPs = new PlantaoPs();
 	}
 
 	public void limpar() {
-		this.plantao = new Plantao();
+		this.plantaoPs = new PlantaoPs();
 		PrimeFaces.current().resetInputs("formPlantao:panelGridCadastro");
 	}
 
-	public void carregar(Plantao plantao) {
+	public void carregar(PlantaoPs plantaoPs) {
 		System.out.println("Carregando plantao");
-		this.plantao = this.plantaoDao.buscaPorId(plantao.getId());
+		this.plantaoPs = this.plantaoDao.buscaPorId(plantaoPs.getId());
 	}
 	
 	// getters and setters
-	public Plantao getPlantao() {
-		return plantao;
+	public PlantaoPs getPlantao() {
+		return plantaoPs;
 	}
 
-	public void setPlantao(Plantao plantao) {
-		this.plantao = plantao;
+	public void setPlantao(PlantaoPs plantaoPs) {
+		this.plantaoPs = plantaoPs;
 	}
 
 	public Integer getMedicoId() {

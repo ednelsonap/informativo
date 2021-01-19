@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<ui:composition template="_template_upa.xhtml">
+
+	<!-- ATUALIZA A PÁGINA A CADA 1 MINUTOS -->
+	<ui:define name="Atualiza Página">
+		<meta http-equiv="refresh" content="60" />
+	</ui:define>
+
+	<ui:define name="Título Página">
+		<title><ui:insert name="title">Painel</ui:insert></title>
+	</ui:define>
+
+	<ui:define name="conteudo">
+
+		<!-- MÉDICOS DO PLANTÃO -->
+
+			<h:form id="medicosDePlantao">
+
+					<p:dataTable id="tabelaMedicosDoPlantao"
+					value="#{plantaoBean.medicosPlantaoPrincipal}" var="medico" style="font-size: 30px; margin-top: 0px; margin-booton: 0px;">
+					
+					<f:facet name="header">
+						MÉDICOS DE PLANTÃO
+					</f:facet>
+
+					<p:column headerText="Nome" style="width:750px;">
+						<h:outputText value="#{medico.nome}" />
+					</p:column>
+
+					<p:column headerText="CRM" style="width: 120px; text-align:center;">
+						<h:outputText value="#{medico.crm}" />
+					</p:column>
+
+					<p:column headerText="Especialidade" style="text-align:center;">
+						<h:outputText value="#{medico.especialidade.nome}" />
+					</p:column>
+				</p:dataTable>
+				
+			</h:form>
+	
+	</ui:define>
+	<ui:define name="rodape">
+		INFORMAMOS QUE O CONTROLE DE MEDIÇÃO DOS PROFISSIONAIS, ENCONTRA-SE DISPONÍVEL PARA CONSULTA DE QUALQUER CIDADÃO, NA SALA DA COORDENAÇÃO.
+	</ui:define>
+</ui:composition>
+</html>
