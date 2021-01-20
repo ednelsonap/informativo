@@ -13,6 +13,7 @@ import javax.inject.Named;
 import org.primefaces.PrimeFaces;
 
 import br.com.spdm.informativo.dao.GerenciaDao;
+import br.com.spdm.informativo.model.Unidade;
 import br.com.spdm.informativo.model.Gerencia;
 
 @Named
@@ -28,9 +29,15 @@ public class GerenciaBean implements Serializable{
 	
 	private List<Gerencia> listaGerenciaPs;
 	
+	private String observacaoGerencia;
+	
 	@PostConstruct
 	void init(){
-		this.listaGerenciaPs = gerenciaDao.listaGerenciaPs();
+		this.listaGerenciaPs = gerenciaDao.listaTodos();
+	}
+	
+	public Unidade[] getUnidades() {
+		return Unidade.values();
 	}
 	
 	public Gerencia getGerencia() {
@@ -44,6 +51,7 @@ public class GerenciaBean implements Serializable{
 	public void salvar() {
 		
 		if(this.gerencia.getId() == null) {
+			System.out.println("gerencia é nula: " + this.gerencia.getId() + this.gerencia.getCoordenadorAdministrativo() );
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage("Não foi possível salvar! "));
 		} else {
@@ -67,5 +75,17 @@ public class GerenciaBean implements Serializable{
 	public List<Gerencia> getListaGerenciaUpa(){
 		
 		return gerenciaDao.listaGerenciaUpa();
+	}
+	
+	public void getGerenciaDoPs(){
+		this.observacaoGerencia = gerenciaDao.buscaGerenciaDoPs().getObservacao();
+	}
+
+	public String getObservacaoGerencia() {
+		return observacaoGerencia;
+	}
+
+	public void setObservacaoGerencia(String observacaoGerencia) {
+		this.observacaoGerencia = observacaoGerencia;
 	}
 }

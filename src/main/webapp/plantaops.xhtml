@@ -13,148 +13,75 @@
 
 	<ui:define name="conteudo">
 
-		<!-- FORMULÁRIO DE CADASTRO DAS GERÊNCIA DO PLANTAO -->
-		<div>
-			<h:form id="formGerencia">
-				<div>
-					<p:fieldset legend="Dados de Gerência">
-						<h:panelGrid id="panelGridGerencia">
-							<p:dataList id="listaCoordenadorMedico"
-								value="#{gerenciaBean.listaGerencia}" var="gerencia"
-								type="definition">
-								<f:facet name="header">
-            					Coordenadores
-        						</f:facet>
+		<!-- FORMULÁRIO DE CADASTRO DOS MÉDICOS NO PLANTAO -->
 
-								<p:panelGrid columns="2">
-        							Coordenador Médico: #{gerencia.coordenadorMedico} | Coordenador Administrativo: #{gerencia.coordenadorAdministrativo}
-        							<p:commandButton icon="fa fa-fw fa-pencil"
-										title="Alterar" update=":formGerencia">
-										<f:setPropertyActionListener value="#{gerencia}"
-											target="#{gerenciaBean.gerencia}" />
-									</p:commandButton>
-								</p:panelGrid>
-							</p:dataList>
+		<p:fieldset>
+			<div align="center">
+				<h2 style="margin-bottom: 5px; margin-top: 5px;">Cadastro do
+					Plantão</h2>
+			</div>
+			<h:form id="formPlantao">
 
-							<h:panelGrid columns="4">
-								<p:outputLabel value="Coordenador Médico:"
-									for="coordenadorMedico" />
-								<p:inputText id="coordenadorMedico"
-									value="#{plantaoBean.gerencia.coordenadorMedico}"
-									maxlength="50">
-									<f:ajax event="blur" render="messages" />
-								</p:inputText>
-								<p:outputLabel value="Coordenador Administrativo:"
-									for="coordenadorAdministrativo" />
-								<p:inputText id="coordenadorAdministrativo"
-									value="#{gerenciaBean.gerencia.coordenadorAdministrativo}"
-									maxlength="50">
-									<f:ajax event="blur" render="messages" />
-								</p:inputText>
-							</h:panelGrid>
-
-							<h:panelGrid columns="2">
-								<p:outputLabel value="Mensagem de Observação:" for="observacao" />
-								<p:inputTextarea id="observacao" rows="3" cols="100"
-									value="#{gerenciaBean.gerencia.observacao}" maxlength="300">
-									<f:ajax event="blur" render="messages" />
-								</p:inputTextarea>
-							</h:panelGrid>
-							
-							<p:panelGrid id="gridAcoes" columns="2">
-								<p:commandButton value="Salvar" action="#{gerenciaBean.salvar}"
-									style="margin-right:20px;" ajax="false" process="formMedico"
-									update=":formGerencia:listaGerencia" />
-							
-								<p:commandButton value="Limpar" action="#{gerenciaBean.limpar}"
-									immediate="true" ajax="false" style="margin-right:20px;">
-									<p:resetInput target="panelGridGerencia" />
-								</p:commandButton>
-							</p:panelGrid>
-						</h:panelGrid>
-					</p:fieldset>
-				</div>
-			</h:form>
-
-			<!-- FORMULÁRIO DE CADASTRO DOS MÉDICOS NO PLANTAO -->
-
-			<p:fieldset>
+				<p:growl id="growl" life="3000" />
 				<div align="center">
-					<h2 style="margin-bottom: 5px; margin-top: 5px;">Cadastro do
-						Plantão</h2>
-				</div>
-				<h:form id="formPlantao">
-
-					<p:growl id="growl" life="3000" />
-
-
-
-					<h:panelGrid id="panelGridCadastro" columns="4" cellpadding="5">
-
-						<p>Vou colocar algo aqui relacionado ao horário do plantão</p>
-
-					</h:panelGrid>
-
-
-					<p:fieldset legend="Médicos">
+					<p:fieldset legend="Médicos" style="width: 50%">
 						<p:panelGrid columns="4">
 							<p:outputLabel value="Selecione o Médico:" for="medico" />
 							<p:selectOneMenu value="#{plantaoPsBean.medicoId}" id="medico">
-								<f:selectItem itemLabel="SELECIONE" itemValue="" />
+								<f:selectItem itemLabel="Selecione" itemValue="" />
 								<f:selectItems value="#{plantaoPsBean.medicos}" var="medico"
 									itemLabel="#{medico.nome}" itemValue="#{medico.id}" />
 							</p:selectOneMenu>
-							<p:commandButton value="Adicionar no plantão"
+							<p:commandButton value="Adicionar"
 								action="#{plantaoPsBean.adicionarNoPlantao}"
 								process="@this medico"
 								update="formPlantaoCadastrado:tabelaMedicos">
 							</p:commandButton>
 
-							<p:commandLink value="Novo médico"
-								action="#{plantaoPsBean.formMedico}" immediate="true"
-								update="@all" />
+							<p:commandLink value="Cadastrar Novo Médico"
+								icon="fa fa-fw fa-user" action="#{plantaoPsBean.formMedico}"
+								immediate="true" update="@all" />
 						</p:panelGrid>
 
 					</p:fieldset>
+				</div>
+				<br />
 
-					<br />
+			</h:form>
 
-				</h:form>
-
-				<h:form id="formPlantaoCadastrado">
+			<h:form id="formPlantaoCadastrado">
 
 
-					<p:dataTable id="tabelaMedicos" var="medico"
-						value="#{plantaoPsBean.medicosPlantaoPrincipal}">
+				<p:dataTable id="tabelaMedicos" var="medico"
+					value="#{plantaoPsBean.medicosPlantaoPrincipal}">
 
-						<f:facet name="header">
+					<f:facet name="header">
 					MÉDICOS DO PLANTÃO
 				</f:facet>
 
-						<p:column headerText="Nome">
-							<h:outputText value="#{medico.nome}" />
-						</p:column>
+					<p:column headerText="Nome">
+						<h:outputText value="#{medico.nome}" />
+					</p:column>
 
-						<p:column headerText="CRM">
-							<h:outputText value="#{medico.crm}" />
-						</p:column>
+					<p:column headerText="CRM">
+						<h:outputText value="#{medico.crm}" />
+					</p:column>
 
-						<p:column headerText="Especialidade">
-							<h:outputText value="#{medico.especialidade}" />
-						</p:column>
+					<p:column headerText="Especialidade">
+						<h:outputText value="#{medico.especialidade}" />
+					</p:column>
 
-						<p:column headerText="Remover">
-							<p:commandButton update="@form" process="@this"
-								actionListener="#{plantaoPsBean.removerMedicoDoPlantao(medico)}"
-								icon="fa fa-fw fa-remove" />
-						</p:column>
+					<p:column headerText="Remover">
+						<p:commandButton update="@form" process="@this"
+							actionListener="#{plantaoPsBean.removerMedicoDoPlantao(medico)}"
+							icon="fa fa-fw fa-remove" />
+					</p:column>
 
-					</p:dataTable>
+				</p:dataTable>
 
 
-				</h:form>
-			</p:fieldset>
-		</div>
+			</h:form>
+		</p:fieldset>
 	</ui:define>
 </ui:composition>
 </html>

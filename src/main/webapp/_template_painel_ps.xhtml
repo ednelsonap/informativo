@@ -22,7 +22,7 @@
 
 	<p:growl id="messages" life="3000" />
 	<div id="cabecalho"
-		style="background-image: linear-gradient(to bottom, DarkSeaGreen, white); height: 75px;">
+		style="background-image: linear-gradient(to bottom, DarkSeaGreen, white); height: 60px; margin-botton: 0px;">
 
 		<div align="center">
 			<h:panelGrid columns="5">
@@ -47,15 +47,6 @@
 
 	<div id="conteudo" style="font-size: 12px;">
 
-		<div align="right">
-			<h:form id="menu">
-				<p:menuButton value="Menu" icon="fa fa-fw fa-list" style="margin-top: 20px;">
-					<p:menuitem value="Plantão" action="plantaops?faces-redirect=true" />
-					<p:menuitem value="Médicos" action="medicops?faces-redirect=true" />
-				</p:menuButton>
-			</h:form>
-		</div>
-
 		<h1>
 			<ui:insert name="titulo"></ui:insert>
 		</h1>
@@ -65,7 +56,7 @@
 	</div>
 
 	<div id="rodape"
-		style="position: absolute; bottom: 0; width: 100%; margin: 0px auto; font-weight: bold; text-align: center; font-size: 25px;">
+		style="position: absolute; bottom: 0; width: 100%; margin: 0px auto; font-weight: bold; text-align: center; font-size: 15px;">
 		<ui:insert name="rodape" />
 	</div>
 </h:body>

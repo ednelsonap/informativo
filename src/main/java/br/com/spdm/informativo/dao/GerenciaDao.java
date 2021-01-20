@@ -48,5 +48,10 @@ public class GerenciaDao implements Serializable{
 		String jpql = "from Gerencia g where g.id=2";	
 		return em.createQuery(jpql, Gerencia.class).getResultList();
 	}
+
+	public Gerencia buscaGerenciaDoPs() {
+		String jpql = "from Gerencia g where g.id=1";	
+		return em.createQuery(jpql, Gerencia.class).getSingleResult();
+	}
 	
 }

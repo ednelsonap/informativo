@@ -25,6 +25,12 @@ public class Medico implements Serializable {
 	@NotNull
 	private String crm;
 	
+	@NotNull
+	private String horaInicio;
+	
+	@NotNull
+	private String horaFim;
+	
 	@Column(length=30)
 	@Enumerated(EnumType.STRING)
 	private Especialidade especialidade;
@@ -57,6 +63,22 @@ public class Medico implements Serializable {
 	}
 	public void setEspecialidade(Especialidade especialidade) {
 		this.especialidade = especialidade;
+	}
+
+	public String getHoraInicio() {
+		return horaInicio;
+	}
+
+	public void setHoraInicio(String horaInicio) {
+		this.horaInicio = horaInicio;
+	}
+
+	public String getHoraFim() {
+		return horaFim;
+	}
+
+	public void setHoraFim(String horaFim) {
+		this.horaFim = horaFim;
 	}
 
 	@Override
