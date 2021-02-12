@@ -6,7 +6,14 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-<ui:composition template="_template_ps.xhtml">
+<ui:composition template="_template.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="livroId" value="#{gerenciaBean.gerencia.id}" />
+		<f:viewAction action="#{gerenciaBean.carregaGerenciaPeloId}"
+			if="#{param.gerenciaId != null}" />
+	</f:metadata>
+
 	<ui:define name="titulo">
 		<title>Gerência</title>
 	</ui:define>
@@ -19,7 +26,7 @@
 			<h:form id="formTabelaGerencia">
 
 				<p:dataTable id="tabelaGerencia"
-					value="#{gerenciaBean.listaGerenciaPs}" var="gerencia">
+					value="#{gerenciaBean.listaGerencia}" var="gerencia">
 
 					<f:facet name="header">
 						Gerência
@@ -56,7 +63,8 @@
 			<!-- FORMULÁRIO DE CADASTRO DA GERÊNCIA DO PLANTAO -->
 
 			<h:form id="formGerencia">
-				<p:fieldset legend="Dados de Gerência" style="width: 30%; margin-top: 20px;">
+				<p:fieldset legend="Dados de Gerência"
+					style="width: 30%; margin-top: 20px;">
 					<h:panelGrid id="panelGridGerencia">
 
 						<h:panelGrid columns="2">
@@ -64,26 +72,18 @@
 							<p:outputLabel for="unidade" value="Unidade" />
 							<p:selectOneMenu id="unidade"
 								value="#{gerenciaBean.gerencia.unidade}" style="width:130px"
-								required="true"
-								requiredMessage="Unidade é um campo obrigatório">
+								required="true" requiredMessage="Unidade é um campo obrigatório">
 								<f:selectItem itemLabel="Selecione" itemValue="" />
-								<f:selectItems value="#{gerenciaBean.unidades}"
-									var="unidade" itemLabel="#{unidade}"
-									itemValue="#{unidade}" />
+								<f:selectItems value="#{gerenciaBean.unidades}" var="unidade"
+									itemLabel="#{unidade}" itemValue="#{unidade}" />
 							</p:selectOneMenu>
-
-							<p:outputLabel value="Id:"
-								for="id" />
-							<p:inputText id="id"
-								value="#{gerenciaBean.gerencia.id}"
-								maxlength="50" />
 
 							<p:outputLabel value="Coordenador Médico:"
 								for="coordenadorMedico" />
 							<p:inputText id="coordenadorMedico"
 								value="#{gerenciaBean.gerencia.coordenadorMedico}"
 								maxlength="50" />
-								
+
 							<p:outputLabel value="Coordenador Administrativo:"
 								for="coordenadorAdministrativo" />
 							<p:inputText id="coordenadorAdministrativo"

@@ -27,7 +27,7 @@ public class Gerencia implements Serializable {
 	@Column(length=300)
 	private String observacao;
 
-	@Column(length=10)
+	@Column(length=10, unique=true)
 	@Enumerated(EnumType.STRING)
 	private Unidade unidade;
 	
