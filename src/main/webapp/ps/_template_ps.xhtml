@@ -22,25 +22,23 @@
 
 	<p:growl id="messages" life="3000" />
 	<div id="cabecalho"
-		style="background-image: linear-gradient(to bottom, DarkSeaGreen, white); height: 75px;">
+		style="background-image: linear-gradient(to bottom, DarkSeaGreen, white);">
 
 		<div align="center">
 			<h:panelGrid columns="5">
-
 				<h:graphicImage library="img" name="irma.png"
-					style="margin-top:2px; margin-botton:2px; width: 80%; height: 80%;" />
+					style="margin-top:2px; margin-botton:2px;" />
 				<h:graphicImage library="img" name="prefeitura.png"
-					style="margin-top:2px; margin-botton:2px;width: 80%; height: 80%;" />
+					style="margin-top:2px; margin-botton:2px;" />
 
 				<h1
 					style="text-align: center; font-family: verdana; font-weight: bold; color: DarkOliveGreen; font-size: 25px; margin-left: 50px; margin-right: 50px; margin-top: 12px; margin-botton: 2px; padding: 0;">
 					PORTA DE ENTRADA HOSPITAL MUNICIPAL IRMÃ DULCE</h1>
 
 				<h:graphicImage library="img" name="pais.png"
-					style="margin-top:2px; margin-botton:2px; width: 80%; height: 80%;" />
+					style="margin-top:2px; margin-botton:2px;" />
 				<h:graphicImage library="img" name="spdm.png"
-					style="margin-top:2px; margin-botton:2px; width: 80%; height: 80%;" />
-
+					style="margin-top:2px; margin-botton:2px;" />
 			</h:panelGrid>
 		</div>
 	</div>
@@ -49,9 +47,12 @@
 
 		<div align="right">
 			<h:form id="menu">
-				<p:menuButton value="Menu" icon="fa fa-fw fa-list" style="margin-top: 20px;">
-					<p:menuitem value="Plantão" action="plantaops?faces-redirect=true" />
-					<p:menuitem value="Médicos" action="medicops?faces-redirect=true" />
+				<p:menuButton value="Menu" icon="fa fa-fw fa-list">
+					<p:menuitem value="Médicos" action="/medico?faces-redirect=true" />
+					<p:menuitem value="Assistentes Sociais" action="/assistentesocial?faces-redirect=true" />
+					<p:menuitem value="Gerência" action="/gerencia?faces-redirect=true" />
+					<p:menuitem value="Plantao PS" action="/ps/plantao?faces-redirect=true" />
+					<p:menuitem value="Painel PS" action="/ps/painel?faces-redirect=true" />		
 				</p:menuButton>
 			</h:form>
 		</div>
@@ -69,5 +70,4 @@
 		<ui:insert name="rodape" />
 	</div>
 </h:body>
-
 </html>

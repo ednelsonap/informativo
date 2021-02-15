@@ -19,30 +19,28 @@
 </h:head>
 
 <h:body>
-
 	<p:growl id="messages" autoUpdate="true" life="3000" />
+	
 	<div id="cabecalho"
 		style="background-image: linear-gradient(to bottom, DarkSeaGreen, white);">
 
 		<div align="center">
 			<h:panelGrid columns="5">
+				<h:graphicImage library="img" name="irma.png"
+					style="margin-top:2px; margin-botton:2px;" />
+				<h:graphicImage library="img" name="prefeitura.png"
+					style="margin-top:2px; margin-botton:2px;" />
+
+				<h1
+					style="text-align: center; font-family: verdana; font-weight: bold; color: DarkOliveGreen; font-size: 25px; margin-left: 50px; margin-right: 50px; margin-top: 12px; margin-botton: 2px; padding: 0;">
+					COMPLEXO HOSPITALAR MUNICIPAL IRMÃ DULCE</h1>
 
 				<h:graphicImage library="img" name="pais.png"
-					style="margin-top:5px; margin-botton:5px;" />
+					style="margin-top:2px; margin-botton:2px;" />
 				<h:graphicImage library="img" name="spdm.png"
-					style="margin-top:5px; margin-botton:5px;" />
-				<h1
-					style="text-align: center; font-family: verdana; font-weight: bold; color: DarkOliveGreen; font-size: 24px; margin-left: 100px; margin-right: 100px; margin-top: 5px; margin-botton: 5px; padding: 0;">
-					COMPLEXO HOSPITALAR IRMÃ DULCE</h1>
-				<h:graphicImage library="img" name="irma.png"
-					style="margin-top:5px; margin-botton:5px;" />
-				<h:graphicImage library="img" name="prefeitura.png"
-					style="margin-top:5px; margin-botton:5px;" />
+					style="margin-top:2px; margin-botton:2px;" />
 			</h:panelGrid>
 		</div>
-
-
-
 	</div>
 
 	<div id="conteudo" style="font-size: 12px;">
@@ -50,13 +48,13 @@
 		<div align="right">
 			<h:form id="menu">
 				<p:menuButton value="Menu" icon="fa fa-fw fa-list">
-					<p:menuitem value="Medicos" action="medico?faces-redirect=true" />
+					<p:menuitem value="Médicos" action="medico?faces-redirect=true" />
+					<p:menuitem value="Assistentes Sociais" action="assistentesocial?faces-redirect=true" />
+					<p:menuitem value="Gerência" action="gerencia?faces-redirect=true" />
 					<p:menuitem value="Plantao PS" action="ps/plantao?faces-redirect=true" />
 					<p:menuitem value="Plantao UPA" action="upa/plantao?faces-redirect=true" />
 					<p:menuitem value="Painel PS" action="ps/painel?faces-redirect=true" />
-					<p:menuitem value="Painel UPA" action="upa/painel?faces-redirect=true" />
-					<p:menuitem value="Gerencia"
-						action="gerencia?faces-redirect=true" />
+					<p:menuitem value="Painel UPA" action="upa/painel?faces-redirect=true" />		
 				</p:menuButton>
 			</h:form>
 		</div>

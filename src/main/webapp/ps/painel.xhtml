@@ -27,8 +27,7 @@
 
 		<h:form>
 			<div align="center">
-				<p:outputPanel
-					style="margin-top: 0px; margin-botton:0px; text-transform: uppercase;">
+				<p:outputPanel style="margin-top: 0px; margin-botton:0px; text-transform: uppercase;">
 					<h:panelGrid columns="2">
 						<h3>Coord. Administrativa:
 							#{painelPsBean.gerencia.coordenadorAdministrativo} | Coord.
@@ -43,11 +42,9 @@
 		<h:form id="medicosDePlantao">
 
 			<p:fieldset>
-
 				<div align="center">
-					<h1>MÉDICOS DE PLANTÃO</h1>
+					<h1 style="margin-top: 0px; margin-botton:0px;">MÉDICOS DE PLANTÃO</h1>
 				</div>
-
 				<p:dataTable id="tabelaMedicosDoPlantao"
 					value="#{plantaoPsBean.medicosPlantaoPrincipal}" var="medico"
 					style="font-size: 25px; margin-top: 0px; margin-booton: 0px;">
@@ -70,15 +67,40 @@
 					às <h:outputText value="#{medico.horaFim}" />
 						</p:column>
 					</p:column>
-
 				</p:dataTable>
-				<div align="center">
-					<h1>SERVIÇO SOCIAL</h1>
-				</div>
 			</p:fieldset>
 		</h:form>
+		
+		<!-- ASSISTENTES SOCIAIS DO PLANTÃO -->
 
+		<h:form id="assistentesSociaisDePlantao">
+			<p:fieldset>
+				<div align="center">
+					<h1 style="margin-top: 0px; margin-botton:0px;">SERVIÇO SOCIAL</h1>
+				</div>
+				<p:dataTable id="tabelaAssistentesSociaisDoPlantao"
+					value="#{plantaoPsBean.assistentesSociaisPlantaoPrincipal}" var="assistentesSociais"
+					style="font-size: 25px; margin-top: 0px; margin-booton: 0px;">
+
+					<p:column headerText="Nome" style="width:600px;">
+						<h:outputText value="#{assistentesSociais.nome}" />
+					</p:column>
+
+					<p:column headerText="CRESS" style="width: 120px; text-align:center;">
+						<h:outputText value="#{assistentesSociais.cress}" />
+					</p:column>
+
+					<p:column headerText="Atendimento" style="text-align:center;">
+						<p:column headerText="Atendimento">
+							<h:outputText value="#{assistentesSociais.horaInicio}" />
+					às <h:outputText value="#{assistentesSociais.horaFim}" />
+						</p:column>
+					</p:column>
+				</p:dataTable>
+			</p:fieldset>
+		</h:form>
 	</ui:define>
+	
 	<ui:define name="rodape">
 		<p:fieldset>
 			<h:outputText value="#{painelPsBean.gerencia.observacao}" />

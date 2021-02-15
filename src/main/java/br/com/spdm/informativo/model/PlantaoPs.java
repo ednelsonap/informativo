@@ -21,17 +21,26 @@ public class PlantaoPs implements Serializable{
 	private String coordenadorAdministrativo;
 	private String horaInicio;
 	private String horaFim;
+	private String mensagemGerencia;
 	@ManyToMany
 	private List<Medico> medicos = new ArrayList<Medico>();
-	private String mensagemGerencia;
+	@ManyToMany
+	private List<AssistenteSocial> assistentesSociais = new ArrayList<AssistenteSocial>();
 	
-	public void adicionaMedico(Medico medico){
-		
+	public void adicionaMedico(Medico medico){	
 		this.medicos.add(medico);
+	}
+	
+	public void adicionaAssistenteSocial(AssistenteSocial assistenteSocial){	
+		this.assistentesSociais.add(assistenteSocial);
 	}
 	
 	public void removeMedico(Medico medico) {
 		this.medicos.remove(medico);
+	}
+	
+	public void removeAssistenteSocial(AssistenteSocial assistenteSocial) {
+		this.assistentesSociais.remove(assistenteSocial);
 	}
 	
 	//getters and setters
@@ -49,6 +58,9 @@ public class PlantaoPs implements Serializable{
 	}
 	public List<Medico> getMedicos() {
 		return medicos;
+	}
+	public List<AssistenteSocial> getAssistentesSociais() {
+		return assistentesSociais;
 	}
 	
 	public Integer getId() {

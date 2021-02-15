@@ -13,7 +13,6 @@ import org.primefaces.PrimeFaces;
 
 import br.com.spdm.informativo.dao.AssistenteSocialDao;
 import br.com.spdm.informativo.model.AssistenteSocial;
-import br.com.spdm.informativo.model.Especialidade;
 
 @Named
 @ConversationScoped
@@ -30,10 +29,6 @@ public class AssistenteSocialBean implements Serializable {
 	@Inject
 	private FacesContext context;
 
-	public Especialidade[] getEspecialidades() {
-		return Especialidade.values();
-	}
-	
 	// método para listar todos os assistenteSocials do banco
 	public List<AssistenteSocial> getAssistentesSociais() {
 		this.assistentesSociais = assistenteSocialDao.listaTodos();
@@ -72,7 +67,7 @@ public class AssistenteSocialBean implements Serializable {
 		try {
 			System.out.println("Removendo Assistente Social " + assistenteSocial.getNome());
 			assistenteSocialDao.remove(assistenteSocial);
-			context.addMessage(null, new FacesMessage("Médico removido! "));
+			context.addMessage(null, new FacesMessage("Assistente Social removido! "));
 		} catch (Exception ex) {
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
 					"Não foi possível remover a Assistente Social, pois o mesmo está vinculado a um plantão", null));
