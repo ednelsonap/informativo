@@ -8,7 +8,7 @@
 		transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<class>br.com.spdm.informativo.model.Medico</class>
-		<class>br.com.spdm.informativo.model.PlantaoPs</class>
+		<class>br.com.spdm.informativo.model.Plantao</class>
 		<class>br.com.spdm.informativo.model.PlantaoUpa</class>
 		<class>br.com.spdm.informativo.model.Gerencia</class>
 		

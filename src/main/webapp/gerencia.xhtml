@@ -9,7 +9,7 @@
 <ui:composition template="_template.xhtml">
 
 	<f:metadata>
-		<f:viewParam name="livroId" value="#{gerenciaBean.gerencia.id}" />
+		<f:viewParam name="gerenciaId" value="#{gerenciaBean.gerencia.id}" />
 		<f:viewAction action="#{gerenciaBean.carregaGerenciaPeloId}"
 			if="#{param.gerenciaId != null}" />
 	</f:metadata>
@@ -98,7 +98,7 @@
 
 						<h:panelGrid id="gridAcoes" columns="2">
 							<p:commandButton value="Salvar" action="#{gerenciaBean.salvar}"
-								ajax="false" update="@form" />
+								ajax="false" process="formGerencia" update=":formTabelaGerencia:tabelaGerencia" />
 
 							<p:commandButton value="Limpar" action="#{gerenciaBean.limpar}"
 								immediate="true" ajax="false" style="margin-right:20px;">

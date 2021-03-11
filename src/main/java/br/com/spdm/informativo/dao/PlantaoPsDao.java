@@ -7,7 +7,7 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
-import br.com.spdm.informativo.model.PlantaoPs;
+import br.com.spdm.informativo.model.Plantao;
 
 public class PlantaoPsDao implements Serializable{
 
@@ -16,45 +16,44 @@ public class PlantaoPsDao implements Serializable{
 	@Inject
 	EntityManager em;
 	
-	private DAO<PlantaoPs> dao;
+	private DAO<Plantao> dao;
 	
 	@PostConstruct
 	void init(){
-		this.dao = new DAO<PlantaoPs>(this.em, PlantaoPs.class);
+		this.dao = new DAO<Plantao>(this.em, Plantao.class);
 	}
 
-	public void adiciona(PlantaoPs t) {
+	public void adiciona(Plantao t) {
 		dao.adiciona(t);
 	}
 
-	public void remove(PlantaoPs t) {
+	public void remove(Plantao t) {
 		dao.remove(t);
 	}
 
-	public void atualiza(PlantaoPs t) {
+	public void atualiza(Plantao t) {
 		dao.atualiza(t);
 	}
 
-	public List<PlantaoPs> listaTodos() {
+	public List<Plantao> listaTodos() {
 		return dao.listaTodos();
 	}
 
 	
 	
-	public PlantaoPs buscaPorId(Integer id) {
+	public Plantao buscaPorId(Integer id) {
 		return dao.buscaPorId(id);
 	}
 
-	public PlantaoPs buscaPlantaoIdUm() {
-		//Plantao plantaoPrincipal = new Plantao();
-		String jpql = "select p from PlantaoPs p where p.id=1";
-		return em.createQuery(jpql, PlantaoPs.class).getSingleResult();
+	public Plantao buscaPlantaoPs() {
+		String jpql = "select p from Plantao p where p.unidade='PS'";
+		return em.createQuery(jpql, Plantao.class).getSingleResult();
 	}
 
-	public List<PlantaoPs> listar() {
-		String jpql = "select distinct(p) from PlantaoPs p "
-				+ " join fetch p.medicos where p.id=1";
+	public List<Plantao> listarPlantaoPs() {
+		String jpql = "select distinct(p) from Plantao p "
+				+ " join fetch p.medicos where p.unidade='PS'";
 		
-		return em.createQuery(jpql, PlantaoPs.class).getResultList();
+		return em.createQuery(jpql, Plantao.class).getResultList();
 	}
 }

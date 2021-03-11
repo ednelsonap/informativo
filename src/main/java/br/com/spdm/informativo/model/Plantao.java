@@ -4,26 +4,30 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
 @Entity
-public class PlantaoPs implements Serializable{
+public class Plantao implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	private String coordenadorMedico;
-	private String coordenadorAdministrativo;
-	private String horaInicio;
-	private String horaFim;
-	private String mensagemGerencia;
+	
+	@Column(length=10, unique=true)
+	@Enumerated(EnumType.STRING)
+	private Unidade unidade;
+	
 	@ManyToMany
 	private List<Medico> medicos = new ArrayList<Medico>();
+	
 	@ManyToMany
 	private List<AssistenteSocial> assistentesSociais = new ArrayList<AssistenteSocial>();
 	
@@ -44,18 +48,7 @@ public class PlantaoPs implements Serializable{
 	}
 	
 	//getters and setters
-	public String getHoraInicio() {
-		return horaInicio;
-	}
-	public void setHoraInicio(String horaInicio) {
-		this.horaInicio = horaInicio;
-	}
-	public String getHoraFim() {
-		return horaFim;
-	}
-	public void setHoraFim(String horaFim) {
-		this.horaFim = horaFim;
-	}
+	
 	public List<Medico> getMedicos() {
 		return medicos;
 	}
@@ -67,29 +60,12 @@ public class PlantaoPs implements Serializable{
 		return id;
 	}
 
-	public String getCoordenadorMedico() {
-		return coordenadorMedico;
+	public Unidade getUnidade() {
+		return unidade;
 	}
 
-	public void setCoordenadorMedico(String coordenadorMedico) {
-		this.coordenadorMedico = coordenadorMedico;
+	public void setUnidade(Unidade unidade) {
+		this.unidade = unidade;
 	}
-
-	public String getCoordenadorAdministrativo() {
-		return coordenadorAdministrativo;
-	}
-
-	public void setCoordenadorAdministrativo(String coordenadorAdministrativo) {
-		this.coordenadorAdministrativo = coordenadorAdministrativo;
-	}
-
-	public String getMensagemGerencia() {
-		return mensagemGerencia;
-	}
-
-	public void setMensagemGerencia(String mensagemGerencia) {
-		this.mensagemGerencia = mensagemGerencia;
-	}
-	
 	
 }
