@@ -8,6 +8,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.PersistenceException;
+import javax.transaction.Transactional;
 
 import org.primefaces.PrimeFaces;
 
@@ -33,7 +35,7 @@ public class MedicoBean implements Serializable {
 	public Especialidade[] getEspecialidades() {
 		return Especialidade.values();
 	}
-	
+
 	// método para listar todos os medicos do banco
 	public List<Medico> getMedicos() {
 		this.medicos = medicoDao.listaTodos();
@@ -62,12 +64,42 @@ public class MedicoBean implements Serializable {
 		this.medico = new Medico();
 	}
 
-/*	public void alterar(){ 
-		try{
+	// método para alterar médico no banco
+	@Transactional
+	public void alterar() {
+
+		System.out.println("entrando no método alterar");
+
+		try {
 			medicoDao.atualiza(this.medico);
-			context.addMessage(null, new FacesMessage("Médico " + this.medico.getNome() + " alterado! "));
-		} catch
-	}*/
+			context.addMessage(null, new FacesMessage("Médico " + medico.getNome() + " atualizado com sucesso!"));
+			
+			System.out.println("o médico " + this.medico.getNome() + "foi alterado");
+			
+		} catch (PersistenceException e) {
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+					"Não foi possível alterar o cadastro do médico! Verifique se não há duplicidade de nome ou CRM.", null));
+			
+			System.out.println("não foi possível salvar");
+		}
+		this.medico = new Medico();
+	}
+
+	public boolean exibirBotaoAlterar(Medico medico) {
+		if (this.medico.getId() != null) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public boolean exibirBotaoSalvar(Medico medico) {
+		if (this.medico.getId() == null) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 	
 	public void limpar() {
 		this.medico = new Medico();

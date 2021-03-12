@@ -8,6 +8,10 @@
 
 <ui:composition template="_template.xhtml">
 	
+	<f:metadata>
+		<f:viewParam name="medicoId" value="#{medicoBean.medico.id}" />
+	</f:metadata>
+	
 	<ui:define name="titulo">
 		<title>Médico</title>
 	</ui:define>
@@ -25,7 +29,6 @@
 
 						<p:outputLabel value="Nome:" for="nome" />
 						<p:inputText id="nome" value="#{medicoBean.medico.nome}" size="30"
-							required="true" requiredMessage="Nome é um campo obrigatório"
 							maxlength="100" />
 
 
@@ -109,12 +112,21 @@
 						</p:selectOneMenu>
 					</h:panelGrid>
 					<div align="center">
-						<h:panelGrid columns="2">
-							<p:commandButton value="Salvar" action="#{medicoBean.salvar}"
-								style="margin-right:20px;" ajax="false" process="formMedico"
-								update=":formTabelaMedicos:tabelaMedicos" />
+						<h:panelGrid columns="3">
+							<p:commandButton value="Salvar" id="botaoSalvar"
+								icon="fa fa-fw fa-save" action="#{medicoBean.salvar}"
+								style="margin-right:20px;" ajax="false" 
+								process="formMedico" update=":formTabelaMedicos:tabelaMedicos" 
+								rendered="#{medicoBean.exibirBotaoSalvar(medico)}" />
+
+							<p:commandButton value="Alterar" id="botaoAlterar"
+								icon="fa fa-fw fa-edit" action="#{medicoBean.alterar}"
+								style="margin-right:20px;" ajax="false"
+								process="formMedico" update=":formTabelaMedicos:tabelaMedicos"
+								rendered="#{medicoBean.exibirBotaoAlterar(medico)}" />
 
 							<p:commandButton value="Limpar" action="#{medicoBean.limpar}"
+								icon="fa fa-fw fa-refresh"
 								immediate="true" ajax="false" style="margin-right:20px;">
 								<p:resetInput target="panelGridCadastro" />
 							</p:commandButton>
@@ -154,7 +166,7 @@
 
 				<p:column headerText="Alterar" style="width: 70px">
 					<p:commandButton update=":formMedico" icon="fa fa-fw fa-edit"
-						title="Alterar" render="messages">
+						title="Alterar" ajax="false">
 						<f:setPropertyActionListener value="#{medico}"
 							target="#{medicoBean.medico}" />
 					</p:commandButton>
