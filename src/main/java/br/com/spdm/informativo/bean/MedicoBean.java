@@ -62,6 +62,13 @@ public class MedicoBean implements Serializable {
 		this.medico = new Medico();
 	}
 
+/*	public void alterar(){ 
+		try{
+			medicoDao.atualiza(this.medico);
+			context.addMessage(null, new FacesMessage("Médico " + this.medico.getNome() + " alterado! "));
+		} catch
+	}*/
+	
 	public void limpar() {
 		this.medico = new Medico();
 		PrimeFaces.current().resetInputs("formMedico:panelGridCadastro");

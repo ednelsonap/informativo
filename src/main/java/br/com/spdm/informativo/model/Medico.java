@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 @Entity
 public class Medico implements Serializable {
 	
@@ -20,9 +22,13 @@ public class Medico implements Serializable {
 	private Integer id;
 	
 	@NotNull
+	@NotBlank
+	@Column(unique=true)
 	private String nome;
 	
 	@NotNull
+	@NotBlank
+	@Column(unique=true)
 	private String crm;
 	
 	@NotNull
