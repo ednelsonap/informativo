@@ -14,7 +14,7 @@ import org.primefaces.PrimeFaces;
 
 import br.com.spdm.informativo.dao.AssistenteSocialDao;
 import br.com.spdm.informativo.dao.MedicoDao;
-import br.com.spdm.informativo.dao.PlantaoPsDao;
+import br.com.spdm.informativo.dao.PlantaoDao;
 import br.com.spdm.informativo.model.AssistenteSocial;
 import br.com.spdm.informativo.model.Medico;
 import br.com.spdm.informativo.model.Plantao;
@@ -28,7 +28,7 @@ public class PlantaoBean implements Serializable {
 	@Inject
 	private FacesContext context;
 	@Inject
-	private PlantaoPsDao plantaoDao;
+	private PlantaoDao plantaoDao;
 	@Inject
 	private MedicoDao medicoDao;
 	@Inject
@@ -60,16 +60,19 @@ public class PlantaoBean implements Serializable {
 	
 	public void adicionarMedicoNoPlantao(){
 		Medico medico = this.medicoDao.buscaPorId(this.medicoId);
-		Plantao plantao = this.plantaoDao.buscaPlantaoPs();
+		System.out.println("o médico aqui é o " + medico);
 		
-		if(!plantao.getMedicos().contains(medico)){
+		Plantao plantao = this.plantaoDao.buscaPlantaoPs();
+		System.out.println("o plantão é o da " + plantao.getUnidade());
+		
+		if(plantao.getMedicos().contains(medico)){
+			System.out.println("Este médico já está no plantão");
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+					"Médico já adicionado ao plantão!", null));
+		} else {
 			plantao.adicionaMedico(medico);
 			this.plantaoDao.adiciona(plantao);
 			context.addMessage(null, new FacesMessage("Médico " + medico.getNome() + " cadastrado! "));
-		} else {
-			System.out.println("médico já está no plantão");
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-					"Médico já adicionado ao plantão!", null));
 		}
 	}
 	

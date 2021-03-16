@@ -9,7 +9,7 @@ import javax.persistence.EntityManager;
 
 import br.com.spdm.informativo.model.Plantao;
 
-public class PlantaoPsDao implements Serializable{
+public class PlantaoDao implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
@@ -39,8 +39,6 @@ public class PlantaoPsDao implements Serializable{
 		return dao.listaTodos();
 	}
 
-	
-	
 	public Plantao buscaPorId(Integer id) {
 		return dao.buscaPorId(id);
 	}

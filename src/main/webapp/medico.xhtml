@@ -7,11 +7,7 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
 <ui:composition template="_template.xhtml">
-	
-	<f:metadata>
-		<f:viewParam name="medicoId" value="#{medicoBean.medico.id}" />
-	</f:metadata>
-	
+
 	<ui:define name="titulo">
 		<title>Médico</title>
 	</ui:define>
@@ -21,27 +17,27 @@
 		<!-- FORMULÁRIO DE CADASTRO DOS MÉDICOS-->
 
 		<h:form id="formMedico">
-			
+
 			<div align="center">
-				<p:fieldset legend="Cadastro de Médicos" style="margin-top: 0px;">
+				<p:fieldset style="margin-top: 0px;">
+
+					<h2>Médicos</h2>
 
 					<h:panelGrid id="panelGridCadastro" columns="10" cellpadding="5">
 
 						<p:outputLabel value="Nome:" for="nome" />
 						<p:inputText id="nome" value="#{medicoBean.medico.nome}" size="30"
-							maxlength="100" />
+							maxlength="100" required="true" />
 
 
 						<p:outputLabel value="CRM:" for="crm" />
 						<p:inputText id="crm" value="#{medicoBean.medico.crm}" size="15"
-							required="true" requiredMessage="CRM é um campo obrigatório"
-							maxlength="100" />
+							maxlength="10" required="true" />
 
 						<p:outputLabel for="especialidade" value="Especialidade:" />
 						<p:selectOneMenu id="especialidade"
 							value="#{medicoBean.medico.especialidade}" style="width:130px"
-							required="true"
-							requiredMessage="Especialidade é um campo obrigatório">
+							required="true">
 							<f:selectItem itemLabel="Selecione" itemValue="" />
 							<f:selectItems value="#{medicoBean.especialidades}"
 								var="especialidade" itemLabel="#{especialidade}"
@@ -51,8 +47,7 @@
 						<p:outputLabel for="horaInicio" value="Atende das:" />
 						<p:selectOneMenu id="horaInicio"
 							value="#{medicoBean.medico.horaInicio}" style="width:130px"
-							required="true"
-							requiredMessage="Selecione o horário inicial de atendimento">
+							required="true">
 							<f:selectItem itemLabel="Selecione" itemValue="" />
 							<f:selectItem itemLabel="00h" itemValue="00h" />
 							<f:selectItem itemLabel="01h" itemValue="01h" />
@@ -82,8 +77,7 @@
 
 						<p:outputLabel for="horaFim" value="às:" />
 						<p:selectOneMenu id="horaFim" value="#{medicoBean.medico.horaFim}"
-							style="width:130px" required="true"
-							requiredMessage="Selecione o horário final de atendimento">
+							style="width:130px" required="true">
 							<f:selectItem itemLabel="Selecione" itemValue="" />
 							<f:selectItem itemLabel="00h" itemValue="00h" />
 							<f:selectItem itemLabel="01h" itemValue="01h" />
@@ -115,19 +109,19 @@
 						<h:panelGrid columns="3">
 							<p:commandButton value="Salvar" id="botaoSalvar"
 								icon="fa fa-fw fa-save" action="#{medicoBean.salvar}"
-								style="margin-right:20px;" ajax="false" 
-								process="formMedico" update=":formTabelaMedicos:tabelaMedicos" 
+								style="margin-right:20px;" ajax="false" process="@form"
+								update=":formTabelaMedicos:tabelaMedicos"
 								rendered="#{medicoBean.exibirBotaoSalvar(medico)}" />
 
 							<p:commandButton value="Alterar" id="botaoAlterar"
-								icon="fa fa-fw fa-edit" actionListener="#{medicoBean.alterar}"
-								style="margin-right:20px;" ajax="false"
-								process="formMedico" update=":formTabelaMedicos:tabelaMedicos" 
-								rendered="#{medicoBean.exibirBotaoAlterar(medico)}"/>
+								icon="fa fa-fw fa-edit" action="#{medicoBean.alterar}"
+								style="margin-right:20px;" ajax="false" process="@form"
+								update="@form :formTabelaMedicos:tabelaMedicos"
+								rendered="#{medicoBean.exibirBotaoAlterar(medico)}" />
 
 							<p:commandButton value="Limpar" action="#{medicoBean.limpar}"
-								icon="fa fa-fw fa-refresh"
-								immediate="true" ajax="false" style="margin-right:20px;">
+								icon="fa fa-fw fa-refresh" immediate="true" ajax="false"
+								style="margin-right:20px;">
 								<p:resetInput target="panelGridCadastro" />
 							</p:commandButton>
 						</h:panelGrid>
@@ -142,8 +136,7 @@
 
 			<p:dataTable value="#{medicoBean.medicos}" var="medico"
 				emptyMessage="Nenhum Médico Cadastrado" id="tabelaMedicos"
-				paginator="true" rows="7" lazy="true"
-				style="text-align:center;">
+				paginator="true" rows="7" lazy="true" style="text-align:center;">
 
 				<f:facet name="header">Médicos</f:facet>
 
@@ -164,19 +157,18 @@
 					às <h:outputText value="#{medico.horaFim}" />
 				</p:column>
 
-				<p:column headerText="Alterar" style="width: 70px">
-					<p:commandButton update=":formMedico" icon="fa fa-fw fa-edit"
-						title="Alterar" ajax="false"
-						render=":formMedico:botaoAlterar">
-						<f:setPropertyActionListener value="#{medico}"
-							target="#{medicoBean.medico}" />
-					</p:commandButton>
-				</p:column>
+				<p:column headerText="Ações" style="width: 120px">
+					<h:panelGrid columns="2">
+						<p:commandButton update=":formMedico" icon="fa fa-fw fa-edit"
+							title="Alterar" ajax="false" render=":formMedico:botaoAlterar">
+							<f:setPropertyActionListener value="#{medico}"
+								target="#{medicoBean.medico}" />
+						</p:commandButton>
 
-				<p:column headerText="Excluir" style="width: 70px">
-					<p:commandButton icon="fa fa-fw fa-trash"
-						action="#{medicoBean.remover(medico)}" title="Excluir"
-						update="@form :formTabelaMedicos" render="messages" />
+						<p:commandButton icon="fa fa-fw fa-trash"
+							action="#{medicoBean.remover(medico)}" title="Excluir"
+							update="@form :formTabelaMedicos" render="messages" />
+					</h:panelGrid>
 				</p:column>
 
 			</p:dataTable>

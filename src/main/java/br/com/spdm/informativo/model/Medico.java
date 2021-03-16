@@ -23,20 +23,23 @@ public class Medico implements Serializable {
 	
 	@NotNull
 	@NotBlank
-	@Column(unique=true)
+	@Column(unique=true, length=50)
 	private String nome;
 	
 	@NotNull
 	@NotBlank
-	@Column(unique=true)
+	@Column(unique=true, length=10)
 	private String crm;
 	
 	@NotNull
+	@NotBlank
 	private String horaInicio;
 	
 	@NotNull
+	@NotBlank
 	private String horaFim;
 	
+	@NotNull
 	@Column(length=30)
 	@Enumerated(EnumType.STRING)
 	private Especialidade especialidade;

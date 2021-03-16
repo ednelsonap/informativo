@@ -7,6 +7,7 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
 <ui:composition template="_template.xhtml">
+
 	<ui:define name="titulo">
 		<title>Assistente Social</title>
 	</ui:define>
@@ -17,29 +18,27 @@
 
 		<h:form id="formAssistenteSocial">
 
-			<p:growl id="growl" life="5000" />
-			
 			<div align="center">
-				<p:fieldset legend="Cadastro de Assistentes Sociais" style="margin-top: 0px;">
-
+				<p:fieldset style="margin-top: 0px;">
+					
+					<h2>Assistentes Sociais</h2>
+					
 					<h:panelGrid id="panelGridCadastro" columns="10" cellpadding="5">
 
 						<p:outputLabel value="Nome:" for="nome" />
-						<p:inputText id="nome" value="#{assistenteSocialBean.assistenteSocial.nome}" size="30"
-							required="true" requiredMessage="Nome é um campo obrigatório"
-							maxlength="100" />
-
+						<p:inputText id="nome"
+							value="#{assistenteSocialBean.assistenteSocial.nome}" size="30"
+							required="true" maxlength="50" />
 
 						<p:outputLabel value="CRESS:" for="cress" />
-						<p:inputText id="cress" value="#{assistenteSocialBean.assistenteSocial.cress}" size="15"
-							required="true" requiredMessage="CRESS é um campo obrigatório"
-							maxlength="100" />
+						<p:inputText id="cress"
+							value="#{assistenteSocialBean.assistenteSocial.cress}" size="15"
+							required="true" maxlength="10" />
 
 						<p:outputLabel for="horaInicio" value="Atende das:" />
 						<p:selectOneMenu id="horaInicio"
-							value="#{assistenteSocialBean.assistenteSocial.horaInicio}" style="width:130px"
-							required="true"
-							requiredMessage="Selecione o horário inicial de atendimento">
+							value="#{assistenteSocialBean.assistenteSocial.horaInicio}"
+							style="width:130px" required="true">
 							<f:selectItem itemLabel="Selecione" itemValue="" />
 							<f:selectItem itemLabel="00h" itemValue="00h" />
 							<f:selectItem itemLabel="01h" itemValue="01h" />
@@ -68,9 +67,9 @@
 						</p:selectOneMenu>
 
 						<p:outputLabel for="horaFim" value="às:" />
-						<p:selectOneMenu id="horaFim" value="#{assistenteSocialBean.assistenteSocial.horaFim}"
-							style="width:130px" required="true"
-							requiredMessage="Selecione o horário final de atendimento">
+						<p:selectOneMenu id="horaFim"
+							value="#{assistenteSocialBean.assistenteSocial.horaFim}"
+							style="width:130px" required="true">
 							<f:selectItem itemLabel="Selecione" itemValue="" />
 							<f:selectItem itemLabel="00h" itemValue="00h" />
 							<f:selectItem itemLabel="01h" itemValue="01h" />
@@ -99,13 +98,22 @@
 						</p:selectOneMenu>
 					</h:panelGrid>
 					<div align="center">
-						<h:panelGrid columns="2">
-							<p:commandButton value="Salvar" action="#{assistenteSocialBean.salvar}"
-								style="margin-right:20px;" ajax="false" process="formMedico"
-								update=":formTabelaMedicos:tabelaMedicos" />
+						<h:panelGrid columns="3">
+							<p:commandButton value="Salvar" id="botaoSalvar"
+								icon="fa fa-fw fa-save" action="#{assistenteSocialBean.salvar}"
+								style="margin-right:20px;" ajax="false" process="@form"
+								update=":formTabelaMedicos:tabelaMedicos"
+								rendered="#{assistenteSocialBean.exibirBotaoSalvar(assistenteSocial)}" />
 
-							<p:commandButton value="Limpar" action="#{assistenteSocialBean.limpar}"
-								immediate="true" ajax="false" style="margin-right:20px;">
+							<p:commandButton value="Alterar" id="botaoAlterar"
+								icon="fa fa-fw fa-edit" action="#{assistenteSocialBean.alterar}"
+								style="margin-right:20px;" ajax="false" process="@form"
+								update="@form :formTabelaAssistentesSociais:tabelaAssistentesSociais"
+								rendered="#{assistenteSocialBean.exibirBotaoAlterar(assistenteSocial)}" />
+
+							<p:commandButton value="Limpar"
+								action="#{assistenteSocialBean.limpar}" immediate="true"
+								ajax="false" style="margin-right:20px;">
 								<p:resetInput target="panelGridCadastro" />
 							</p:commandButton>
 						</h:panelGrid>
@@ -114,15 +122,14 @@
 			</div>
 		</h:form>
 
-		<!-- TABELA DE MÉDICOS CADASTRADOS -->
+		<!-- TABELA DE ASSISTENTES SOCIAIS CADASTRADOS -->
 
-		<h:form id="formTabelaMedicos">
-			<p:growl id="growl" life="3000" />
-
-			<p:dataTable value="#{assistenteSocialBean.assistentesSociais}" var="assistenteSocial"
-				emptyMessage="Nenhum Médico Cadastrado" id="tabelaMedicos"
-				paginator="true" rows="7" lazy="true"
-				style="font-size: 15px; text-align:center;">
+		<h:form id="formTabelaAssistentesSociais">
+			
+			<p:dataTable value="#{assistenteSocialBean.assistentesSociais}"
+				var="assistenteSocial" emptyMessage="Nenhum Médico Cadastrado"
+				id="tabelaAssistentesSociais" paginator="true" rows="7" lazy="true"
+				style="text-align:center;">
 
 				<f:facet name="header">Assistentes Sociais</f:facet>
 
@@ -139,20 +146,22 @@
 					às <h:outputText value="#{assistenteSocial.horaFim}" />
 				</p:column>
 
-				<p:column headerText="Alterar" style="width: 70px">
-					<p:commandButton update=":formAssistenteSocial" icon="fa fa-fw fa-edit"
-						title="Alterar" render="messages">
-						<f:setPropertyActionListener value="#{assistenteSocial}"
-							target="#{assistenteSocialBean.assistenteSocial}" />
-					</p:commandButton>
-				</p:column>
+				<p:column headerText="Ações" style="width: 120px">
+					<h:panelGrid columns="2">
+			
+						<p:commandButton update=":formAssistenteSocial"
+							icon="fa fa-fw fa-edit" title="Alterar" render="messages">
+							<f:setPropertyActionListener value="#{assistenteSocial}"
+								target="#{assistenteSocialBean.assistenteSocial}" />
+						</p:commandButton>
 
-				<p:column headerText="Excluir" style="width: 70px">
-					<p:commandButton icon="fa fa-fw fa-trash"
-						action="#{assistenteSocialBean.remover(assistenteSocial)}" title="Excluir"
-						update="@form :formTabelaMedicos" render="messages" />
-				</p:column>
+						<p:commandButton icon="fa fa-fw fa-trash"
+							action="#{assistenteSocialBean.remover(assistenteSocial)}"
+							title="Excluir" update="@form :formTabelaAssistentesSociais"
+							render="messages" />
 
+					</h:panelGrid>
+				</p:column>
 			</p:dataTable>
 		</h:form>
 	</ui:define>

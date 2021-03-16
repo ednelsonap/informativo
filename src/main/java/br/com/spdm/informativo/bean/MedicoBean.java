@@ -3,9 +3,10 @@ package br.com.spdm.informativo.bean;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.enterprise.context.ConversationScoped;
 import javax.faces.application.FacesMessage;
+
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.PersistenceException;
@@ -18,7 +19,7 @@ import br.com.spdm.informativo.model.Especialidade;
 import br.com.spdm.informativo.model.Medico;
 
 @Named
-@ConversationScoped
+@ViewScoped
 public class MedicoBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -60,7 +61,7 @@ public class MedicoBean implements Serializable {
 
 		} else {
 			medicoDao.adiciona(this.medico);
-			context.addMessage(null, new FacesMessage("Médico " + this.medico.getNome() + " cadastrado! "));
+			context.addMessage(null, new FacesMessage("Salvo com sucesso! "));
 		}
 		this.medico = new Medico();
 	}
@@ -75,11 +76,11 @@ public class MedicoBean implements Serializable {
 			medicoDao.atualiza(this.medico);
 			context.addMessage(null, new FacesMessage("Médico " + medico.getNome() + " atualizado com sucesso!"));
 			
-			System.out.println("o médico " + this.medico.getNome() + "foi alterado");
+			System.out.println("Alterado com sucesso");
 			
 		} catch (PersistenceException e) {
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-					"Não foi possível alterar o cadastro do médico! Verifique se não há duplicidade de nome ou CRM.", null));
+					"Não foi possível alterar este cadastro! Verifique se não há duplicidade de nome ou CRM.", null));
 			
 			System.out.println("não foi possível salvar");
 		}
@@ -119,7 +120,7 @@ public class MedicoBean implements Serializable {
 					"Não foi possível remover o médico, pois o mesmo está vinculado a um plantão", null));
 		}
 	}
-
+	
 	public Medico getMedico() {
 		return medico;
 	}
