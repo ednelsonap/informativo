@@ -120,10 +120,10 @@
 								rendered="#{medicoBean.exibirBotaoSalvar(medico)}" />
 
 							<p:commandButton value="Alterar" id="botaoAlterar"
-								icon="fa fa-fw fa-edit" action="#{medicoBean.alterar}"
+								icon="fa fa-fw fa-edit" actionListener="#{medicoBean.alterar}"
 								style="margin-right:20px;" ajax="false"
-								process="formMedico" update=":formTabelaMedicos:tabelaMedicos"
-								rendered="#{medicoBean.exibirBotaoAlterar(medico)}" />
+								process="formMedico" update=":formTabelaMedicos:tabelaMedicos" 
+								rendered="#{medicoBean.exibirBotaoAlterar(medico)}"/>
 
 							<p:commandButton value="Limpar" action="#{medicoBean.limpar}"
 								icon="fa fa-fw fa-refresh"
@@ -166,7 +166,8 @@
 
 				<p:column headerText="Alterar" style="width: 70px">
 					<p:commandButton update=":formMedico" icon="fa fa-fw fa-edit"
-						title="Alterar" ajax="false">
+						title="Alterar" ajax="false"
+						render=":formMedico:botaoAlterar">
 						<f:setPropertyActionListener value="#{medico}"
 							target="#{medicoBean.medico}" />
 					</p:commandButton>

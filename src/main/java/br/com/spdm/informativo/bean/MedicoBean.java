@@ -43,6 +43,7 @@ public class MedicoBean implements Serializable {
 	}
 
 	// método para gravar médico no banco
+	@Transactional
 	public void salvar() {
 		System.out.println("Gravando medico " + this.medico.getNome());
 
@@ -107,6 +108,7 @@ public class MedicoBean implements Serializable {
 	}
 
 	// método para remover médico do banco
+	@Transactional
 	public void remover(Medico medico) {
 		try {
 			System.out.println("Removendo Médico " + medico.getNome());
