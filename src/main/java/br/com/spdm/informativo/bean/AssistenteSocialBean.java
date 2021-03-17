@@ -39,8 +39,7 @@ public class AssistenteSocialBean implements Serializable {
 
 	@Transactional
 	public void salvar() {
-		System.out.println("Gravando assistenteSocial " + this.assistenteSocial.getNome());
-
+		
 		boolean nomeExiste = assistenteSocialDao.nomeExiste(this.assistenteSocial);
 		boolean cressExiste = assistenteSocialDao.cressExiste(this.assistenteSocial);
 

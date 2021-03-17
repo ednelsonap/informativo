@@ -71,7 +71,7 @@ public class MedicoBean implements Serializable {
 
 		try {
 			medicoDao.atualiza(this.medico);
-			context.addMessage(null, new FacesMessage("Médico " + medico.getNome() + " atualizado com sucesso!"));
+			context.addMessage(null, new FacesMessage("Alterado com sucesso!"));
 					
 		} catch (PersistenceException e) {
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,

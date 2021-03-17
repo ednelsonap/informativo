@@ -87,7 +87,7 @@ public class PlantaoBean implements Serializable {
 		} else {
 			plantao.adicionaMedico(medico);
 			this.plantaoDao.adiciona(plantao);
-			context.addMessage(null, new FacesMessage("Médico " + medico.getNome() + " cadastrado! "));
+			context.addMessage(null, new FacesMessage("Adicionado com sucesso!"));
 		}
 	}
 
@@ -100,7 +100,7 @@ public class PlantaoBean implements Serializable {
 			plantao.adicionaAssistenteSocial(assistenteSocial);
 			this.plantaoDao.adiciona(plantao);
 			context.addMessage(null,
-					new FacesMessage("Assistente Social " + assistenteSocial.getNome() + " cadastrado! "));
+					new FacesMessage("Adicionado com sucesso!"));
 		} else {
 			context.addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_WARN, "Assistente Social já adicionado ao plantão!", null));

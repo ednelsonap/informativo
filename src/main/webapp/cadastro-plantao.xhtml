@@ -32,7 +32,7 @@
 						Plantões Cadastrados
 					</f:facet>
 
-					<p:column headerText="Código" style="width: 50px;">
+					<p:column headerText="Código" style="width: 40px;">
 						<h:outputText value="#{plantao.id}" />
 					</p:column>
 
@@ -57,7 +57,7 @@
 						<h:outputText value="#{plantao.observacao}" />
 					</p:column>
 
-					<p:column headerText="Alterar" style="width: 50px;">
+					<p:column headerText="Alterar" style="width: 40px;">
 						<p:commandButton icon="fa fa-fw fa-pencil" title="Alterar"
 							update=":formPlantao" process="@form" ajax="false">
 							<f:setPropertyActionListener value="#{plantao}"
@@ -72,7 +72,7 @@
 
 			<h:form id="formPlantao">
 				<p:fieldset legend="Dados do Plantão"
-					style="width: 40%; margin-top: 20px;">
+					style="width: 50%; margin-top: 20px;">
 					<h:panelGrid id="panelGridPlantao">
 
 						<h:panelGrid columns="2">

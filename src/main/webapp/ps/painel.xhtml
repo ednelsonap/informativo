@@ -46,7 +46,7 @@
 					<h1 style="margin-top: 0px; margin-botton:0px;">MÉDICOS DE PLANTÃO</h1>
 				</div>
 				<p:dataTable id="tabelaMedicosDoPlantao"
-					value="#{plantaoBean.medicosPlantaoPrincipal}" var="medico"
+					value="#{plantaoBean.medicosPlantaoPrincipal}" var="medico" emptyMessage="Nenhum registro encontrado"
 					style="font-size: 25px; margin-top: 0px; margin-booton: 0px;">
 
 					<p:column headerText="Nome" style="width:600px;">
@@ -80,7 +80,7 @@
 				</div>
 				<p:dataTable id="tabelaAssistentesSociaisDoPlantao"
 					value="#{plantaoBean.assistentesSociaisPlantaoPrincipal}" var="assistentesSociais"
-					style="font-size: 25px; margin-top: 0px; margin-booton: 0px;">
+					style="font-size: 25px; margin-top: 0px; margin-booton: 0px;" emptyMessage="Nenhum registro encontrado">
 
 					<p:column headerText="Nome" style="width:600px;">
 						<h:outputText value="#{assistentesSociais.nome}" />
