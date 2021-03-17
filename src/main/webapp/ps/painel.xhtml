@@ -30,8 +30,8 @@
 				<p:outputPanel style="margin-top: 0px; margin-botton:0px; text-transform: uppercase;">
 					<h:panelGrid columns="2">
 						<h3>Coord. Administrativa:
-							#{painelPsBean.gerencia.coordenadorAdministrativo} | Coord.
-							Médica: #{painelPsBean.gerencia.coordenadorMedico}</h3>
+							#{painelPsBean.plantao.coordenadorAdministrativo} | Coord.
+							Médica: #{painelPsBean.plantao.coordenadorMedico}</h3>
 					</h:panelGrid>
 				</p:outputPanel>
 			</div>
@@ -46,7 +46,7 @@
 					<h1 style="margin-top: 0px; margin-botton:0px;">MÉDICOS DE PLANTÃO</h1>
 				</div>
 				<p:dataTable id="tabelaMedicosDoPlantao"
-					value="#{plantaoPsBean.medicosPlantaoPrincipal}" var="medico"
+					value="#{plantaoBean.medicosPlantaoPrincipal}" var="medico"
 					style="font-size: 25px; margin-top: 0px; margin-booton: 0px;">
 
 					<p:column headerText="Nome" style="width:600px;">
@@ -79,7 +79,7 @@
 					<h1 style="margin-top: 0px; margin-botton:0px;">SERVIÇO SOCIAL</h1>
 				</div>
 				<p:dataTable id="tabelaAssistentesSociaisDoPlantao"
-					value="#{plantaoPsBean.assistentesSociaisPlantaoPrincipal}" var="assistentesSociais"
+					value="#{plantaoBean.assistentesSociaisPlantaoPrincipal}" var="assistentesSociais"
 					style="font-size: 25px; margin-top: 0px; margin-booton: 0px;">
 
 					<p:column headerText="Nome" style="width:600px;">
@@ -103,7 +103,7 @@
 	
 	<ui:define name="rodape">
 		<p:fieldset>
-			<h:outputText value="#{painelPsBean.gerencia.observacao}" />
+			<h:outputText value="#{painelPsBean.plantao.observacao}" />
 		</p:fieldset>
 	</ui:define>
 </ui:composition>

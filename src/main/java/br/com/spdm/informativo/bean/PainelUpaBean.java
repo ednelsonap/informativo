@@ -12,7 +12,7 @@ import br.com.spdm.informativo.model.Plantao;
 
 @Named
 @ConversationScoped
-public class PainelPsBean implements Serializable{
+public class PainelUpaBean implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
@@ -23,7 +23,7 @@ public class PainelPsBean implements Serializable{
 	
 	@PostConstruct
 	public void init(){
-		this.plantao = plantaoDao.buscaPlantaoPs();
+		this.plantao = plantaoDao.buscaPlantaoUpa();
 	}
 
 	public Plantao getPlantao() {

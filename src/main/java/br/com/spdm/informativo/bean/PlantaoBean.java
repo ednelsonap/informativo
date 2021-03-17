@@ -9,6 +9,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.PersistenceException;
+import javax.transaction.Transactional;
 
 import org.primefaces.PrimeFaces;
 
@@ -18,6 +20,7 @@ import br.com.spdm.informativo.dao.PlantaoDao;
 import br.com.spdm.informativo.model.AssistenteSocial;
 import br.com.spdm.informativo.model.Medico;
 import br.com.spdm.informativo.model.Plantao;
+import br.com.spdm.informativo.model.Unidade;
 
 @Named
 @ViewScoped
@@ -35,8 +38,22 @@ public class PlantaoBean implements Serializable {
 	private AssistenteSocialDao assistenteSocialDao;
 	private Integer medicoId;
 	private Integer assistenteSocialId;
-	private Plantao plantaoPs = new Plantao();
+	private Plantao plantao = new Plantao();
+
+	//private List<Plantao> listaPlantao;
+
+	/*@PostConstruct
+	void init() {
+		this.listaPlantao = plantaoDao.listaTodos();
+	}*/
 	
+	public Unidade[] getUnidades() {
+		return Unidade.values();
+	}
+
+	public List<Plantao> getListaPlantao() {
+		return plantaoDao.listaTodos();
+	}
 
 	public List<Medico> getMedicos() {
 		return this.medicoDao.listaTodos();
@@ -45,57 +62,59 @@ public class PlantaoBean implements Serializable {
 	public List<AssistenteSocial> getAssistentesSociais() {
 		return this.assistenteSocialDao.listaTodos();
 	}
-	
+
 	public void gravarMedico() {
 		Medico medico = this.medicoDao.buscaPorId(this.medicoId);
-		this.plantaoPs.adicionaMedico(medico);
+		this.plantao.adicionaMedico(medico);
 		System.out.println("Gravando médico " + medico.getNome() + " no plantão.");
 	}
 
 	public void gravarAssistenteSocial() {
 		AssistenteSocial assistenteSocial = this.assistenteSocialDao.buscaPorId(this.assistenteSocialId);
-		this.plantaoPs.adicionaAssistenteSocial(assistenteSocial);
+		this.plantao.adicionaAssistenteSocial(assistenteSocial);
 		System.out.println("Gravando Assistente Social " + assistenteSocial.getNome() + " no plantão.");
 	}
-	
-	public void adicionarMedicoNoPlantao(){
+
+	@Transactional
+	public void adicionarMedicoNoPlantao() {
 		Medico medico = this.medicoDao.buscaPorId(this.medicoId);
-		System.out.println("o médico aqui é o " + medico);
-		
 		Plantao plantao = this.plantaoDao.buscaPlantaoPs();
-		System.out.println("o plantão é o da " + plantao.getUnidade());
-		
-		if(plantao.getMedicos().contains(medico)){
+	
+		if (plantao.getMedicos().contains(medico)) {
 			System.out.println("Este médico já está no plantão");
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-					"Médico já adicionado ao plantão!", null));
+			context.addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_WARN, "Médico já adicionado ao plantão!", null));
 		} else {
 			plantao.adicionaMedico(medico);
 			this.plantaoDao.adiciona(plantao);
 			context.addMessage(null, new FacesMessage("Médico " + medico.getNome() + " cadastrado! "));
 		}
 	}
-	
-	public void adicionarAssistenteSocialNoPlantao(){
+
+	@Transactional
+	public void adicionarAssistenteSocialNoPlantao() {
 		AssistenteSocial assistenteSocial = this.assistenteSocialDao.buscaPorId(this.assistenteSocialId);
 		Plantao plantao = this.plantaoDao.buscaPlantaoPs();
-		
-		if(!plantao.getAssistentesSociais().contains(assistenteSocial)){
+
+		if (!plantao.getAssistentesSociais().contains(assistenteSocial)) {
 			plantao.adicionaAssistenteSocial(assistenteSocial);
 			this.plantaoDao.adiciona(plantao);
-			context.addMessage(null, new FacesMessage("Assistente Social " + assistenteSocial.getNome() + " cadastrado! "));
+			context.addMessage(null,
+					new FacesMessage("Assistente Social " + assistenteSocial.getNome() + " cadastrado! "));
 		} else {
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-					"Assistente Social já adicionado ao plantão!", null));
+			context.addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_WARN, "Assistente Social já adicionado ao plantão!", null));
 		}
 	}
-	
+
+	@Transactional
 	public void removerMedicoDoPlantao(Medico medico) {
 		Plantao plantaoPrincipal = this.plantaoDao.buscaPlantaoPs();
 		plantaoPrincipal.removeMedico(medico);
 		this.plantaoDao.atualiza(plantaoPrincipal);
 	}
-	
+
+	@Transactional
 	public void removerAssistenteSocialDoPlantao(AssistenteSocial assistenteSocial) {
 		Plantao plantaoPrincipal = this.plantaoDao.buscaPlantaoPs();
 		plantaoPrincipal.removeAssistenteSocial(assistenteSocial);
@@ -103,21 +122,21 @@ public class PlantaoBean implements Serializable {
 	}
 
 	public List<Medico> getMedicosDoPlantao() {
-		return this.plantaoPs.getMedicos();
+		return this.plantao.getMedicos();
 	}
 
 	public List<AssistenteSocial> getAssistentesSociaisDoPlantao() {
-		return this.plantaoPs.getAssistentesSociais();
+		return this.plantao.getAssistentesSociais();
 	}
-	
+
 	public List<Medico> getMedicosPlantaoPrincipal() {
-		
+
 		List<Medico> medicosPlantao = new ArrayList<>();
 		List<Plantao> listPlantao = plantaoDao.listarPlantaoPs();
-		
-		for (Plantao plantaoPs : listPlantao) {
-			
-			for (Medico medico : plantaoPs.getMedicos()) {
+
+		for (Plantao plantao : listPlantao) {
+
+			for (Medico medico : plantao.getMedicos()) {
 				medicosPlantao.add(medico);
 			}
 		}
@@ -125,24 +144,24 @@ public class PlantaoBean implements Serializable {
 	}
 
 	public List<AssistenteSocial> getAssistentesSociaisPlantaoPrincipal() {
-		
+
 		List<AssistenteSocial> assistentesSociaisPlantao = new ArrayList<>();
 		List<Plantao> listPlantao = plantaoDao.listarPlantaoPs();
-		
-		for (Plantao plantaoPs : listPlantao) {
-			
-			for (AssistenteSocial assistenteSocial : plantaoPs.getAssistentesSociais()) {
+
+		for (Plantao plantao : listPlantao) {
+
+			for (AssistenteSocial assistenteSocial : plantao.getAssistentesSociais()) {
 				assistentesSociaisPlantao.add(assistenteSocial);
 			}
 		}
 		return assistentesSociaisPlantao;
 	}
-	
+
 	public Plantao getPlantaoPrincipal() {
 		Plantao plantaoPrincipal = plantaoDao.buscaPlantaoPs();
 		return plantaoPrincipal;
 	}
-	
+
 	public String formMedico() {
 		System.out.println("Chamanda do formulário do Médico.");
 		return "medico?faces-redirect=true";
@@ -152,42 +171,44 @@ public class PlantaoBean implements Serializable {
 		System.out.println("Chamanda do formulário do Assistente Social.");
 		return "assistentesocial?faces-redirect=true";
 	}
-	
-	// método para gravar médico no banco
-	public void salvar() {
-		System.out.println("Gravando medico do plantão ");
 
-		/*
-		 * for (Medico medico : medicosSelecionados) {
-		 * this.plantao.adicionaMedico(medico); }
-		 */
-		if (plantaoPs.getId() == null) {
-			plantaoDao.adiciona(this.plantaoPs);
-			context.addMessage(null, new FacesMessage("Plantão cadastrado! "));
-		} else {
-			plantaoDao.atualiza(this.plantaoPs);
-			context.addMessage(null, new FacesMessage("Plantão atualizado! "));
-		}
-		this.plantaoPs = new Plantao();
+	@Transactional
+	public void salvar() {
+
+		try {
+			if (plantao.getId() == null) {
+				plantaoDao.adiciona(this.plantao);
+				context.addMessage(null, new FacesMessage("Plantão Cadastrado! "));
+			} else {
+				plantaoDao.atualiza(this.plantao);
+				context.addMessage(null, new FacesMessage("Plantão Atualizado! "));
+			}
+
+		} catch (PersistenceException e) {
+			context.addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_WARN, "Não foi possível alterar este cadastro!", null));
+			
+		}	
+		this.plantao = new Plantao();
 	}
 
 	public void limpar() {
-		this.plantaoPs = new Plantao();
-		PrimeFaces.current().resetInputs("formPlantao:panelGridCadastro");
+		this.plantao = new Plantao();
+		PrimeFaces.current().resetInputs("formPlantao:panelGridPlantao");
 	}
 
-	public void carregar(Plantao plantaoPs) {
+	public void carregar(Plantao plantao) {
 		System.out.println("Carregando plantao");
-		this.plantaoPs = this.plantaoDao.buscaPorId(plantaoPs.getId());
+		this.plantao = this.plantaoDao.buscaPorId(plantao.getId());
 	}
-	
+
 	// getters and setters
 	public Plantao getPlantao() {
-		return plantaoPs;
+		return plantao;
 	}
 
-	public void setPlantao(Plantao plantaoPs) {
-		this.plantaoPs = plantaoPs;
+	public void setPlantao(Plantao plantao) {
+		this.plantao = plantao;
 	}
 
 	public Integer getMedicoId() {
@@ -197,7 +218,7 @@ public class PlantaoBean implements Serializable {
 	public void setMedicoId(Integer medicoId) {
 		this.medicoId = medicoId;
 	}
-	
+
 	public Integer getAssistenteSocialId() {
 		return assistenteSocialId;
 	}

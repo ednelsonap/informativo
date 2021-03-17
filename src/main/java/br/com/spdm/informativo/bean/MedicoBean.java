@@ -66,23 +66,16 @@ public class MedicoBean implements Serializable {
 		this.medico = new Medico();
 	}
 
-	// método para alterar médico no banco
 	@Transactional
 	public void alterar() {
-
-		System.out.println("entrando no método alterar");
 
 		try {
 			medicoDao.atualiza(this.medico);
 			context.addMessage(null, new FacesMessage("Médico " + medico.getNome() + " atualizado com sucesso!"));
-			
-			System.out.println("Alterado com sucesso");
-			
+					
 		} catch (PersistenceException e) {
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
 					"Não foi possível alterar este cadastro! Verifique se não há duplicidade de nome ou CRM.", null));
-			
-			System.out.println("não foi possível salvar");
 		}
 		this.medico = new Medico();
 	}

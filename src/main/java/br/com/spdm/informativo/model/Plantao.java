@@ -12,6 +12,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 public class Plantao implements Serializable{
@@ -24,6 +27,24 @@ public class Plantao implements Serializable{
 	@Column(length=10, unique=true)
 	@Enumerated(EnumType.STRING)
 	private Unidade unidade;
+	
+	@NotNull
+	@NotBlank
+	@Column(length=100)
+	private String nomeUnidade;
+	
+	@NotNull
+	@NotBlank
+	@Column(length=50)
+	private String coordenadorMedico;
+	
+	@NotNull
+	@NotBlank
+	@Column(length=50)
+	private String coordenadorAdministrativo;
+	
+	@Column(length=300)
+	private String observacao;
 	
 	@ManyToMany
 	private List<Medico> medicos = new ArrayList<Medico>();
@@ -66,6 +87,38 @@ public class Plantao implements Serializable{
 
 	public void setUnidade(Unidade unidade) {
 		this.unidade = unidade;
+	}
+
+	public String getCoordenadorMedico() {
+		return coordenadorMedico;
+	}
+
+	public void setCoordenadorMedico(String coordenadorMedico) {
+		this.coordenadorMedico = coordenadorMedico;
+	}
+
+	public String getCoordenadorAdministrativo() {
+		return coordenadorAdministrativo;
+	}
+
+	public void setCoordenadorAdministrativo(String coordenadorAdministrativo) {
+		this.coordenadorAdministrativo = coordenadorAdministrativo;
+	}
+
+	public String getObservacao() {
+		return observacao;
+	}
+
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
+	}
+
+	public String getNomeUnidade() {
+		return nomeUnidade;
+	}
+
+	public void setNomeUnidade(String nomeUnidade) {
+		this.nomeUnidade = nomeUnidade;
 	}
 	
 }

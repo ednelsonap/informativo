@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<ui:composition template="_template.xhtml">
+
+	<!-- <f:metadata>
+		<f:viewParam name="gerenciaId" value="#{gerenciaBean.gerencia.id}" />
+		<f:viewAction action="#{gerenciaBean.carregaGerenciaPeloId}"
+			if="#{param.gerenciaId != null}" />
+	</f:metadata> -->
+
+	<ui:define name="titulo">
+		<title>Plantão</title>
+	</ui:define>
+
+	<ui:define name="conteudo">
+
+		<!-- DADOS DOS PLANTÕES -->
+
+		<div align="center">
+			<h:form id="formTabelaPlantao">
+
+				<p:dataTable id="tabelaGerencia"
+					value="#{plantaoBean.listaPlantao}" var="plantao">
+
+					<f:facet name="header">
+						Plantões Cadastrados
+					</f:facet>
+
+					<p:column headerText="Código" style="width: 50px;">
+						<h:outputText value="#{plantao.id}" />
+					</p:column>
+
+					<p:column headerText="Unidade" style="width: 50px;">
+						<h:outputText value="#{plantao.unidade}" />
+					</p:column>
+
+					<p:column headerText="Nome da Unidade" style="width: 300px;">
+						<h:outputText value="#{plantao.nomeUnidade}" />
+					</p:column>
+
+					<p:column headerText="Coordenação Administrativa"
+						style="width: 250px;">
+						<h:outputText value="#{plantao.coordenadorAdministrativo}" />
+					</p:column>
+
+					<p:column headerText="Coordenação Médica" style="width: 250px;">
+						<h:outputText value="#{plantao.coordenadorMedico}" />
+					</p:column>
+
+					<p:column headerText="Observação">
+						<h:outputText value="#{plantao.observacao}" />
+					</p:column>
+
+					<p:column headerText="Alterar" style="width: 50px;">
+						<p:commandButton icon="fa fa-fw fa-pencil" title="Alterar"
+							update=":formPlantao" process="@form" ajax="false">
+							<f:setPropertyActionListener value="#{plantao}"
+								target="#{plantaoBean.plantao}" />
+						</p:commandButton>
+					</p:column>
+
+				</p:dataTable>
+			</h:form>
+
+			<!-- FORMULÁRIO DE CADASTRO DA GERÊNCIA DO PLANTAO -->
+
+			<h:form id="formPlantao">
+				<p:fieldset legend="Dados do Plantão"
+					style="width: 40%; margin-top: 20px;">
+					<h:panelGrid id="panelGridPlantao">
+
+						<h:panelGrid columns="2">
+
+							<p:outputLabel for="unidade" value="Unidade" />
+							<p:selectOneMenu id="unidade"
+								value="#{plantaoBean.plantao.unidade}" style="width:130px"
+								required="true">
+								<f:selectItem itemLabel="Selecione" itemValue="" />
+								<f:selectItems value="#{plantaoBean.unidades}" var="unidade"
+									itemLabel="#{unidade}" itemValue="#{unidade}" />
+							</p:selectOneMenu>
+
+							<p:outputLabel value="Nome da Unidade:"
+								for="nomeUnidade" />
+							<p:inputText id="nomeUnidade"
+								value="#{plantaoBean.plantao.nomeUnidade}" 
+								maxlength="100" size="50" required="true"/>
+
+							<p:outputLabel value="Coordenador Médico:"
+								for="coordenadorMedico" />
+							<p:inputText id="coordenadorMedico"
+								value="#{plantaoBean.plantao.coordenadorMedico}" 
+								maxlength="50" size="50" required="true"/>
+
+							<p:outputLabel value="Coordenador Administrativo:" 
+								for="coordenadorAdministrativo" /> 
+							<p:inputText id="coordenadorAdministrativo"
+								value="#{plantaoBean.plantao.coordenadorAdministrativo}"
+								maxlength="50" size="50" required="true"/>
+
+							<p:outputLabel value="Mensagem de Observação:" for="observacao" />
+							<p:inputTextarea id="observacao" counter="display"
+								value="#{plantaoBean.plantao.observacao}" rows="5" cols="50" maxlength="300"
+								counterTemplate="{0} caracteres restantes." />
+        					
+        					<h:outputText/>
+        					<h:outputText id="display" class="p-d-block" style="color:gray;"/>
+
+						</h:panelGrid>
+
+						<h:panelGrid id="gridAcoes" columns="2">
+							<p:commandButton value="Salvar" action="#{plantaoBean.salvar}"
+								ajax="false" process="@form" update="@form :formTabelaPlantao:tabelaPlantao"/>
+
+							<p:commandButton value="Limpar" action="#{plantaoBean.limpar}"
+								immediate="true" ajax="false" style="margin-right:20px;">
+								<p:resetInput target="panelGridPlantao" />
+							</p:commandButton>
+						</h:panelGrid>
+					</h:panelGrid>
+				</p:fieldset>
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>
