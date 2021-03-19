@@ -3,8 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="_template.xhtml">
 
@@ -16,28 +16,136 @@
 
 		<!-- FORMULÁRIO DE CADASTRO DOS MÉDICOS-->
 
-		<h:form id="formMedico">
+		<p:commandButton value="Novo" type="button" icon="pi pi-plus"
+			onclick="PF('dialogMedico').show()" />
 
-			<div align="center">
-				<p:fieldset style="margin-top: 0px;">
+		<p:dialog header="Médico" widgetVar="dialogMedico" minHeight="50"
+			width="500" showEffect="fade" modal="true">
+			<h:form id="formMedico">
+			<p:card>
+				<div class="ui-fluid">
+					<div class="p-field">
+						<label for="firstname">Nome</label>
+						<p:inputText id="nome" type="text"
+							value="#{medicoBean.medico.nome}" maxlength="100" required="true" />
+					</div>
+					<div class="p-field">
+						<label for="lastname">CRM</label>
+						<p:inputText id="CRM" type="text" value="#{medicoBean.medico.crm}"
+							maxlength="8" required="true" />
+					</div>
+					<div class="p-field">
+						<label for="especialidade">Especialidade</label>
+						<p:selectOneMenu id="especialidade"
+							value="#{medicoBean.medico.especialidade}" required="true">
+							<f:selectItem itemLabel="Selecione" itemValue="" />
+							<f:selectItems value="#{medicoBean.especialidades}"
+								var="especialidade" itemLabel="#{especialidade}"
+								itemValue="#{especialidade}" />
+						</p:selectOneMenu>
+					</div>
+					<div class="p-field">
+						<label for="inicio">Início do Atendimento</label>
+						<p:selectOneMenu id="horaInicio"
+							value="#{medicoBean.medico.horaInicio}" required="true">
+							<f:selectItem itemLabel="Selecione" itemValue="" />
+							<f:selectItem itemLabel="00h" itemValue="00h" />
+							<f:selectItem itemLabel="01h" itemValue="01h" />
+							<f:selectItem itemLabel="02h" itemValue="02h" />
+							<f:selectItem itemLabel="03h" itemValue="03h" />
+							<f:selectItem itemLabel="04h" itemValue="04h" />
+							<f:selectItem itemLabel="05h" itemValue="05h" />
+							<f:selectItem itemLabel="06h" itemValue="06h" />
+							<f:selectItem itemLabel="07h" itemValue="07h" />
+							<f:selectItem itemLabel="08h" itemValue="08h" />
+							<f:selectItem itemLabel="09h" itemValue="09h" />
+							<f:selectItem itemLabel="10h" itemValue="10h" />
+							<f:selectItem itemLabel="11h" itemValue="11h" />
+							<f:selectItem itemLabel="12h" itemValue="12h" />
+							<f:selectItem itemLabel="13h" itemValue="13h" />
+							<f:selectItem itemLabel="14h" itemValue="14h" />
+							<f:selectItem itemLabel="15h" itemValue="15h" />
+							<f:selectItem itemLabel="16h" itemValue="16h" />
+							<f:selectItem itemLabel="17h" itemValue="17h" />
+							<f:selectItem itemLabel="18h" itemValue="18h" />
+							<f:selectItem itemLabel="19h" itemValue="19h" />
+							<f:selectItem itemLabel="20h" itemValue="20h" />
+							<f:selectItem itemLabel="21h" itemValue="21h" />
+							<f:selectItem itemLabel="22h" itemValue="22h" />
+							<f:selectItem itemLabel="23h" itemValue="23h" />
+						</p:selectOneMenu>
 
-					<h2>Médicos</h2>
+					</div>
+					<div class="p-field">
+						<label for="fim">Fim do Atendimento</label>
+						<p:selectOneMenu id="horaFim" value="#{medicoBean.medico.horaFim}"
+							required="true">
+							<f:selectItem itemLabel="Selecione" itemValue="" />
+							<f:selectItem itemLabel="00h" itemValue="00h" />
+							<f:selectItem itemLabel="01h" itemValue="01h" />
+							<f:selectItem itemLabel="02h" itemValue="02h" />
+							<f:selectItem itemLabel="03h" itemValue="03h" />
+							<f:selectItem itemLabel="04h" itemValue="04h" />
+							<f:selectItem itemLabel="05h" itemValue="05h" />
+							<f:selectItem itemLabel="06h" itemValue="06h" />
+							<f:selectItem itemLabel="07h" itemValue="07h" />
+							<f:selectItem itemLabel="08h" itemValue="08h" />
+							<f:selectItem itemLabel="09h" itemValue="09h" />
+							<f:selectItem itemLabel="10h" itemValue="10h" />
+							<f:selectItem itemLabel="11h" itemValue="11h" />
+							<f:selectItem itemLabel="12h" itemValue="12h" />
+							<f:selectItem itemLabel="13h" itemValue="13h" />
+							<f:selectItem itemLabel="14h" itemValue="14h" />
+							<f:selectItem itemLabel="15h" itemValue="15h" />
+							<f:selectItem itemLabel="16h" itemValue="16h" />
+							<f:selectItem itemLabel="17h" itemValue="17h" />
+							<f:selectItem itemLabel="18h" itemValue="18h" />
+							<f:selectItem itemLabel="19h" itemValue="19h" />
+							<f:selectItem itemLabel="20h" itemValue="20h" />
+							<f:selectItem itemLabel="21h" itemValue="21h" />
+							<f:selectItem itemLabel="22h" itemValue="22h" />
+							<f:selectItem itemLabel="23h" itemValue="23h" />
+						</p:selectOneMenu>
+					</div>
 
-					<h:panelGrid id="panelGridCadastro" columns="10" cellpadding="5">
+					<p:commandButton value="Salvar" id="botaoSalvar" icon="pi pi-check"
+						action="#{medicoBean.salvar}" ajax="false" process="@form"
+						update=":formTabelaMedicos:tabelaMedicos"
+						rendered="#{medicoBean.exibirBotaoSalvar(medico)}" />
+
+					<p:commandButton value="Alterar" id="botaoAlterar"
+						icon="pi pi-pencil" action="#{medicoBean.alterar}"
+						style="margin-right:20px;" ajax="false" process="@form"
+						update="@form :formTabelaMedicos:tabelaMedicos"
+						rendered="#{medicoBean.exibirBotaoAlterar(medico)}" />
+
+					<p:commandButton value="Cancelar" action="#{medicoBean.limpar}"
+						icon="pi pi-times" styleClass="ui-button-secondary"
+						immediate="true" ajax="false" style="margin-right:20px;">
+						<p:resetInput target="panelGridCadastro" />
+					</p:commandButton>
+
+				</div>
+				</p:card>
+			</h:form>
+		</p:dialog>
+
+
+		<!-- 			<h:form id="formMedico">
+				<div align="center">
+					<h:panelGrid id="panelGridCadastro" columns="2">
 
 						<p:outputLabel value="Nome:" for="nome" />
-						<p:inputText id="nome" value="#{medicoBean.medico.nome}" size="30"
-							maxlength="100" required="true" />
-
+						<p:inputText id="nome" value="#{medicoBean.medico.nome}"
+							maxlength="100" required="true" size="40" />
 
 						<p:outputLabel value="CRM:" for="crm" />
-						<p:inputText id="crm" value="#{medicoBean.medico.crm}" size="15"
-							maxlength="10" required="true" />
+						<p:inputText id="crm" value="#{medicoBean.medico.crm}"
+							maxlength="8" required="true" />
 
 						<p:outputLabel for="especialidade" value="Especialidade:" />
 						<p:selectOneMenu id="especialidade"
-							value="#{medicoBean.medico.especialidade}" style="width:130px"
-							required="true">
+							value="#{medicoBean.medico.especialidade}" required="true">
 							<f:selectItem itemLabel="Selecione" itemValue="" />
 							<f:selectItems value="#{medicoBean.especialidades}"
 								var="especialidade" itemLabel="#{especialidade}"
@@ -46,8 +154,7 @@
 
 						<p:outputLabel for="horaInicio" value="Atende das:" />
 						<p:selectOneMenu id="horaInicio"
-							value="#{medicoBean.medico.horaInicio}" style="width:130px"
-							required="true">
+							value="#{medicoBean.medico.horaInicio}" required="true">
 							<f:selectItem itemLabel="Selecione" itemValue="" />
 							<f:selectItem itemLabel="00h" itemValue="00h" />
 							<f:selectItem itemLabel="01h" itemValue="01h" />
@@ -77,7 +184,7 @@
 
 						<p:outputLabel for="horaFim" value="às:" />
 						<p:selectOneMenu id="horaFim" value="#{medicoBean.medico.horaFim}"
-							style="width:130px" required="true">
+							required="true">
 							<f:selectItem itemLabel="Selecione" itemValue="" />
 							<f:selectItem itemLabel="00h" itemValue="00h" />
 							<f:selectItem itemLabel="01h" itemValue="01h" />
@@ -104,31 +211,10 @@
 							<f:selectItem itemLabel="22h" itemValue="22h" />
 							<f:selectItem itemLabel="23h" itemValue="23h" />
 						</p:selectOneMenu>
-					</h:panelGrid>
-					<div align="center">
-						<h:panelGrid columns="3">
-							<p:commandButton value="Salvar" id="botaoSalvar"
-								icon="fa fa-fw fa-save" action="#{medicoBean.salvar}"
-								style="margin-right:20px;" ajax="false" process="@form"
-								update=":formTabelaMedicos:tabelaMedicos"
-								rendered="#{medicoBean.exibirBotaoSalvar(medico)}" />
 
-							<p:commandButton value="Alterar" id="botaoAlterar"
-								icon="fa fa-fw fa-edit" action="#{medicoBean.alterar}"
-								style="margin-right:20px;" ajax="false" process="@form"
-								update="@form :formTabelaMedicos:tabelaMedicos"
-								rendered="#{medicoBean.exibirBotaoAlterar(medico)}" />
+					</h:panelGrid> -->
 
-							<p:commandButton value="Limpar" action="#{medicoBean.limpar}"
-								icon="fa fa-fw fa-refresh" immediate="true" ajax="false"
-								style="margin-right:20px;">
-								<p:resetInput target="panelGridCadastro" />
-							</p:commandButton>
-						</h:panelGrid>
-					</div>
-				</p:fieldset>
-			</div>
-		</h:form>
+
 
 		<!-- TABELA DE MÉDICOS CADASTRADOS -->
 
@@ -136,15 +222,14 @@
 
 			<p:dataTable value="#{medicoBean.medicos}" var="medico"
 				emptyMessage="Nenhum registro encontrado" id="tabelaMedicos"
-				paginator="true" rows="7" lazy="true" style="text-align:center;">
-
-				<f:facet name="header">Médicos</f:facet>
+				paginator="true" rows="5" lazy="true" style="text-align:center;">
 
 				<p:column headerText="Nome">
-					<h:outputText value="#{medico.nome}" />
+					<h:outputText value="#{medico.nome}"
+						style="text-transform: uppercase;" />
 				</p:column>
 
-				<p:column headerText="CRM" style="width: 100px">
+				<p:column headerText="CRM">
 					<h:outputText value="#{medico.crm}" />
 				</p:column>
 
@@ -157,18 +242,18 @@
 					às <h:outputText value="#{medico.horaFim}" />
 				</p:column>
 
-				<p:column headerText="Ações" style="width: 120px">
-					<h:panelGrid columns="2">
-						<p:commandButton update=":formMedico" icon="fa fa-fw fa-edit"
-							title="Alterar" ajax="false" render=":formMedico:botaoAlterar">
-							<f:setPropertyActionListener value="#{medico}"
-								target="#{medicoBean.medico}" />
-						</p:commandButton>
+				<p:column headerText="Ações">
+					<p:commandButton update=":formMedico" icon="pi pi-pencil"
+						styleClass="rounded-button ui-button-info ui-button-outlined"
+						title="Alterar" ajax="false" render=":formMedico:botaoAlterar">
+						<f:setPropertyActionListener value="#{medico}"
+							target="#{medicoBean.medico}" />
+					</p:commandButton>
 
-						<p:commandButton icon="fa fa-fw fa-trash"
-							action="#{medicoBean.remover(medico)}" title="Excluir"
-							update="@form :formTabelaMedicos" render="messages" />
-					</h:panelGrid>
+					<p:commandButton icon="pi pi-trash"
+						styleClass="rounded-button ui-button-danger ui-button-outlined"
+						action="#{medicoBean.remover(medico)}" title="Excluir"
+						update="@form :formTabelaMedicos" render="messages" />
 				</p:column>
 
 			</p:dataTable>

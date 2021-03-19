@@ -20,9 +20,9 @@
 
 <h:body>
 	<p:growl id="messages" life="5000" />
-	
+
 	<div id="cabecalho"
-		style="background-image: linear-gradient(to bottom, DarkSeaGreen, white);">
+		style="background-image: linear-gradient(to bottom, DarkSeaGreen, AliceBlue);">
 
 		<div align="center">
 			<h:panelGrid columns="5">
@@ -43,18 +43,24 @@
 		</div>
 	</div>
 
-	<div id="conteudo" style="font-size: 12px;">
+	<div id="conteudo" style="background-color: AliceBlue;">
 
 		<div align="right">
 			<h:form id="menu">
-				<p:menuButton value="Menu" icon="fa fa-fw fa-list" style="font-size: 15px;">
+				<p:menuButton value="Menu" icon="fa fa-fw fa-list">
 					<p:menuitem value="Médicos" action="medico?faces-redirect=true" />
-					<p:menuitem value="Assistentes Sociais" action="assistentesocial?faces-redirect=true" />
-					<p:menuitem value="Cadastro de Plantões" action="cadastro-plantao?faces-redirect=true" />
-					<p:menuitem value="Plantao PS" action="ps/plantao?faces-redirect=true" />
-					<p:menuitem value="Plantao UPA" action="upa/plantao?faces-redirect=true" />
-					<p:menuitem value="Painel PS" action="ps/painel?faces-redirect=true" />
-					<p:menuitem value="Painel UPA" action="upa/painel?faces-redirect=true" />		
+					<p:menuitem value="Assistentes Sociais"
+						action="assistentesocial?faces-redirect=true" />
+					<p:menuitem value="Cadastro de Plantões"
+						action="cadastro-plantao?faces-redirect=true" />
+					<p:menuitem value="Plantao PS"
+						action="ps/plantao?faces-redirect=true" />
+					<p:menuitem value="Plantao UPA"
+						action="upa/plantao?faces-redirect=true" />
+					<p:menuitem value="Painel PS"
+						action="ps/painel?faces-redirect=true" />
+					<p:menuitem value="Painel UPA"
+						action="upa/painel?faces-redirect=true" />
 				</p:menuButton>
 			</h:form>
 		</div>
@@ -66,5 +72,4 @@
 		</ui:insert>
 	</div>
 </h:body>
-
 </html>

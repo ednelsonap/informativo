@@ -27,18 +27,18 @@
 
 						<p:outputLabel value="Nome:" for="nome" />
 						<p:inputText id="nome"
-							value="#{assistenteSocialBean.assistenteSocial.nome}" size="30"
+							value="#{assistenteSocialBean.assistenteSocial.nome}" size="35"
 							required="true" maxlength="50" />
 
 						<p:outputLabel value="CRESS:" for="cress" />
 						<p:inputText id="cress"
-							value="#{assistenteSocialBean.assistenteSocial.cress}" size="15"
-							required="true" maxlength="10" />
+							value="#{assistenteSocialBean.assistenteSocial.cress}" size="6"
+							required="true" maxlength="8" />
 
 						<p:outputLabel for="horaInicio" value="Atende das:" />
 						<p:selectOneMenu id="horaInicio"
 							value="#{assistenteSocialBean.assistenteSocial.horaInicio}"
-							style="width:130px" required="true">
+							required="true">
 							<f:selectItem itemLabel="Selecione" itemValue="" />
 							<f:selectItem itemLabel="00h" itemValue="00h" />
 							<f:selectItem itemLabel="01h" itemValue="01h" />
@@ -69,7 +69,7 @@
 						<p:outputLabel for="horaFim" value="às:" />
 						<p:selectOneMenu id="horaFim"
 							value="#{assistenteSocialBean.assistenteSocial.horaFim}"
-							style="width:130px" required="true">
+							required="true">
 							<f:selectItem itemLabel="Selecione" itemValue="" />
 							<f:selectItem itemLabel="00h" itemValue="00h" />
 							<f:selectItem itemLabel="01h" itemValue="01h" />
@@ -128,13 +128,11 @@
 			
 			<p:dataTable value="#{assistenteSocialBean.assistentesSociais}"
 				var="assistenteSocial" emptyMessage="Nenhum registro encontrado"
-				id="tabelaAssistentesSociais" paginator="true" rows="7" lazy="true"
+				id="tabelaAssistentesSociais" paginator="true" rows="5" lazy="true"
 				style="text-align:center;">
 
-				<f:facet name="header">Assistentes Sociais</f:facet>
-
 				<p:column headerText="Nome">
-					<h:outputText value="#{assistenteSocial.nome}" />
+					<h:outputText value="#{assistenteSocial.nome}" style="text-transform: uppercase;"/>
 				</p:column>
 
 				<p:column headerText="CRESS" style="width: 100px">
@@ -146,9 +144,7 @@
 					às <h:outputText value="#{assistenteSocial.horaFim}" />
 				</p:column>
 
-				<p:column headerText="Ações" style="width: 120px">
-					<h:panelGrid columns="2">
-			
+				<p:column headerText="Ações" style="width: 80px">
 						<p:commandButton update=":formAssistenteSocial"
 							icon="fa fa-fw fa-edit" title="Alterar" render="messages">
 							<f:setPropertyActionListener value="#{assistenteSocial}"
@@ -159,8 +155,6 @@
 							action="#{assistenteSocialBean.remover(assistenteSocial)}"
 							title="Excluir" update="@form :formTabelaAssistentesSociais"
 							render="messages" />
-
-					</h:panelGrid>
 				</p:column>
 			</p:dataTable>
 		</h:form>
