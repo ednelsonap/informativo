@@ -14,6 +14,7 @@ import javax.transaction.Transactional;
 
 import org.primefaces.PrimeFaces;
 
+import br.com.spdm.informativo.dao.EspecialidadeDao;
 import br.com.spdm.informativo.dao.MedicoDao;
 import br.com.spdm.informativo.model.Especialidade;
 import br.com.spdm.informativo.model.Medico;
@@ -25,16 +26,20 @@ public class MedicoBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Medico medico = new Medico();
+	private Especialidade especialidade = new Especialidade();
+	
 	private List<Medico> medicos;
 
 	@Inject
 	private MedicoDao medicoDao;
+	@Inject
+	private EspecialidadeDao especialidadeDao;
 
 	@Inject
 	private FacesContext context;
 
-	public Especialidade[] getEspecialidades() {
-		return Especialidade.values();
+	public List<Especialidade> getEspecialidades() {
+		return this.especialidadeDao.listaTodos();
 	}
 
 	// método para listar todos os medicos do banco
@@ -98,7 +103,7 @@ public class MedicoBean implements Serializable {
 	
 	public void limpar() {
 		this.medico = new Medico();
-		PrimeFaces.current().resetInputs("formMedico:panelGridCadastro");
+		PrimeFaces.current().resetInputs("formMedico:cardCadastro");
 	}
 
 	// método para remover médico do banco
@@ -122,4 +127,13 @@ public class MedicoBean implements Serializable {
 		this.medico = medico;
 	}
 
+	public Especialidade getEspecialidade() {
+		return especialidade;
+	}
+
+	public void setEspecialidade(Especialidade especialidade) {
+		this.especialidade = especialidade;
+	}
+
+	
 }

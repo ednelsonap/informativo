@@ -14,7 +14,7 @@ public class PlantaoDao implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Inject
-	EntityManager em;
+	private EntityManager em;
 	
 	private DAO<Plantao> dao;
 	

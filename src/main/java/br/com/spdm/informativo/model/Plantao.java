@@ -12,9 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.NotBlank;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 public class Plantao implements Serializable{
@@ -24,21 +22,18 @@ public class Plantao implements Serializable{
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Column(length=10, unique=true)
+	@Column(unique=true)
 	@Enumerated(EnumType.STRING)
 	private Unidade unidade;
 	
-	@NotNull
 	@NotBlank
 	@Column(length=100)
 	private String nomeUnidade;
 	
-	@NotNull
 	@NotBlank
 	@Column(length=50)
 	private String coordenadorMedico;
-	
-	@NotNull
+
 	@NotBlank
 	@Column(length=50)
 	private String coordenadorAdministrativo;

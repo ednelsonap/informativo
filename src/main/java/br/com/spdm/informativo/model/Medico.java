@@ -2,16 +2,15 @@ package br.com.spdm.informativo.model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.NotBlank;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 public class Medico implements Serializable {
@@ -21,31 +20,22 @@ public class Medico implements Serializable {
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	
-	@NotNull
 	@NotBlank
 	@Column(unique=true, length=50)
 	private String nome;
-	
-	@NotNull
+
 	@NotBlank
 	@Column(unique=true, length=10)
 	private String crm;
 	
-	@NotNull
 	@NotBlank
 	private String horaInicio;
 	
-	@NotNull
 	@NotBlank
 	private String horaFim;
-	
-	@NotNull
-	@Column(length=30)
-	@Enumerated(EnumType.STRING)
+
+	@ManyToOne(cascade=CascadeType.MERGE, fetch=FetchType.EAGER)
 	private Especialidade especialidade;
-	
-	/*@ManyToOne(cascade=CascadeType.MERGE, fetch=FetchType.EAGER)
-	private Especialidad especialidade;*/
 	
 	public Integer getId() {
 		return id;

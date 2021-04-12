@@ -9,8 +9,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceException;
 import javax.transaction.Transactional;
 
 import org.primefaces.PrimeFaces;
@@ -21,16 +19,13 @@ import br.com.spdm.informativo.dao.PlantaoDao;
 import br.com.spdm.informativo.model.AssistenteSocial;
 import br.com.spdm.informativo.model.Medico;
 import br.com.spdm.informativo.model.Plantao;
-import br.com.spdm.informativo.model.Unidade;
 
 @Named
 @ViewScoped
-public class PlantaoBean implements Serializable {
+public class PlantaoPsBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Inject
-	private EntityManager em;
 	@Inject
 	private FacesContext context;
 	@Inject
@@ -42,14 +37,6 @@ public class PlantaoBean implements Serializable {
 	private Integer medicoId;
 	private Integer assistenteSocialId;
 	private Plantao plantao = new Plantao();
-
-	public Unidade[] getUnidades() {
-		return Unidade.values();
-	}
-
-	public List<Plantao> getListaPlantao() {
-		return plantaoDao.listaTodos();
-	}
 
 	public List<Medico> getMedicos() {
 		return this.medicoDao.listaTodos();
@@ -165,32 +152,6 @@ public class PlantaoBean implements Serializable {
 	public String formAssistenteSocial() {
 		System.out.println("Chamanda do formulário do Assistente Social.");
 		return "assistentesocial?faces-redirect=true";
-	}
-
-	@Transactional
-	public void salvar() {
-
-		try {
-			
-			if (this.plantao.getId() == null) {
-				plantaoDao.adiciona(this.plantao);
-				
-			} else {
-				plantaoDao.atualiza(this.plantao);
-				context.addMessage(null, new FacesMessage("Plantão Atualizado! "));
-			}
-			
-		} catch (PersistenceException e) {
-			em.getTransaction().rollback();
-			
-			context.addMessage(null, new
-			FacesMessage(FacesMessage.SEVERITY_WARN,
-			"Não foi possível alterar este cadastro!", null));
-			 
-		}
-		
-		this.plantao = new Plantao();
-		
 	}
 
 	public void limpar() {

@@ -22,7 +22,7 @@
 		<p:dialog header="Médico" widgetVar="dialogMedico" minHeight="50"
 			width="500" showEffect="fade" modal="true">
 			<h:form id="formMedico">
-			<p:card>
+			<p:card id="cardCadastro">
 				<div class="ui-fluid">
 					<div class="p-field">
 						<label for="firstname">Nome</label>
@@ -40,7 +40,7 @@
 							value="#{medicoBean.medico.especialidade}" required="true">
 							<f:selectItem itemLabel="Selecione" itemValue="" />
 							<f:selectItems value="#{medicoBean.especialidades}"
-								var="especialidade" itemLabel="#{especialidade}"
+								var="especialidade" itemLabel="#{especialidade.descricao}"
 								itemValue="#{especialidade}" />
 						</p:selectOneMenu>
 					</div>
@@ -122,7 +122,7 @@
 					<p:commandButton value="Cancelar" action="#{medicoBean.limpar}"
 						icon="pi pi-times" styleClass="ui-button-secondary"
 						immediate="true" ajax="false" style="margin-right:20px;">
-						<p:resetInput target="panelGridCadastro" />
+						<p:resetInput target="cardCadastro" />
 					</p:commandButton>
 
 				</div>

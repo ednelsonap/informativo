@@ -23,16 +23,16 @@
 
 				<p:growl id="growl" life="3000" />
 				<div align="center">
-					<p:fieldset legend="Médicos" style="width: 50%">
+					<p:fieldset legend="Médicos" style="width: 70%">
 						<p:panelGrid columns="4">
 							<p:outputLabel value="Selecione o Médico:" for="medico" />
-							<p:selectOneMenu value="#{plantaoBean.medicoId}" id="medico">
+							<p:selectOneMenu value="#{plantaoPsBean.medicoId}" id="medico">
 								<f:selectItem itemLabel="Selecione" itemValue="" />
-								<f:selectItems value="#{plantaoBean.medicos}" var="medico"
+								<f:selectItems value="#{plantaoPsBean.medicos}" var="medico"
 									itemLabel="#{medico.nome}" itemValue="#{medico.id}" />
 							</p:selectOneMenu>
 							<p:commandButton value="Adicionar"
-								action="#{plantaoBean.adicionarMedicoNoPlantao}"
+								action="#{plantaoPsBean.adicionarMedicoNoPlantao}"
 								process="@form" ajax="false"
 								update=":formPlantaoCadastrado:tabelaMedicos">
 							</p:commandButton>
@@ -50,7 +50,7 @@
 
 			<h:form id="formPlantaoCadastrado">
 				<p:dataTable id="tabelaMedicos" var="medico"
-					value="#{plantaoBean.medicosPlantaoPrincipal}" emptyMessage="Nenhum Médico no plantão">
+					value="#{plantaoPsBean.medicosPlantaoPrincipal}" emptyMessage="Nenhum Médico no plantão">
 
 					<f:facet name="header">
 						MÉDICOS DO PLANTÃO
@@ -70,7 +70,7 @@
 
 					<p:column headerText="Remover">
 						<p:commandButton update="@form" process="@this"
-							actionListener="#{plantaoBean.removerMedicoDoPlantao(medico)}"
+							actionListener="#{plantaoPsBean.removerMedicoDoPlantao(medico)}"
 							icon="fa fa-fw fa-remove" />
 					</p:column>
 				</p:dataTable>
@@ -82,16 +82,16 @@
 			<h:form id="formAssistentesSociaisPlantao">
 				
 				<div align="center">
-					<p:fieldset legend="Assistentes Sociais" style="width: 50%">
+					<p:fieldset legend="Assistentes Sociais" style="width: 70%">
 						<p:panelGrid columns="4">
 							<p:outputLabel value="Selecione a(o) Assistente Social:" for="assistenteSocial" />
-							<p:selectOneMenu value="#{plantaoBean.assistenteSocialId}" id="assistenteSocial">
+							<p:selectOneMenu value="#{plantaoPsBean.assistenteSocialId}" id="assistenteSocial">
 								<f:selectItem itemLabel="Selecione" itemValue="" />
-								<f:selectItems value="#{plantaoBean.assistentesSociais}" var="assistenteSocial"
+								<f:selectItems value="#{plantaoPsBean.assistentesSociais}" var="assistenteSocial"
 									itemLabel="#{assistenteSocial.nome}" itemValue="#{assistenteSocial.id}" />
 							</p:selectOneMenu>
 							<p:commandButton value="Adicionar"
-								action="#{plantaoBean.adicionarAssistenteSocialNoPlantao}"
+								action="#{plantaoPsBean.adicionarAssistenteSocialNoPlantao}"
 								process="formAssistentesSociaisPlantao" ajax="false"
 								update=":formAssistentesSociaisCadastrados:tabelaAssistentesSociais">
 							</p:commandButton>
@@ -107,7 +107,7 @@
 
 			<h:form id="formAssistentesSociaisCadastrados">
 				<p:dataTable id="tabelaAssistentesSociais" var="assistenteSocial"
-					value="#{plantaoBean.assistentesSociaisPlantaoPrincipal}" emptyMessage="Nenhum Assistente Social no plantão">
+					value="#{plantaoPsBean.assistentesSociaisPlantaoPrincipal}" emptyMessage="Nenhum Assistente Social no plantão">
 
 					<f:facet name="header">
 						ASSISTENTES SOCIAIS DO PLANTÃO
@@ -123,7 +123,7 @@
 
 					<p:column headerText="Remover">
 						<p:commandButton update="@form" process="@this"
-							actionListener="#{plantaoBean.removerAssistenteSocialDoPlantao(assistenteSocial)}"
+							actionListener="#{plantaoPsBean.removerAssistenteSocialDoPlantao(assistenteSocial)}"
 							icon="fa fa-fw fa-remove" />
 					</p:column>
 				</p:dataTable>

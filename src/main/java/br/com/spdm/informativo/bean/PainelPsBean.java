@@ -6,6 +6,7 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.PersistenceException;
 
 import br.com.spdm.informativo.dao.PlantaoDao;
 import br.com.spdm.informativo.model.Plantao;
@@ -23,7 +24,11 @@ public class PainelPsBean implements Serializable{
 	
 	@PostConstruct
 	public void init(){
-		this.plantao = plantaoDao.buscaPlantaoPs();
+		try{
+			this.plantao = plantaoDao.buscaPlantaoPs();
+		} catch (PersistenceException e){
+			System.out.println("Não foi encontrado um plantão");
+		}
 	}
 
 	public Plantao getPlantao() {
