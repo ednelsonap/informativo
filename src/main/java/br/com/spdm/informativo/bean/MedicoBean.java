@@ -26,7 +26,6 @@ public class MedicoBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Medico medico = new Medico();
-	private Especialidade especialidade = new Especialidade();
 	
 	private List<Medico> medicos;
 
@@ -126,14 +125,5 @@ public class MedicoBean implements Serializable {
 	public void setMedico(Medico medico) {
 		this.medico = medico;
 	}
-
-	public Especialidade getEspecialidade() {
-		return especialidade;
-	}
-
-	public void setEspecialidade(Especialidade especialidade) {
-		this.especialidade = especialidade;
-	}
-
 	
 }

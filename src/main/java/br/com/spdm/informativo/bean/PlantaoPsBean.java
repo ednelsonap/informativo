@@ -9,6 +9,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.PersistenceException;
 import javax.transaction.Transactional;
 
 import org.primefaces.PrimeFaces;
@@ -34,10 +35,11 @@ public class PlantaoPsBean implements Serializable {
 	private MedicoDao medicoDao;
 	@Inject
 	private AssistenteSocialDao assistenteSocialDao;
+	
 	private Integer medicoId;
 	private Integer assistenteSocialId;
 	private Plantao plantao = new Plantao();
-
+	
 	public List<Medico> getMedicos() {
 		return this.medicoDao.listaTodos();
 	}
@@ -60,16 +62,28 @@ public class PlantaoPsBean implements Serializable {
 
 	@Transactional
 	public void adicionarMedicoNoPlantao() {
+		
 		Medico medico = this.medicoDao.buscaPorId(this.medicoId);
-		Plantao plantao = this.plantaoDao.buscaPlantaoPs();
-
-		if (plantao.getMedicos().contains(medico)) {
+		
+		try {
+			this.plantao = this.plantaoDao.buscaPlantaoPs();
+		} catch (PersistenceException e) {
+			e.getMessage();
+		}
+		
+		if (this.plantao.getId() == null){	
+			context.addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_WARN, 
+							"Não foi encontrado um plantão da unidade PS!", null));
+		
+		} else if (this.plantao.getMedicos().contains(medico)) {
 			System.out.println("Este médico já está no plantão");
 			context.addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_WARN, "Médico já adicionado ao plantão!", null));
+			
 		} else {
-			plantao.adicionaMedico(medico);
-			this.plantaoDao.adiciona(plantao);
+			this.plantao.adicionaMedico(medico);
+			this.plantaoDao.atualiza(this.plantao);
 			context.addMessage(null, new FacesMessage("Adicionado com sucesso!"));
 		}
 	}

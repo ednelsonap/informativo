@@ -2,10 +2,8 @@ package br.com.spdm.informativo.model;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -34,7 +32,7 @@ public class Medico implements Serializable {
 	@NotBlank
 	private String horaFim;
 
-	@ManyToOne(cascade=CascadeType.MERGE, fetch=FetchType.EAGER)
+	@ManyToOne
 	private Especialidade especialidade;
 	
 	public Integer getId() {

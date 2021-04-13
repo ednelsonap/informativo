@@ -7,6 +7,7 @@
 	<persistence-unit name="informativo"
 		transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		
 		<class>br.com.spdm.informativo.model.Medico</class>
 		<class>br.com.spdm.informativo.model.Especialidade</class>
 		<class>br.com.spdm.informativo.model.Plantao</class>

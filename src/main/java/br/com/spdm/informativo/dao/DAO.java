@@ -59,7 +59,7 @@ public class DAO<T> implements Serializable {
 
 	public int contaTodos() {
 
-		long result = (Long) em.createQuery("select count(n) from wareline n").getSingleResult();
+		long result = (Long) em.createQuery("select count(m) from Medico m").getSingleResult();
 
 		return (int) result;
 	}
