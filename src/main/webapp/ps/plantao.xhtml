@@ -13,122 +13,134 @@
 
 	<ui:define name="conteudo">
 
-		<!-- FORMULÁRIO DE CADASTRO DOS MÉDICOS NO PLANTAO DO PS -->
+		<div>
+			<p:linkButton outcome="/ps/painel.xhtml" value="Ver Painel"
+				target="_blank" style="margin-right:20px;"
+				styleClass="rounded-button ui-button-success" icon="pi pi-eye"
+				ajax="false" />
+		</div>
 
-		<p:fieldset>
-			<div align="center">
-				<h2 style="margin-bottom: 5px; margin-top: 5px;">Cadastro do Plantão PS</h2>
-			</div>
-			<h:form id="formPlantao">
+		<!-- FORMULÁRIO DE VÍNCULO DOS MÉDICOS NO PLANTAO DO PS -->
 
-				<p:growl id="growl" life="3000" />
-				<div align="center">
-					<p:fieldset legend="Médicos">
-						<h:panelGrid columns="4">
-							<p:outputLabel value="Selecione o Médico:" for="medico" />
-							<p:selectOneMenu value="#{plantaoPsBean.medicoId}" id="medico" style="text-transform: uppercase">
-								<f:selectItem itemLabel="Selecione" itemValue="" />
-								<f:selectItems value="#{plantaoPsBean.medicos}" var="medico"
-									itemLabel="#{medico.nome} - #{medico.especialidade.descricao}" itemValue="#{medico.id}" />
-							</p:selectOneMenu>
-							<p:commandButton value="Adicionar"
-								action="#{plantaoPsBean.adicionarMedicoNoPlantao}"
-								process="@form" ajax="false"
-								update=":formPlantaoCadastrado:tabelaMedicos">
-							</p:commandButton>
+		<h:form id="formPlantao">
+			<p:card id="cardMedico" style="text-align: center;">
+				<f:facet name="title">
+        		Vínculo de Médicos
+    		</f:facet>
+				<f:facet name="subtitle">
+        		Plantão da unidade #{plantaoPsBean.plantaoPrincipal.unidade}
+    		</f:facet>
 
-							<p:commandLink value="Cadastrar Novo Médico"
-								action="/medico?faces-redirect=true"
-								immediate="true" update="@all" />
-						</h:panelGrid>
+				<p>Para vincular um profissional ao plantão, selecione-o na
+					lista e clique em vincular</p>
 
-					</p:fieldset>
-				</div>
-				<br />
+				<p:selectOneMenu value="#{plantaoPsBean.medicoId}" id="medico"
+					style="text-transform: uppercase" filter="true"
+					filterMatchMode="startsWith">
+					<f:selectItem itemLabel="Selecione" itemValue="" />
+					<f:selectItems value="#{plantaoPsBean.medicos}" var="medico"
+						itemLabel="#{medico.nome} - #{medico.especialidade.descricao}"
+						itemValue="#{medico.id}" />
+				</p:selectOneMenu>
 
-			</h:form>
+				<f:facet name="footer">
+					<p:commandButton value="Vincular" icon="pi pi-link"
+						action="#{plantaoPsBean.adicionarMedicoNoPlantao}" process="@form"
+						ajax="false" update="@form :formPlantaoCadastrado:tabelaMedicos" />
+				</f:facet>
+			</p:card>
+		</h:form>
 
-			<h:form id="formPlantaoCadastrado">
-				<p:dataTable id="tabelaMedicos" var="medico"
-					value="#{plantaoPsBean.medicosPlantaoPrincipal}" emptyMessage="Nenhum Médico no plantão">
+		<!-- TABELA DE MÉDICOS VINCULADOS AO PLANTAO PS -->
 
-					<f:facet name="header">
+		<h:form id="formPlantaoCadastrado">
+			<p:dataTable id="tabelaMedicos" var="medico"
+				value="#{plantaoPsBean.medicosPlantaoPrincipal}"
+				emptyMessage="Nenhum Médico no plantão" style="margin-top: 20px;">
+
+				<f:facet name="header">
 						MÉDICOS DO PLANTÃO
 					</f:facet>
 
-					<p:column headerText="Nome">
-						<h:outputText value="#{medico.nome}" />
-					</p:column>
+				<p:column headerText="Nome" style="width: 500px;">
+					<h:outputText value="#{medico.nome}" />
+				</p:column>
 
-					<p:column headerText="CRM">
-						<h:outputText value="#{medico.crm}" />
-					</p:column>
+				<p:column headerText="CRM" style="width: 100px;">
+					<h:outputText value="#{medico.crm}" />
+				</p:column>
 
-					<p:column headerText="Especialidade">
-						<h:outputText value="#{medico.especialidade.descricao}" />
-					</p:column>
+				<p:column headerText="Especialidade">
+					<h:outputText value="#{medico.especialidade.descricao}" />
+				</p:column>
 
-					<p:column headerText="Remover">
-						<p:commandButton update="@form" process="@this"
-							actionListener="#{plantaoPsBean.removerMedicoDoPlantao(medico)}"
-							icon="fa fa-fw fa-remove" />
-					</p:column>
-				</p:dataTable>
+				<p:column headerText="Ações" style="width: 100px;">
+					<p:commandButton update="@form" process="@this"
+						actionListener="#{plantaoPsBean.removerMedicoDoPlantao(medico)}"
+						title="Desvincular" icon="pi pi-link"
+						styleClass="rounded-button ui-button-danger ui-button-outlined" />
+				</p:column>
+			</p:dataTable>
 
-			</h:form>
-			
-			<!-- CADASTRO ASSISTENTES SOCIAIS -->
-			
-			<h:form id="formAssistentesSociaisPlantao">
-				
-				<div align="center">
-					<p:fieldset legend="Assistentes Sociais" style="width: 70%">
-						<p:panelGrid columns="4">
-							<p:outputLabel value="Selecione a(o) Assistente Social:" for="assistenteSocial" />
-							<p:selectOneMenu value="#{plantaoPsBean.assistenteSocialId}" id="assistenteSocial">
-								<f:selectItem itemLabel="Selecione" itemValue="" />
-								<f:selectItems value="#{plantaoPsBean.assistentesSociais}" var="assistenteSocial"
-									itemLabel="#{assistenteSocial.nome}" itemValue="#{assistenteSocial.id}" />
-							</p:selectOneMenu>
-							<p:commandButton value="Adicionar"
-								action="#{plantaoPsBean.adicionarAssistenteSocialNoPlantao}"
-								process="formAssistentesSociaisPlantao" ajax="false"
-								update=":formAssistentesSociaisCadastrados:tabelaAssistentesSociais">
-							</p:commandButton>
+		</h:form>
 
-							<p:commandLink value="Cadastrar Novo Assistente Social"
-								action="/assistentesocial?faces-redirect=true"
-								immediate="true" update="@all" />
-						</p:panelGrid>
-					</p:fieldset>
-				</div>
-				<br />
-			</h:form>
+		<!-- CADASTRO ASSISTENTES SOCIAIS -->
 
-			<h:form id="formAssistentesSociaisCadastrados">
-				<p:dataTable id="tabelaAssistentesSociais" var="assistenteSocial"
-					value="#{plantaoPsBean.assistentesSociaisPlantaoPrincipal}" emptyMessage="Nenhum Assistente Social no plantão">
+		<h:form id="formAssistentesSociaisPlantao">
 
-					<f:facet name="header">
+			<div align="center">
+				<p:fieldset legend="Assistentes Sociais" style="margin-top: 20px;">
+					<p:panelGrid columns="4">
+						<p:outputLabel value="Selecione a(o) Assistente Social:"
+							for="assistenteSocial" />
+						<p:selectOneMenu value="#{plantaoPsBean.assistenteSocialId}"
+							id="assistenteSocial">
+							<f:selectItem itemLabel="Selecione" itemValue="" />
+							<f:selectItems value="#{plantaoPsBean.assistentesSociais}"
+								var="assistenteSocial" itemLabel="#{assistenteSocial.nome}"
+								itemValue="#{assistenteSocial.id}" />
+						</p:selectOneMenu>
+						<p:commandButton value="Vincular" icon="pi pi-link"
+							action="#{plantaoPsBean.adicionarAssistenteSocialNoPlantao}"
+							process="formAssistentesSociaisPlantao" ajax="false"
+							update=":formAssistentesSociaisCadastrados:tabelaAssistentesSociais">
+						</p:commandButton>
+
+						<p:commandLink value="Cadastrar Novo Assistente Social"
+							action="/assistentesocial?faces-redirect=true" immediate="true"
+							update="@all" />
+					</p:panelGrid>
+				</p:fieldset>
+			</div>
+			<br />
+		</h:form>
+
+		<h:form id="formAssistentesSociaisCadastrados">
+			<p:dataTable id="tabelaAssistentesSociais" var="assistenteSocial"
+				value="#{plantaoPsBean.assistentesSociaisPlantaoPrincipal}"
+				emptyMessage="Nenhum Assistente Social no plantão"
+				style="margin-top: 20px;">
+
+				<f:facet name="header">
 						ASSISTENTES SOCIAIS DO PLANTÃO
 					</f:facet>
 
-					<p:column headerText="Nome">
-						<h:outputText value="#{assistenteSocial.nome}" />
-					</p:column>
+				<p:column headerText="Nome">
+					<h:outputText value="#{assistenteSocial.nome}" />
+				</p:column>
 
-					<p:column headerText="CRESS">
-						<h:outputText value="#{assistenteSocial.cress}" />
-					</p:column>
+				<p:column headerText="CRESS">
+					<h:outputText value="#{assistenteSocial.cress}" />
+				</p:column>
 
-					<p:column headerText="Remover">
-						<p:commandButton update="@form" process="@this"
-							actionListener="#{plantaoPsBean.removerAssistenteSocialDoPlantao(assistenteSocial)}"
-							icon="fa fa-fw fa-remove" />
-					</p:column>
-				</p:dataTable>
-			</h:form>
-		</p:fieldset>
+				<p:column headerText="Ações" style="width: 100px;">
+					<p:commandButton update="@form" process="@this"
+						actionListener="#{plantaoPsBean.removerAssistenteSocialDoPlantao(assistenteSocial)}"
+						title="Desvincular" icon="pi pi-link"
+						styleClass="rounded-button ui-button-danger ui-button-outlined" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
 	</ui:define>
 </ui:composition>
 </html>

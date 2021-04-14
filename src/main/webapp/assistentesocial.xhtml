@@ -13,151 +13,167 @@
 	</ui:define>
 
 	<ui:define name="conteudo">
-
-		<!-- FORMULÁRIO DE CADASTRO DAS ASSISTENTES SOCIAIS-->
-
-		<h:form id="formAssistenteSocial">
-
+		<p:fieldset>
 			<div align="center">
-				<p:fieldset style="margin-top: 0px;">
-					
-					<h2>Assistentes Sociais</h2>
-					
-					<h:panelGrid id="panelGridCadastro" columns="10" cellpadding="5">
+				<h2 style="margin-bottom: 5px; margin-top: 5px;">Assistentes Sociais</h2>
+				<p:divider />
+			</div>
+			
+			<p:commandButton value="Novo" type="button" icon="pi pi-plus"
+				onclick="PF('dialogAssistenteSocial').show()" style="margin-bottom: 5px;"/>
 
-						<p:outputLabel value="Nome:" for="nome" />
-						<p:inputText id="nome"
-							value="#{assistenteSocialBean.assistenteSocial.nome}" size="35"
-							required="true" maxlength="50" />
+			<!-- TABELA DE ASSISTENTES SOCIAIS CADASTRADOS -->
 
-						<p:outputLabel value="CRESS:" for="cress" />
-						<p:inputText id="cress"
-							value="#{assistenteSocialBean.assistenteSocial.cress}" size="6"
-							required="true" maxlength="8" />
+			<h:form id="formTabelaAssistentesSociais">
 
-						<p:outputLabel for="horaInicio" value="Atende das:" />
-						<p:selectOneMenu id="horaInicio"
-							value="#{assistenteSocialBean.assistenteSocial.horaInicio}"
-							required="true">
-							<f:selectItem itemLabel="Selecione" itemValue="" />
-							<f:selectItem itemLabel="00h" itemValue="00h" />
-							<f:selectItem itemLabel="01h" itemValue="01h" />
-							<f:selectItem itemLabel="02h" itemValue="02h" />
-							<f:selectItem itemLabel="03h" itemValue="03h" />
-							<f:selectItem itemLabel="04h" itemValue="04h" />
-							<f:selectItem itemLabel="05h" itemValue="05h" />
-							<f:selectItem itemLabel="06h" itemValue="06h" />
-							<f:selectItem itemLabel="07h" itemValue="07h" />
-							<f:selectItem itemLabel="08h" itemValue="08h" />
-							<f:selectItem itemLabel="09h" itemValue="09h" />
-							<f:selectItem itemLabel="10h" itemValue="10h" />
-							<f:selectItem itemLabel="11h" itemValue="11h" />
-							<f:selectItem itemLabel="12h" itemValue="12h" />
-							<f:selectItem itemLabel="13h" itemValue="13h" />
-							<f:selectItem itemLabel="14h" itemValue="14h" />
-							<f:selectItem itemLabel="15h" itemValue="15h" />
-							<f:selectItem itemLabel="16h" itemValue="16h" />
-							<f:selectItem itemLabel="17h" itemValue="17h" />
-							<f:selectItem itemLabel="18h" itemValue="18h" />
-							<f:selectItem itemLabel="19h" itemValue="19h" />
-							<f:selectItem itemLabel="20h" itemValue="20h" />
-							<f:selectItem itemLabel="21h" itemValue="21h" />
-							<f:selectItem itemLabel="22h" itemValue="22h" />
-							<f:selectItem itemLabel="23h" itemValue="23h" />
-						</p:selectOneMenu>
+				<p:dataTable value="#{assistenteSocialBean.assistentesSociais}"
+					var="assistenteSocial" emptyMessage="Nenhum registro encontrado"
+					id="tabelaAssistentesSociais" paginator="true" rows="5" lazy="true"
+					style="text-align:center;">
 
-						<p:outputLabel for="horaFim" value="às:" />
-						<p:selectOneMenu id="horaFim"
-							value="#{assistenteSocialBean.assistenteSocial.horaFim}"
-							required="true">
-							<f:selectItem itemLabel="Selecione" itemValue="" />
-							<f:selectItem itemLabel="00h" itemValue="00h" />
-							<f:selectItem itemLabel="01h" itemValue="01h" />
-							<f:selectItem itemLabel="02h" itemValue="02h" />
-							<f:selectItem itemLabel="03h" itemValue="03h" />
-							<f:selectItem itemLabel="04h" itemValue="04h" />
-							<f:selectItem itemLabel="05h" itemValue="05h" />
-							<f:selectItem itemLabel="06h" itemValue="06h" />
-							<f:selectItem itemLabel="07h" itemValue="07h" />
-							<f:selectItem itemLabel="08h" itemValue="08h" />
-							<f:selectItem itemLabel="09h" itemValue="09h" />
-							<f:selectItem itemLabel="10h" itemValue="10h" />
-							<f:selectItem itemLabel="11h" itemValue="11h" />
-							<f:selectItem itemLabel="12h" itemValue="12h" />
-							<f:selectItem itemLabel="13h" itemValue="13h" />
-							<f:selectItem itemLabel="14h" itemValue="14h" />
-							<f:selectItem itemLabel="15h" itemValue="15h" />
-							<f:selectItem itemLabel="16h" itemValue="16h" />
-							<f:selectItem itemLabel="17h" itemValue="17h" />
-							<f:selectItem itemLabel="18h" itemValue="18h" />
-							<f:selectItem itemLabel="19h" itemValue="19h" />
-							<f:selectItem itemLabel="20h" itemValue="20h" />
-							<f:selectItem itemLabel="21h" itemValue="21h" />
-							<f:selectItem itemLabel="22h" itemValue="22h" />
-							<f:selectItem itemLabel="23h" itemValue="23h" />
-						</p:selectOneMenu>
-					</h:panelGrid>
-					<div align="center">
-						<h:panelGrid columns="3">
-							<p:commandButton value="Salvar" id="botaoSalvar"
-								icon="fa fa-fw fa-save" action="#{assistenteSocialBean.salvar}"
-								style="margin-right:20px;" ajax="false" process="@form"
-								update=":formTabelaMedicos:tabelaMedicos"
+					<p:column headerText="Nome">
+						<h:outputText value="#{assistenteSocial.nome}"
+							style="text-transform: uppercase;" />
+					</p:column>
+
+					<p:column headerText="CRESS" style="width: 100px">
+						<h:outputText value="#{assistenteSocial.cress}" />
+					</p:column>
+
+					<p:column headerText="Atendimento">
+						<h:outputText value="#{assistenteSocial.horaInicio}" />
+					às <h:outputText value="#{assistenteSocial.horaFim}" />
+					</p:column>
+
+					<p:column headerText="Ações" style="width:100px;">
+						<p:commandButton update=":formAssistenteSocial"
+							icon="pi pi-pencil"
+							styleClass="rounded-button ui-button-info ui-button-outlined"
+							title="Alterar" onclick="PF('dialogAssistenteSocial').show()"
+							render=":formAssistenteSocial:botaoAlterar">
+							<f:setPropertyActionListener value="#{medico}"
+								target="#{assistenteSocialBean.assistenteSocial}" />
+						</p:commandButton>
+
+						<p:commandButton icon="pi pi-trash"
+							styleClass="rounded-button ui-button-danger ui-button-outlined"
+							action="#{assistenteSocialBean.remover(assistenteSocial)}"
+							title="Excluir" update="@form :formTabelaAssistentesSociais"
+							render="messages" />
+					</p:column>
+				</p:dataTable>
+			</h:form>
+
+			<!-- DIÁLOGO COM O FORMULÁRIO DE CADASTRO DOS MÉDICOS-->
+
+			<p:dialog header="AssistenteSocial"
+				widgetVar="dialogAssistenteSocial" minHeight="50" width="500"
+				showEffect="fade" modal="true" closable="false">
+				<h:form id="formAssistenteSocial">
+					<p:card id="cardCadastro">
+						<div class="ui-fluid">
+							<div class="p-field">
+								<p:outputLabel for="nome" styleClass="p-d-block">Nome</p:outputLabel>
+								<p:inputText id="nome" type="text"
+									value="#{assistenteSocialBean.assistenteSocial.nome}"
+									maxlength="100" required="true" styleClass="p-d-block" />
+							</div>
+							<div class="p-field">
+								<p:outputLabel for="cress" styleClass="p-d-block">CRESS</p:outputLabel>
+								<p:inputText id="cress" type="text"
+									value="#{assistenteSocialBean.assistenteSocial.cress}"
+									maxlength="8" required="true" styleClass="p-d-block" />
+							</div>
+							<div class="p-field">
+								<p:outputLabel for="horaInicio" styleClass="p-d-block">Início do Atendimento</p:outputLabel>
+								<p:selectOneMenu id="horaInicio"
+									value="#{assistenteSocialBean.assistenteSocial.horaInicio}"
+									required="true">
+									<f:selectItem itemLabel="Selecione" itemValue="" />
+									<f:selectItem itemLabel="00h" itemValue="00h" />
+									<f:selectItem itemLabel="01h" itemValue="01h" />
+									<f:selectItem itemLabel="02h" itemValue="02h" />
+									<f:selectItem itemLabel="03h" itemValue="03h" />
+									<f:selectItem itemLabel="04h" itemValue="04h" />
+									<f:selectItem itemLabel="05h" itemValue="05h" />
+									<f:selectItem itemLabel="06h" itemValue="06h" />
+									<f:selectItem itemLabel="07h" itemValue="07h" />
+									<f:selectItem itemLabel="08h" itemValue="08h" />
+									<f:selectItem itemLabel="09h" itemValue="09h" />
+									<f:selectItem itemLabel="10h" itemValue="10h" />
+									<f:selectItem itemLabel="11h" itemValue="11h" />
+									<f:selectItem itemLabel="12h" itemValue="12h" />
+									<f:selectItem itemLabel="13h" itemValue="13h" />
+									<f:selectItem itemLabel="14h" itemValue="14h" />
+									<f:selectItem itemLabel="15h" itemValue="15h" />
+									<f:selectItem itemLabel="16h" itemValue="16h" />
+									<f:selectItem itemLabel="17h" itemValue="17h" />
+									<f:selectItem itemLabel="18h" itemValue="18h" />
+									<f:selectItem itemLabel="19h" itemValue="19h" />
+									<f:selectItem itemLabel="20h" itemValue="20h" />
+									<f:selectItem itemLabel="21h" itemValue="21h" />
+									<f:selectItem itemLabel="22h" itemValue="22h" />
+									<f:selectItem itemLabel="23h" itemValue="23h" />
+								</p:selectOneMenu>
+
+							</div>
+							<div class="p-field">
+								<p:outputLabel for="horaFim" styleClass="p-d-block">Fim do Atendimento</p:outputLabel>
+								<p:selectOneMenu id="horaFim"
+									value="#{assistenteSocialBean.assistenteSocial.horaFim}"
+									required="true">
+									<f:selectItem itemLabel="Selecione" itemValue="" />
+									<f:selectItem itemLabel="00h" itemValue="00h" />
+									<f:selectItem itemLabel="01h" itemValue="01h" />
+									<f:selectItem itemLabel="02h" itemValue="02h" />
+									<f:selectItem itemLabel="03h" itemValue="03h" />
+									<f:selectItem itemLabel="04h" itemValue="04h" />
+									<f:selectItem itemLabel="05h" itemValue="05h" />
+									<f:selectItem itemLabel="06h" itemValue="06h" />
+									<f:selectItem itemLabel="07h" itemValue="07h" />
+									<f:selectItem itemLabel="08h" itemValue="08h" />
+									<f:selectItem itemLabel="09h" itemValue="09h" />
+									<f:selectItem itemLabel="10h" itemValue="10h" />
+									<f:selectItem itemLabel="11h" itemValue="11h" />
+									<f:selectItem itemLabel="12h" itemValue="12h" />
+									<f:selectItem itemLabel="13h" itemValue="13h" />
+									<f:selectItem itemLabel="14h" itemValue="14h" />
+									<f:selectItem itemLabel="15h" itemValue="15h" />
+									<f:selectItem itemLabel="16h" itemValue="16h" />
+									<f:selectItem itemLabel="17h" itemValue="17h" />
+									<f:selectItem itemLabel="18h" itemValue="18h" />
+									<f:selectItem itemLabel="19h" itemValue="19h" />
+									<f:selectItem itemLabel="20h" itemValue="20h" />
+									<f:selectItem itemLabel="21h" itemValue="21h" />
+									<f:selectItem itemLabel="22h" itemValue="22h" />
+									<f:selectItem itemLabel="23h" itemValue="23h" />
+								</p:selectOneMenu>
+							</div>
+
+							<p:commandButton value="Salvar" id="botaoSalvar" styleClass="p-3"
+								icon="pi pi-check" action="#{assistenteSocialBean.salvar}"
+								ajax="false" process="@form"
+								update=":formTabelaAssistentesSociais:tabelaAssistentesSociais"
 								rendered="#{assistenteSocialBean.exibirBotaoSalvar(assistenteSocial)}" />
 
 							<p:commandButton value="Alterar" id="botaoAlterar"
-								icon="fa fa-fw fa-edit" action="#{assistenteSocialBean.alterar}"
+								icon="pi pi-pencil" action="#{assistenteSocialBean.alterar}"
 								style="margin-right:20px;" ajax="false" process="@form"
 								update="@form :formTabelaAssistentesSociais:tabelaAssistentesSociais"
 								rendered="#{assistenteSocialBean.exibirBotaoAlterar(assistenteSocial)}" />
 
-							<p:commandButton value="Limpar"
-								action="#{assistenteSocialBean.limpar}" immediate="true"
-								ajax="false" style="margin-right:20px;">
-								<p:resetInput target="panelGridCadastro" />
+							<p:commandButton value="Cancelar"
+								action="#{assistenteSocialBean.limpar}" icon="pi pi-times"
+								styleClass="ui-button-secondary" immediate="true" ajax="false"
+								style="margin-right:20px;">
+								<p:resetInput target="cardCadastro" />
 							</p:commandButton>
-						</h:panelGrid>
-					</div>
-				</p:fieldset>
-			</div>
-		</h:form>
 
-		<!-- TABELA DE ASSISTENTES SOCIAIS CADASTRADOS -->
-
-		<h:form id="formTabelaAssistentesSociais">
-			
-			<p:dataTable value="#{assistenteSocialBean.assistentesSociais}"
-				var="assistenteSocial" emptyMessage="Nenhum registro encontrado"
-				id="tabelaAssistentesSociais" paginator="true" rows="5" lazy="true"
-				style="text-align:center;">
-
-				<p:column headerText="Nome">
-					<h:outputText value="#{assistenteSocial.nome}" style="text-transform: uppercase;"/>
-				</p:column>
-
-				<p:column headerText="CRESS" style="width: 100px">
-					<h:outputText value="#{assistenteSocial.cress}" />
-				</p:column>
-
-				<p:column headerText="Atendimento">
-					<h:outputText value="#{assistenteSocial.horaInicio}" />
-					às <h:outputText value="#{assistenteSocial.horaFim}" />
-				</p:column>
-
-				<p:column headerText="Ações" style="width: 80px">
-						<p:commandButton update=":formAssistenteSocial"
-							icon="fa fa-fw fa-edit" title="Alterar" render="messages">
-							<f:setPropertyActionListener value="#{assistenteSocial}"
-								target="#{assistenteSocialBean.assistenteSocial}" />
-						</p:commandButton>
-
-						<p:commandButton icon="fa fa-fw fa-trash"
-							action="#{assistenteSocialBean.remover(assistenteSocial)}"
-							title="Excluir" update="@form :formTabelaAssistentesSociais"
-							render="messages" />
-				</p:column>
-			</p:dataTable>
-		</h:form>
+						</div>
+					</p:card>
+				</h:form>
+			</p:dialog>
+		</p:fieldset>
 	</ui:define>
 </ui:composition>
 </html>

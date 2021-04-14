@@ -14,17 +14,67 @@
 
 	<ui:define name="conteudo">
 
-		<!-- FORMULÁRIO DE CADASTRO DOS MÉDICOS-->
+		<p:fieldset>
+			<div align="center">
+				<h2 style="margin-bottom: 5px; margin-top: 5px;">Médicos</h2>
+				<p:divider />
+			</div>
 
-		<p:commandButton value="Novo" type="button" icon="pi pi-plus"
-			onclick="PF('dialogMedico').show()" />
+			<p:commandButton value="Novo" type="button" icon="pi pi-plus"
+				onclick="PF('dialogMedico').show()" style="margin-bottom: 5px;" />
 
-		<p:dialog header="Médico" widgetVar="dialogMedico" minHeight="50"
-			width="500" showEffect="fade" modal="true">
-			<h:form id="formMedico">
-				
-				<p:card id="cardCadastro">
-					<div class="ui-fluid">
+			<!-- TABELA DE MÉDICOS CADASTRADOS -->
+
+			<h:form id="formTabelaMedicos">
+
+				<p:dataTable value="#{medicoBean.medicos}" var="medico"
+					emptyMessage="Nenhum registro encontrado" id="tabelaMedicos"
+					paginator="true" rows="5" lazy="true">
+
+					<p:column headerText="Nome" style="width:500px;">
+						<h:outputText value="#{medico.nome}"
+							style="text-transform: uppercase;" />
+					</p:column>
+
+					<p:column headerText="CRM" style="width:100px;">
+						<h:outputText value="#{medico.crm}" />
+					</p:column>
+
+					<p:column headerText="Especialidade">
+						<h:outputText value="#{medico.especialidade.descricao}" />
+					</p:column>
+
+					<p:column headerText="Atendimento">
+						<h:outputText value="#{medico.horaInicio}" />
+					às <h:outputText value="#{medico.horaFim}" />
+					</p:column>
+
+					<p:column headerText="Ações" style="width:100px;">
+						<p:commandButton update=":formMedico" icon="pi pi-pencil"
+							styleClass="rounded-button ui-button-info ui-button-outlined"
+							title="Alterar" onclick="PF('dialogMedico').show()"
+							render=":formMedico:botaoAlterar">
+							<f:setPropertyActionListener value="#{medico}"
+								target="#{medicoBean.medico}" />
+						</p:commandButton>
+
+						<p:commandButton icon="pi pi-trash"
+							styleClass="rounded-button ui-button-danger ui-button-outlined"
+							action="#{medicoBean.remover(medico)}" title="Excluir"
+							update="@form :formTabelaMedicos" render="messages" />
+					</p:column>
+
+				</p:dataTable>
+			</h:form>
+
+			<!-- DIÁLOGO COM O FORMULÁRIO DE CADASTRO DOS MÉDICOS-->
+
+			<p:dialog header="Médico" widgetVar="dialogMedico" minHeight="50"
+				width="500" showEffect="fade" modal="true" closable="false">
+				<h:form id="formMedico">
+
+					<p:card id="cardCadastro">
+						<div class="ui-fluid">
 							<div class="p-field">
 								<p:outputLabel for="nome" styleClass="p-d-block">Nome</p:outputLabel>
 								<p:inputText id="nome" type="text"
@@ -127,56 +177,13 @@
 								immediate="true" ajax="false" style="margin-right:20px;">
 								<p:resetInput target="cardCadastro" />
 							</p:commandButton>
-						
-					</div>
 
-				</p:card>
-			</h:form>
-		</p:dialog>
+						</div>
 
-		<!-- TABELA DE MÉDICOS CADASTRADOS -->
-
-		<h:form id="formTabelaMedicos">
-
-			<p:dataTable value="#{medicoBean.medicos}" var="medico"
-				emptyMessage="Nenhum registro encontrado" id="tabelaMedicos"
-				paginator="true" rows="5" lazy="true" style="text-align:center;">
-
-				<p:column headerText="Nome">
-					<h:outputText value="#{medico.nome}"
-						style="text-transform: uppercase;" />
-				</p:column>
-
-				<p:column headerText="CRM">
-					<h:outputText value="#{medico.crm}" />
-				</p:column>
-
-				<p:column headerText="Especialidade">
-					<h:outputText value="#{medico.especialidade.descricao}" />
-				</p:column>
-
-				<p:column headerText="Atendimento">
-					<h:outputText value="#{medico.horaInicio}" />
-					às <h:outputText value="#{medico.horaFim}" />
-				</p:column>
-
-				<p:column headerText="Ações">
-					<p:commandButton update=":formMedico" icon="pi pi-pencil"
-						styleClass="rounded-button ui-button-info ui-button-outlined"
-						title="Alterar" onclick="PF('dialogMedico').show()"
-						render=":formMedico:botaoAlterar">
-						<f:setPropertyActionListener value="#{medico}"
-							target="#{medicoBean.medico}" />
-					</p:commandButton>
-
-					<p:commandButton icon="pi pi-trash"
-						styleClass="rounded-button ui-button-danger ui-button-outlined"
-						action="#{medicoBean.remover(medico)}" title="Excluir"
-						update="@form :formTabelaMedicos" render="messages" />
-				</p:column>
-
-			</p:dataTable>
-		</h:form>
+					</p:card>
+				</h:form>
+			</p:dialog>
+		</p:fieldset>
 	</ui:define>
 </ui:composition>
 </html>

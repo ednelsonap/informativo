@@ -168,9 +168,9 @@ public class PlantaoPsBean implements Serializable {
 		return "assistentesocial?faces-redirect=true";
 	}
 
-	public void limpar() {
+	public void cancelar() {
 		this.plantao = new Plantao();
-		PrimeFaces.current().resetInputs("formPlantao:panelGridPlantao");
+		PrimeFaces.current().resetInputs("formPlantao:cardMedico");
 	}
 
 	public void carregar(Plantao plantao) {

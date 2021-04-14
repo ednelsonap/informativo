@@ -193,9 +193,50 @@ public class PlantaoBean implements Serializable {
 		
 	}
 
+	@Transactional
+	public void alterar() {
+
+		try {
+			plantaoDao.atualiza(this.plantao);
+			context.addMessage(null, new FacesMessage("Alterado com sucesso!"));
+					
+		} catch (PersistenceException e) {
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+					"Não foi possível alterar", null));
+		}
+		this.plantao = new Plantao();
+	}
+
+	@Transactional
+	public void remover(Plantao plantao) {
+		try {
+			plantaoDao.remove(plantao);
+			context.addMessage(null, new FacesMessage("Plantão removido!"));
+		} catch (PersistenceException ex) {
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+					"Não foi possível remover este plantão, pois há médicos e/ou assistentes sociais vinculados", null));
+		}
+	}
+	
+	public boolean exibirBotaoSalvar(Plantao plantao) {
+		if (this.plantao.getId() == null) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean exibirBotaoAlterar(Plantao plantao) {
+		if (this.plantao.getId() != null) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	public void limpar() {
 		this.plantao = new Plantao();
-		PrimeFaces.current().resetInputs("formPlantao:panelGridPlantao");
+		PrimeFaces.current().resetInputs("formPlantao:cardCadastro");
 	}
 
 	public void carregar(Plantao plantao) {

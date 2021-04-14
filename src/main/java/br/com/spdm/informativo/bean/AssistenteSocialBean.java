@@ -90,7 +90,7 @@ public class AssistenteSocialBean implements Serializable {
 	
 	public void limpar() {
 		this.assistenteSocial = new AssistenteSocial();
-		PrimeFaces.current().resetInputs("formAssistenteSocial:panelGridCadastro");
+		PrimeFaces.current().resetInputs("formAssistenteSocial:cardCadastro");
 	}
 
 	@Transactional
