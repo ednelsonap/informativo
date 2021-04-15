@@ -4,7 +4,5 @@ public enum Unidade {
 
 	PS,
 	UPA,
-	HMID,
-	NEFRO;
 	
 }

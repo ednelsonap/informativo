@@ -53,11 +53,17 @@ public class PlantaoDao implements Serializable{
 		return em.createQuery(jpql, Plantao.class).getSingleResult();
 	}
 	
-	public List<Plantao> listarPlantaoPs() {
+	public List<Plantao> listarMedicosPlantaoPs() {
 		String jpql = "select distinct(p) from Plantao p "
 				+ " join fetch p.medicos where p.unidade='PS'";
 		
 		return em.createQuery(jpql, Plantao.class).getResultList();
 	}
 
+	public List<Plantao> listarAssistentesSociaisPlantaoPs() {
+		String jpql = "select distinct(p) from Plantao p "
+				+ " join fetch p.assistentesSociais where p.unidade='PS'";
+		
+		return em.createQuery(jpql, Plantao.class).getResultList();
+	}
 }

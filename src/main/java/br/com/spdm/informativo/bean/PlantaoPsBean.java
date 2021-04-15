@@ -35,20 +35,24 @@ public class PlantaoPsBean implements Serializable {
 	private MedicoDao medicoDao;
 	@Inject
 	private AssistenteSocialDao assistenteSocialDao;
-	
+
 	private Integer medicoId;
 	private Integer assistenteSocialId;
 	private Plantao plantao = new Plantao();
+	private Medico medico = new Medico();
+	private AssistenteSocial assistenteSocial = new AssistenteSocial();
 	
+	//lista os médicos do selectOneMenu da tela de vínculo
 	public List<Medico> getMedicos() {
 		return this.medicoDao.listaTodos();
 	}
-
+	
+	//lista os médicos do selectOneMenu da tela de vínculo
 	public List<AssistenteSocial> getAssistentesSociais() {
 		return this.assistenteSocialDao.listaTodos();
 	}
 
-	public void gravarMedico() {
+	/*public void gravarMedico() {
 		Medico medico = this.medicoDao.buscaPorId(this.medicoId);
 		this.plantao.adicionaMedico(medico);
 		System.out.println("Gravando médico " + medico.getNome() + " no plantão.");
@@ -58,63 +62,72 @@ public class PlantaoPsBean implements Serializable {
 		AssistenteSocial assistenteSocial = this.assistenteSocialDao.buscaPorId(this.assistenteSocialId);
 		this.plantao.adicionaAssistenteSocial(assistenteSocial);
 		System.out.println("Gravando Assistente Social " + assistenteSocial.getNome() + " no plantão.");
-	}
+	}*/
 
 	@Transactional
-	public void adicionarMedicoNoPlantao() {
-		
-		Medico medico = this.medicoDao.buscaPorId(this.medicoId);
-		
+	public void vincularMedicoAoPlantao() {
+
+		this.medico = this.medicoDao.buscaPorId(this.medicoId);
+
 		try {
 			this.plantao = this.plantaoDao.buscaPlantaoPs();
 		} catch (PersistenceException e) {
 			e.getMessage();
 		}
-		
-		if (this.plantao.getId() == null){	
+
+		if (this.plantao.getId() == null) {
 			context.addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_WARN, 
-							"Não foi encontrado um plantão da unidade PS!", null));
-		
+					new FacesMessage(FacesMessage.SEVERITY_WARN, "Não foi encontrado um plantão da unidade PS!", null));
+
 		} else if (this.plantao.getMedicos().contains(medico)) {
-			System.out.println("Este médico já está no plantão");
 			context.addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_WARN, "Médico já adicionado ao plantão!", null));
-			
+					new FacesMessage(FacesMessage.SEVERITY_WARN, "Médico já vinculado ao plantão!", null));
+
 		} else {
 			this.plantao.adicionaMedico(medico);
 			this.plantaoDao.atualiza(this.plantao);
-			context.addMessage(null, new FacesMessage("Adicionado com sucesso!"));
+			context.addMessage(null, new FacesMessage("Vinculado com sucesso!"));
 		}
 	}
 
 	@Transactional
-	public void adicionarAssistenteSocialNoPlantao() {
-		AssistenteSocial assistenteSocial = this.assistenteSocialDao.buscaPorId(this.assistenteSocialId);
-		Plantao plantao = this.plantaoDao.buscaPlantaoPs();
+	public void vincularAssistenteSocialAoPlantao() {
 
-		if (!plantao.getAssistentesSociais().contains(assistenteSocial)) {
-			plantao.adicionaAssistenteSocial(assistenteSocial);
-			this.plantaoDao.adiciona(plantao);
-			context.addMessage(null, new FacesMessage("Adicionado com sucesso!"));
-		} else {
+		this.assistenteSocial = this.assistenteSocialDao.buscaPorId(this.assistenteSocialId);
+
+		try {
+			this.plantao = this.plantaoDao.buscaPlantaoPs();
+		} catch (PersistenceException e) {
+			e.getMessage();
+		}
+
+		if (this.plantao.getId() == null) {
 			context.addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_WARN, "Assistente Social já adicionado ao plantão!", null));
+					new FacesMessage(FacesMessage.SEVERITY_WARN, "Não foi encontrado um plantão da unidade PS!", null));
+
+		} else if (this.plantao.getAssistentesSociais().contains(this.assistenteSocial)) {
+			context.addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_WARN, "Assistente Social já vinculado ao plantão!", null));
+
+		} else {
+			this.plantao.adicionaAssistenteSocial(this.assistenteSocial);
+			this.plantaoDao.atualiza(this.plantao);
+			context.addMessage(null, new FacesMessage("Vinculado com sucesso!"));
 		}
 	}
 
 	@Transactional
 	public void removerMedicoDoPlantao(Medico medico) {
-		Plantao plantaoPrincipal = this.plantaoDao.buscaPlantaoPs();
-		plantaoPrincipal.removeMedico(medico);
-		this.plantaoDao.atualiza(plantaoPrincipal);
+		this.plantao = plantaoDao.buscaPlantaoPs();
+		this.plantao.removeMedico(medico);
+		plantaoDao.atualiza(this.plantao);
 	}
 
 	@Transactional
 	public void removerAssistenteSocialDoPlantao(AssistenteSocial assistenteSocial) {
-		Plantao plantaoPrincipal = this.plantaoDao.buscaPlantaoPs();
-		plantaoPrincipal.removeAssistenteSocial(assistenteSocial);
-		this.plantaoDao.atualiza(plantaoPrincipal);
+		this.plantao = plantaoDao.buscaPlantaoPs();
+		this.plantao.removeAssistenteSocial(assistenteSocial);
+		plantaoDao.atualiza(this.plantao);
 	}
 
 	public List<Medico> getMedicosDoPlantao() {
@@ -125,57 +138,56 @@ public class PlantaoPsBean implements Serializable {
 		return this.plantao.getAssistentesSociais();
 	}
 
-	public List<Medico> getMedicosPlantaoPrincipal() {
+	//lista de médicos vinculados ao plantao do ps
+	public List<Medico> getMedicosPlantaoPs() {
 
-		List<Medico> medicosPlantao = new ArrayList<>();
-		List<Plantao> listPlantao = plantaoDao.listarPlantaoPs();
+		List<Medico> medicosPlantaoPs = new ArrayList<>();
+		List<Plantao> listaPlantao = plantaoDao.listarMedicosPlantaoPs();
 
-		for (Plantao plantao : listPlantao) {
+		for (Plantao plantao : listaPlantao) {
 
 			for (Medico medico : plantao.getMedicos()) {
-				medicosPlantao.add(medico);
+				medicosPlantaoPs.add(medico);
 			}
 		}
-		return medicosPlantao;
+		return medicosPlantaoPs;
 	}
+	
+	public List<AssistenteSocial> getAssistentesSociaisPlantaoPs() {
 
-	public List<AssistenteSocial> getAssistentesSociaisPlantaoPrincipal() {
+		List<AssistenteSocial> assistentesSociaisPlantaoPs = new ArrayList<>();
+		List<Plantao> listaPlantao = plantaoDao.listarAssistentesSociaisPlantaoPs();
 
-		List<AssistenteSocial> assistentesSociaisPlantao = new ArrayList<>();
-		List<Plantao> listPlantao = plantaoDao.listarPlantaoPs();
-
-		for (Plantao plantao : listPlantao) {
+		for (Plantao plantao : listaPlantao) {
 
 			for (AssistenteSocial assistenteSocial : plantao.getAssistentesSociais()) {
-				assistentesSociaisPlantao.add(assistenteSocial);
+				assistentesSociaisPlantaoPs.add(assistenteSocial);
 			}
 		}
-		return assistentesSociaisPlantao;
+		return assistentesSociaisPlantaoPs;
 	}
 
 	public Plantao getPlantaoPrincipal() {
-		Plantao plantaoPrincipal = plantaoDao.buscaPlantaoPs();
-		return plantaoPrincipal;
+		try {
+			Plantao plantaoPrincipal = plantaoDao.buscaPlantaoPs();
+			return plantaoPrincipal;
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
-	public String formMedico() {
-		System.out.println("Chamanda do formulário do Médico.");
-		return "medico?faces-redirect=true";
-	}
-
-	public String formAssistenteSocial() {
-		System.out.println("Chamanda do formulário do Assistente Social.");
-		return "assistentesocial?faces-redirect=true";
-	}
-
-	public void cancelar() {
+	public void limparMedico() {
 		this.plantao = new Plantao();
-		PrimeFaces.current().resetInputs("formPlantao:cardMedico");
+		this.medico = new Medico();
+		this.medicoId = null;
+		PrimeFaces.current().resetInputs("formVinculoMedico:selectMedico");
 	}
-
-	public void carregar(Plantao plantao) {
-		System.out.println("Carregando plantao");
-		this.plantao = this.plantaoDao.buscaPorId(plantao.getId());
+	
+	public void limparAssistenteSocial() {
+		this.plantao = new Plantao();
+		this.assistenteSocial = new AssistenteSocial();
+		this.assistenteSocialId = null;
+		PrimeFaces.current().resetInputs("formVinculoAssistenteSocial:selectAssistenteSocial");
 	}
 
 	// getters and setters

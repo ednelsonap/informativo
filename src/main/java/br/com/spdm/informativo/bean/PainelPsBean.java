@@ -1,6 +1,8 @@
 package br.com.spdm.informativo.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ConversationScoped;
@@ -9,6 +11,8 @@ import javax.inject.Named;
 import javax.persistence.PersistenceException;
 
 import br.com.spdm.informativo.dao.PlantaoDao;
+import br.com.spdm.informativo.model.AssistenteSocial;
+import br.com.spdm.informativo.model.Medico;
 import br.com.spdm.informativo.model.Plantao;
 
 @Named
@@ -31,6 +35,34 @@ public class PainelPsBean implements Serializable{
 		}
 	}
 
+	public List<Medico> getMedicosPlantaoPrincipal() {
+
+		List<Medico> medicosPlantao = new ArrayList<>();
+		List<Plantao> listPlantao = plantaoDao.listarMedicosPlantaoPs();
+
+		for (Plantao plantao : listPlantao) {
+
+			for (Medico medico : plantao.getMedicos()) {
+				medicosPlantao.add(medico);
+			}
+		}
+		return medicosPlantao;
+	}
+
+	public List<AssistenteSocial> getAssistentesSociaisPlantaoPrincipal() {
+
+		List<AssistenteSocial> assistentesSociaisPlantao = new ArrayList<>();
+		List<Plantao> listPlantao = plantaoDao.listarAssistentesSociaisPlantaoPs();
+
+		for (Plantao plantao : listPlantao) {
+
+			for (AssistenteSocial assistenteSocial : plantao.getAssistentesSociais()) {
+				assistentesSociaisPlantao.add(assistenteSocial);
+			}
+		}
+		return assistentesSociaisPlantao;
+	}
+	
 	public Plantao getPlantao() {
 		return plantao;
 	}

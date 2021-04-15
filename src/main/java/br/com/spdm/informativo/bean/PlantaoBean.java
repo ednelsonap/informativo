@@ -127,7 +127,7 @@ public class PlantaoBean implements Serializable {
 	public List<Medico> getMedicosPlantaoPrincipal() {
 
 		List<Medico> medicosPlantao = new ArrayList<>();
-		List<Plantao> listPlantao = plantaoDao.listarPlantaoPs();
+		List<Plantao> listPlantao = plantaoDao.listarMedicosPlantaoPs();
 
 		for (Plantao plantao : listPlantao) {
 
@@ -141,7 +141,7 @@ public class PlantaoBean implements Serializable {
 	public List<AssistenteSocial> getAssistentesSociaisPlantaoPrincipal() {
 
 		List<AssistenteSocial> assistentesSociaisPlantao = new ArrayList<>();
-		List<Plantao> listPlantao = plantaoDao.listarPlantaoPs();
+		List<Plantao> listPlantao = plantaoDao.listarAssistentesSociaisPlantaoPs();
 
 		for (Plantao plantao : listPlantao) {
 
@@ -185,7 +185,7 @@ public class PlantaoBean implements Serializable {
 			
 			context.addMessage(null, new
 			FacesMessage(FacesMessage.SEVERITY_WARN,
-			"Não foi possível alterar este cadastro!", null));
+			"Não foi possível salvar este cadastro!", null));
 			 
 		}
 		
