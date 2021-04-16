@@ -51,14 +51,14 @@
 							styleClass="rounded-button ui-button-info ui-button-outlined"
 							title="Alterar" onclick="PF('dialogAssistenteSocial').show()"
 							render=":formAssistenteSocial:botaoAlterar">
-							<f:setPropertyActionListener value="#{medico}"
+							<f:setPropertyActionListener value="#{assistenteSocial}"
 								target="#{assistenteSocialBean.assistenteSocial}" />
 						</p:commandButton>
 
 						<p:commandButton icon="pi pi-trash"
 							styleClass="rounded-button ui-button-danger ui-button-outlined"
 							action="#{assistenteSocialBean.remover(assistenteSocial)}"
-							title="Excluir" update="@form :formTabelaAssistentesSociais"
+							title="Excluir" update="@form :formTabelaAssistentesSociais" ajax="false"
 							render="messages" />
 					</p:column>
 				</p:dataTable>
@@ -68,109 +68,108 @@
 
 			<p:dialog header="AssistenteSocial"
 				widgetVar="dialogAssistenteSocial" minHeight="50" width="500"
-				showEffect="fade" modal="true" closable="false">
+				showEffect="fade" modal="true" closable="false" visible="#{facesContext.validationFailed}">
 				<h:form id="formAssistenteSocial">
-					<p:card id="cardCadastro">
-						<div class="ui-fluid">
-							<div class="p-field">
-								<p:outputLabel for="nome" styleClass="p-d-block">Nome</p:outputLabel>
-								<p:inputText id="nome" type="text"
-									value="#{assistenteSocialBean.assistenteSocial.nome}"
-									maxlength="100" required="true" styleClass="p-d-block" />
-							</div>
-							<div class="p-field">
-								<p:outputLabel for="cress" styleClass="p-d-block">CRESS</p:outputLabel>
-								<p:inputText id="cress" type="text"
-									value="#{assistenteSocialBean.assistenteSocial.cress}"
-									maxlength="8" required="true" styleClass="p-d-block" />
-							</div>
-							<div class="p-field">
-								<p:outputLabel for="horaInicio" styleClass="p-d-block">Início do Atendimento</p:outputLabel>
-								<p:selectOneMenu id="horaInicio"
-									value="#{assistenteSocialBean.assistenteSocial.horaInicio}"
-									required="true">
-									<f:selectItem itemLabel="Selecione" itemValue="" />
-									<f:selectItem itemLabel="00h" itemValue="00h" />
-									<f:selectItem itemLabel="01h" itemValue="01h" />
-									<f:selectItem itemLabel="02h" itemValue="02h" />
-									<f:selectItem itemLabel="03h" itemValue="03h" />
-									<f:selectItem itemLabel="04h" itemValue="04h" />
-									<f:selectItem itemLabel="05h" itemValue="05h" />
-									<f:selectItem itemLabel="06h" itemValue="06h" />
-									<f:selectItem itemLabel="07h" itemValue="07h" />
-									<f:selectItem itemLabel="08h" itemValue="08h" />
-									<f:selectItem itemLabel="09h" itemValue="09h" />
-									<f:selectItem itemLabel="10h" itemValue="10h" />
-									<f:selectItem itemLabel="11h" itemValue="11h" />
-									<f:selectItem itemLabel="12h" itemValue="12h" />
-									<f:selectItem itemLabel="13h" itemValue="13h" />
-									<f:selectItem itemLabel="14h" itemValue="14h" />
-									<f:selectItem itemLabel="15h" itemValue="15h" />
-									<f:selectItem itemLabel="16h" itemValue="16h" />
-									<f:selectItem itemLabel="17h" itemValue="17h" />
-									<f:selectItem itemLabel="18h" itemValue="18h" />
-									<f:selectItem itemLabel="19h" itemValue="19h" />
-									<f:selectItem itemLabel="20h" itemValue="20h" />
-									<f:selectItem itemLabel="21h" itemValue="21h" />
-									<f:selectItem itemLabel="22h" itemValue="22h" />
-									<f:selectItem itemLabel="23h" itemValue="23h" />
-								</p:selectOneMenu>
+					<div class="card">
+						<p:panelGrid id="panelGridCadastro" columns="4" layout="flex"
+							columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4"
+							contentStyleClass="ui-fluid" style="margin-top: 0px;">
 
-							</div>
-							<div class="p-field">
-								<p:outputLabel for="horaFim" styleClass="p-d-block">Fim do Atendimento</p:outputLabel>
-								<p:selectOneMenu id="horaFim"
-									value="#{assistenteSocialBean.assistenteSocial.horaFim}"
-									required="true">
-									<f:selectItem itemLabel="Selecione" itemValue="" />
-									<f:selectItem itemLabel="00h" itemValue="00h" />
-									<f:selectItem itemLabel="01h" itemValue="01h" />
-									<f:selectItem itemLabel="02h" itemValue="02h" />
-									<f:selectItem itemLabel="03h" itemValue="03h" />
-									<f:selectItem itemLabel="04h" itemValue="04h" />
-									<f:selectItem itemLabel="05h" itemValue="05h" />
-									<f:selectItem itemLabel="06h" itemValue="06h" />
-									<f:selectItem itemLabel="07h" itemValue="07h" />
-									<f:selectItem itemLabel="08h" itemValue="08h" />
-									<f:selectItem itemLabel="09h" itemValue="09h" />
-									<f:selectItem itemLabel="10h" itemValue="10h" />
-									<f:selectItem itemLabel="11h" itemValue="11h" />
-									<f:selectItem itemLabel="12h" itemValue="12h" />
-									<f:selectItem itemLabel="13h" itemValue="13h" />
-									<f:selectItem itemLabel="14h" itemValue="14h" />
-									<f:selectItem itemLabel="15h" itemValue="15h" />
-									<f:selectItem itemLabel="16h" itemValue="16h" />
-									<f:selectItem itemLabel="17h" itemValue="17h" />
-									<f:selectItem itemLabel="18h" itemValue="18h" />
-									<f:selectItem itemLabel="19h" itemValue="19h" />
-									<f:selectItem itemLabel="20h" itemValue="20h" />
-									<f:selectItem itemLabel="21h" itemValue="21h" />
-									<f:selectItem itemLabel="22h" itemValue="22h" />
-									<f:selectItem itemLabel="23h" itemValue="23h" />
-								</p:selectOneMenu>
-							</div>
+							<p:outputLabel for="nome" value="Nome:" />
+							<p:inputText id="nome" type="text"
+								value="#{assistenteSocialBean.assistenteSocial.nome}" maxlength="100"
+								required="true" requiredMessage="Nome é necessário" />
 
-							<p:commandButton value="Salvar" id="botaoSalvar" styleClass="p-3"
-								icon="pi pi-check" action="#{assistenteSocialBean.salvar}"
-								ajax="false" process="@form"
-								update=":formTabelaAssistentesSociais:tabelaAssistentesSociais"
-								rendered="#{assistenteSocialBean.exibirBotaoSalvar(assistenteSocial)}" />
+							<p:outputLabel for="cress" value="CRESS:" />
+							<p:inputText id="cress" type="text"
+								value="#{assistenteSocialBean.assistenteSocial.cress}" maxlength="8" 
+								required="true" requiredMessage="CRESS é necessário"/>
 
-							<p:commandButton value="Alterar" id="botaoAlterar"
-								icon="pi pi-pencil" action="#{assistenteSocialBean.alterar}"
-								style="margin-right:20px;" ajax="false" process="@form"
-								update="@form :formTabelaAssistentesSociais:tabelaAssistentesSociais"
-								rendered="#{assistenteSocialBean.exibirBotaoAlterar(assistenteSocial)}" />
+							<p:outputLabel for="horaInicio" value="Início do Atendimento" />
+							<p:selectOneMenu id="horaInicio"
+								value="#{assistenteSocialBean.assistenteSocial.horaInicio}" 
+								required="true" requiredMessage="Início do Atendimento é necessário" > 
+								<f:selectItem itemLabel="Selecione" itemValue="" />
+								<f:selectItem itemLabel="00h" itemValue="00h" />
+								<f:selectItem itemLabel="01h" itemValue="01h" />
+								<f:selectItem itemLabel="02h" itemValue="02h" />
+								<f:selectItem itemLabel="03h" itemValue="03h" />
+								<f:selectItem itemLabel="04h" itemValue="04h" />
+								<f:selectItem itemLabel="05h" itemValue="05h" />
+								<f:selectItem itemLabel="06h" itemValue="06h" />
+								<f:selectItem itemLabel="07h" itemValue="07h" />
+								<f:selectItem itemLabel="08h" itemValue="08h" />
+								<f:selectItem itemLabel="09h" itemValue="09h" />
+								<f:selectItem itemLabel="10h" itemValue="10h" />
+								<f:selectItem itemLabel="11h" itemValue="11h" />
+								<f:selectItem itemLabel="12h" itemValue="12h" />
+								<f:selectItem itemLabel="13h" itemValue="13h" />
+								<f:selectItem itemLabel="14h" itemValue="14h" />
+								<f:selectItem itemLabel="15h" itemValue="15h" />
+								<f:selectItem itemLabel="16h" itemValue="16h" />
+								<f:selectItem itemLabel="17h" itemValue="17h" />
+								<f:selectItem itemLabel="18h" itemValue="18h" />
+								<f:selectItem itemLabel="19h" itemValue="19h" />
+								<f:selectItem itemLabel="20h" itemValue="20h" />
+								<f:selectItem itemLabel="21h" itemValue="21h" />
+								<f:selectItem itemLabel="22h" itemValue="22h" />
+								<f:selectItem itemLabel="23h" itemValue="23h" />
+							</p:selectOneMenu>
 
-							<p:commandButton value="Cancelar"
-								action="#{assistenteSocialBean.limpar}" icon="pi pi-times"
-								styleClass="ui-button-secondary" immediate="true" ajax="false"
-								style="margin-right:20px;">
-								<p:resetInput target="cardCadastro" />
-							</p:commandButton>
+							<p:outputLabel for="horaFim" value="Fim do Atendimento" />
+							<p:selectOneMenu id="horaFim"
+								value="#{assistenteSocialBean.assistenteSocial.horaFim}" 
+								required="true" requiredMessage="Fim do Atendimento é necessário">
+								<f:selectItem itemLabel="Selecione" itemValue="" />
+								<f:selectItem itemLabel="00h" itemValue="00h" />
+								<f:selectItem itemLabel="01h" itemValue="01h" />
+								<f:selectItem itemLabel="02h" itemValue="02h" />
+								<f:selectItem itemLabel="03h" itemValue="03h" />
+								<f:selectItem itemLabel="04h" itemValue="04h" />
+								<f:selectItem itemLabel="05h" itemValue="05h" />
+								<f:selectItem itemLabel="06h" itemValue="06h" />
+								<f:selectItem itemLabel="07h" itemValue="07h" />
+								<f:selectItem itemLabel="08h" itemValue="08h" />
+								<f:selectItem itemLabel="09h" itemValue="09h" />
+								<f:selectItem itemLabel="10h" itemValue="10h" />
+								<f:selectItem itemLabel="11h" itemValue="11h" />
+								<f:selectItem itemLabel="12h" itemValue="12h" />
+								<f:selectItem itemLabel="13h" itemValue="13h" />
+								<f:selectItem itemLabel="14h" itemValue="14h" />
+								<f:selectItem itemLabel="15h" itemValue="15h" />
+								<f:selectItem itemLabel="16h" itemValue="16h" />
+								<f:selectItem itemLabel="17h" itemValue="17h" />
+								<f:selectItem itemLabel="18h" itemValue="18h" />
+								<f:selectItem itemLabel="19h" itemValue="19h" />
+								<f:selectItem itemLabel="20h" itemValue="20h" />
+								<f:selectItem itemLabel="21h" itemValue="21h" />
+								<f:selectItem itemLabel="22h" itemValue="22h" />
+								<f:selectItem itemLabel="23h" itemValue="23h" />
+							</p:selectOneMenu>
+						</p:panelGrid>
 
+						<div align="center">
+							<h:panelGrid columns="3">
+								<p:commandButton value="Salvar" id="botaoSalvar"
+									styleClass="ui-button-primary" icon="pi pi-check"
+									action="#{assistenteSocialBean.salvar}" ajax="false" process="@form"
+									update="@form :formTabelaAssistenteSocial:tabelaAssistentesSociais"
+									rendered="#{assistenteSocialBean.exibirBotaoSalvar(assistenteSocial)}" />
+
+								<p:commandButton value="Alterar" id="botaoAlterar"
+									styleClass="ui-button-primary" icon="pi pi-pencil"
+									action="#{assistenteSocialBean.alterar}" ajax="false" process="@form"
+									update="@form :formTabelaAssistentesSociais:tabelaAssistentesSociais"
+									rendered="#{assistenteSocialBean.exibirBotaoAlterar(assistenteSocial)}" />
+
+								<p:commandButton value="Cancelar" action="#{assistenteSocialBean.limpar}"
+									icon="pi pi-times" styleClass="ui-button-secondary"
+									immediate="true" ajax="false">
+									<p:resetInput target="panelGridCadastro" />
+								</p:commandButton>
+							</h:panelGrid>
 						</div>
-					</p:card>
+					</div>
 				</h:form>
 			</p:dialog>
 		</p:fieldset>

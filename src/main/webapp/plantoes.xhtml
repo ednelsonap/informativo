@@ -26,30 +26,24 @@
 
 			<!-- TABELA DOS PLANTÕES -->
 
-
 			<h:form id="formTabelaPlantoes">
 
 				<p:dataTable id="tabelaPlantoes" value="#{plantaoBean.listaPlantao}"
 					var="plantao">
 
-					<p:column headerText="Código" style="width: 50px;">
-						<h:outputText value="#{plantao.id}" />
-					</p:column>
-
 					<p:column headerText="Unidade" style="width: 60px;">
 						<h:outputText value="#{plantao.unidade}" />
 					</p:column>
 
-					<p:column headerText="Nome da Unidade" style="width: 250px;">
+					<p:column headerText="Nome da Unidade">
 						<h:outputText value="#{plantao.nomeUnidade}" />
 					</p:column>
 
-					<p:column headerText="Coordenação Administrativa"
-						style="width: 250px;">
+					<p:column headerText="Coordenação Administrativa">
 						<h:outputText value="#{plantao.coordenadorAdministrativo}" />
 					</p:column>
 
-					<p:column headerText="Coordenação Médica" style="width: 250px;">
+					<p:column headerText="Coordenação Médica">
 						<h:outputText value="#{plantao.coordenadorMedico}" />
 					</p:column>
 
@@ -57,7 +51,7 @@
 						<h:outputText value="#{plantao.observacao}" />
 					</p:column>
 
-					<p:column headerText="Ações" style="width:100px;">
+					<p:column headerText="Ações" style="width:80px;">
 						<p:commandButton update=":formPlantao" icon="pi pi-pencil"
 							styleClass="rounded-button ui-button-info ui-button-outlined"
 							title="Alterar" onclick="PF('dialogPlantao').show()"
@@ -68,8 +62,8 @@
 
 						<p:commandButton icon="pi pi-trash"
 							styleClass="rounded-button ui-button-danger ui-button-outlined"
-							action="#{plantaoBean.remover(plantao)}" title="Excluir" 
-							update="@form :formTabelaPlantoes" render="messages" />
+							action="#{plantaoBean.remover(plantao)}" title="Excluir"
+							ajax="false" update="@form :formTabelaPlantoes" render="messages" />
 					</p:column>
 
 				</p:dataTable>
@@ -78,70 +72,71 @@
 			<!-- DIÁLOGO COM O FORMULÁRIO DE CADASTRO DOS PLANTÕES -->
 
 			<p:dialog header="Plantão" widgetVar="dialogPlantao" minHeight="50"
-				width="500" showEffect="fade" modal="true" closable="false">
+				width="1000" showEffect="fade" modal="true" closable="false" draggable="false"
+				visible="#{facesContext.validationFailed}">
+				
 				<h:form id="formPlantao">
+					<p:panelGrid id="panelGridCadastro" columns="4"
+                 columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+                 layout="grid"
+                 styleClass="ui-panelgrid-blank ui-fluid"
+                 style="border:0px none; background-color:transparent;">
 
-					<p:card id="cardCadastro">
-						<div class="ui-fluid">
-							<div class="p-field">
-								<p:outputLabel for="unidade" styleClass="p-d-block">Unidade</p:outputLabel>
-								<p:selectOneMenu id="unidade"
-									value="#{plantaoBean.plantao.unidade}"
-									required="true">
-									<f:selectItem itemLabel="Selecione" itemValue="" />
-									<f:selectItems value="#{plantaoBean.unidades}" var="unidade"
-										itemLabel="#{unidade}" itemValue="#{unidade}" />
-								</p:selectOneMenu>
-							</div>
-							<div class="p-field">
-								<p:outputLabel for="nomeUnidade" styleClass="p-d-block">Nome da Unidade</p:outputLabel>
-								<p:inputText id="nomeUnidade"
-									value="#{plantaoBean.plantao.nomeUnidade}" maxlength="100"
-									size="50" required="true" />
-							</div>
-							<div class="p-field">
-								<p:outputLabel for="coordenadorMedico" styleClass="p-d-block">Coordenador Médico</p:outputLabel>
-								<p:inputText id="coordenadorMedico"
-									value="#{plantaoBean.plantao.coordenadorMedico}" maxlength="50"
-									size="50" required="true" />
-							</div>
-							<div class="p-field">
-								<p:outputLabel for="coordenadorAdministrativo"
-									styleClass="p-d-block">Coordenador Administrativo</p:outputLabel>
-								<p:inputText id="coordenadorAdministrativo"
-									value="#{plantaoBean.plantao.coordenadorAdministrativo}"
-									maxlength="50" size="50" required="true" />
+						<p:outputLabel for="unidade" value="Unidade:" />
+						<p:selectOneMenu id="unidade"
+							value="#{plantaoBean.plantao.unidade}" required="true"
+							requiredMessage="Unidade é necessário">
+							<f:selectItem itemLabel="Selecione" itemValue="" />
+							<f:selectItems value="#{plantaoBean.unidades}" var="unidade"
+								itemLabel="#{unidade}" itemValue="#{unidade}" />
+						</p:selectOneMenu>
 
-							</div>
-							<div class="p-field">
-								<p:outputLabel for="observacao" styleClass="p-d-block">Observação</p:outputLabel>
-								<p:inputTextarea id="observacao" counter="display"
-									value="#{plantaoBean.plantao.observacao}" rows="5" cols="50"
-									maxlength="300" counterTemplate="{0} caracteres restantes." />
+						<p:outputLabel for="nomeUnidade" value="Nome da Unidade: " />
+						<p:inputText id="nomeUnidade"
+							value="#{plantaoBean.plantao.nomeUnidade}" maxlength="100"
+							required="true" requiredMessage="Nome da Unidade é necessário" />
 
-								<h:outputText />
-								<h:outputText id="display" class="p-d-block" style="color:gray;" />
-							</div>
+						<p:outputLabel for="coordenadorMedico" value="Coordenador Médico:" />
+						<p:inputText id="coordenadorMedico"
+							value="#{plantaoBean.plantao.coordenadorMedico}" maxlength="50"
+							required="true" requiredMessage="Coordenador Médico é necessário"/>
 
-							<p:commandButton value="Salvar" id="botaoSalvar" styleClass="p-3"
-								icon="pi pi-check" action="#{plantaoBean.salvar}" ajax="false"
-								process="@form" update=":formTabelaPlantoes:tabelaPlantoes"
+						<p:outputLabel for="coordenadorAdministrativo"
+							value="Coordenador Administrativo:" />
+						<p:inputText id="coordenadorAdministrativo"
+							value="#{plantaoBean.plantao.coordenadorAdministrativo}"
+							maxlength="50" required="true" requiredMessage="Coordenador Administrativo é necessário"/>
+
+						<p:outputLabel for="observacao" value="Observação:" />
+						<p:inputTextarea id="observacao" counter="display"
+							autoResize="false" value="#{plantaoBean.plantao.observacao}"
+							rows="2" maxlength="300"
+							counterTemplate="{0} caracteres restantes." />
+
+						<h:outputText id="display" class="p-d-block" style="color:gray;" />
+					</p:panelGrid>
+
+					<div align="center">
+						<h:panelGrid columns="3">
+							<p:commandButton value="Salvar" id="botaoSalvar"
+								styleClass="ui-button-primary" icon="pi pi-check"
+								action="#{plantaoBean.salvar}" ajax="false" process="@form"
+								update=":formTabelaPlantoes:tabelaPlantoes"
 								rendered="#{plantaoBean.exibirBotaoSalvar(plantao)}" />
 
-							<p:commandButton value="Alterar" id="botaoAlterar" 
-								icon="pi pi-pencil" action="#{plantaoBean.alterar}"
-								ajax="false" process="@form"
+							<p:commandButton value="Alterar" id="botaoAlterar"
+								styleClass="ui-button-primary" icon="pi pi-pencil"
+								action="#{plantaoBean.alterar}" ajax="false" process="@form"
 								update="@form :formTabelaPlantoes:tabelaPlantoes"
-								rendered="#{plantaoBean.exibirBotaoAlterar(plantao)}" /> 
+								rendered="#{plantaoBean.exibirBotaoAlterar(plantao)}" />
 
 							<p:commandButton value="Cancelar" action="#{plantaoBean.limpar}"
 								icon="pi pi-times" styleClass="ui-button-secondary"
-								immediate="true" ajax="false" style="margin-right:20px;">
-								<p:resetInput target="cardCadastro" />
+								immediate="true" ajax="false">
+								<p:resetInput target="panelGridCadastro" />
 							</p:commandButton>
-
-						</div>
-					</p:card>
+						</h:panelGrid>
+					</div>
 				</h:form>
 			</p:dialog>
 		</p:fieldset>

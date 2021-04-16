@@ -7,6 +7,7 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
 import br.com.spdm.informativo.model.Medico;

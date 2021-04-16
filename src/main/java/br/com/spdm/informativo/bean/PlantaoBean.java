@@ -171,26 +171,25 @@ public class PlantaoBean implements Serializable {
 	public void salvar() {
 
 		try {
-			
+
 			if (this.plantao.getId() == null) {
 				plantaoDao.adiciona(this.plantao);
-				
+
 			} else {
 				plantaoDao.atualiza(this.plantao);
 				context.addMessage(null, new FacesMessage("Plantão Atualizado! "));
 			}
-			
+
 		} catch (PersistenceException e) {
 			em.getTransaction().rollback();
-			
-			context.addMessage(null, new
-			FacesMessage(FacesMessage.SEVERITY_WARN,
-			"Não foi possível salvar este cadastro!", null));
-			 
+
+			context.addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_WARN, "Não foi possível salvar este cadastro!", null));
+
 		}
-		
+
 		this.plantao = new Plantao();
-		
+
 	}
 
 	@Transactional
@@ -199,25 +198,27 @@ public class PlantaoBean implements Serializable {
 		try {
 			plantaoDao.atualiza(this.plantao);
 			context.addMessage(null, new FacesMessage("Alterado com sucesso!"));
-					
+
 		} catch (PersistenceException e) {
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-					"Não foi possível alterar", null));
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Não foi possível alterar", null));
 		}
 		this.plantao = new Plantao();
 	}
 
 	@Transactional
 	public void remover(Plantao plantao) {
-		try {
+
+		if ((plantao.getMedicos().isEmpty()) || (plantao.getAssistentesSociais().isEmpty())) {
+			context.addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_WARN,
+							"Não foi possível remover este plantão, pois há médicos e/ou assistentes sociais vinculados",
+							null));
+		} else {
 			plantaoDao.remove(plantao);
 			context.addMessage(null, new FacesMessage("Plantão removido!"));
-		} catch (PersistenceException ex) {
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-					"Não foi possível remover este plantão, pois há médicos e/ou assistentes sociais vinculados", null));
 		}
 	}
-	
+
 	public boolean exibirBotaoSalvar(Plantao plantao) {
 		if (this.plantao.getId() == null) {
 			return true;
@@ -225,7 +226,7 @@ public class PlantaoBean implements Serializable {
 			return false;
 		}
 	}
-	
+
 	public boolean exibirBotaoAlterar(Plantao plantao) {
 		if (this.plantao.getId() != null) {
 			return true;
@@ -233,10 +234,10 @@ public class PlantaoBean implements Serializable {
 			return false;
 		}
 	}
-	
+
 	public void limpar() {
 		this.plantao = new Plantao();
-		PrimeFaces.current().resetInputs("formPlantao:cardCadastro");
+		PrimeFaces.current().resetInputs("formPlantao:panelGridCadastro");
 	}
 
 	public void carregar(Plantao plantao) {

@@ -18,7 +18,8 @@
 
 </h:head>
 
-<h:body>
+<h:body style="background-color: AliceBlue;">
+	
 	<p:growl id="messages" life="5000" />
 
 	<div id="cabecalho"
@@ -43,11 +44,9 @@
 		</div>
 	</div>
 
-	<div id="conteudo" style="background-color: AliceBlue;">
-
-		<div align="right">
+	<div align="right">
 			<h:form id="menu">
-				<p:menuButton value="Menu" icon="fa fa-fw fa-list">
+				<p:menuButton value="Menu" icon="fa fa-fw fa-list" style="margin-bottom: 0px;">
 					<p:menuitem value="Médicos" action="medico?faces-redirect=true" />
 					<p:menuitem value="Assistentes Sociais"
 						action="assistentesocial?faces-redirect=true" />
@@ -64,6 +63,10 @@
 				</p:menuButton>
 			</h:form>
 		</div>
+
+	<div id="conteudo" style="margin-left: 100px; margin-right: 100px;">
+
+		
 		<h1>
 			<ui:insert name="titulo"></ui:insert>
 		</h1>

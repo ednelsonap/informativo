@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
-
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -65,8 +64,9 @@ public class MedicoBean implements Serializable {
 
 		} else {
 			medicoDao.adiciona(this.medico);
-			context.addMessage(null, new FacesMessage("Salvo com sucesso! "));
+			context.addMessage(null, new FacesMessage("Salvo com sucesso! "));			
 		}
+		
 		this.medico = new Medico();
 	}
 
@@ -79,7 +79,7 @@ public class MedicoBean implements Serializable {
 					
 		} catch (PersistenceException e) {
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-					"Não foi possível alterar este cadastro! Verifique se não há duplicidade de nome ou CRM.", null));
+					"Não foi possível alterar", null));
 		}
 		this.medico = new Medico();
 	}
@@ -102,19 +102,20 @@ public class MedicoBean implements Serializable {
 	
 	public void limpar() {
 		this.medico = new Medico();
-		PrimeFaces.current().resetInputs("formMedico:cardCadastro");
+		PrimeFaces.current().resetInputs("formMedico:panelGridCadastro");
 	}
 
 	// método para remover médico do banco
 	@Transactional
 	public void remover(Medico medico) {
 		try {
-			System.out.println("Removendo Médico " + medico.getNome());
+			
 			medicoDao.remove(medico);
 			context.addMessage(null, new FacesMessage("Médico removido! "));
-		} catch (Exception ex) {
+		
+		} catch (PersistenceException ex) {
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-					"Não foi possível remover o médico, pois o mesmo está vinculado a um plantão", null));
+					"Não foi possível remover", null));
 		}
 	}
 	

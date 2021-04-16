@@ -32,9 +32,7 @@
 					style="margin-top:2px; margin-botton:2px;" />
 
 				<h1
-					style="text-align: center; font-family: verdana; font-weight: bold; 
-					color: DarkOliveGreen; font-size: 25px; margin-left: 50px; margin-right: 50px; 
-					margin-top: 12px; margin-botton: 2px; padding: 0; text-transform: uppercase;">
+					style="text-align: center; font-family: verdana; font-weight: bold; color: DarkOliveGreen; font-size: 25px; margin-left: 50px; margin-right: 50px; margin-top: 12px; margin-botton: 2px; padding: 0; text-transform: uppercase;">
 					#{painelPsBean.plantao.nomeUnidade}</h1>
 
 				<h:graphicImage library="img" name="pais.png"
@@ -45,18 +43,22 @@
 		</div>
 	</div>
 
-	<div id="conteudo" style="margin-left: 100px;margin-right: 100px;">
-
-		<div align="right">
+	<div align="right">
 			<h:form id="menu">
-				<p:menuButton value="Menu" icon="fa fa-fw fa-list">
+				<p:menuButton value="Menu" icon="fa fa-fw fa-list"
+					style="margin-bottom: 0px;">
 					<p:menuitem value="Médicos" action="/medico?faces-redirect=true" />
-					<p:menuitem value="Assistentes Sociais" action="/assistentesocial?faces-redirect=true" />
-					<p:menuitem value="Plantao PS" action="/ps/plantao?faces-redirect=true" />
-					<p:menuitem value="Painel PS" action="/ps/painel?faces-redirect=true" />		
+					<p:menuitem value="Assistentes Sociais"
+						action="/assistentesocial?faces-redirect=true" />
+					<p:menuitem value="Plantao PS"
+						action="/ps/plantao?faces-redirect=true" />
+					<p:menuitem value="Painel PS"
+						action="/ps/painel?faces-redirect=true" />
 				</p:menuButton>
 			</h:form>
 		</div>
+
+	<div id="conteudo" style="margin-left: 100px; margin-right: 100px;">
 
 		<h1>
 			<ui:insert name="titulo"></ui:insert>

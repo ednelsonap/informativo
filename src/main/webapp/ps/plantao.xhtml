@@ -13,18 +13,38 @@
 
 	<ui:define name="conteudo">
 
-		<div align="center">
+		<style type="text/css">
+.custom-scrolltop.ui-scrolltop {
+	width: 2rem;
+	height: 2rem;
+	border-radius: 4px;
+	outline: 0 none;
+	background-color: var(- -primary-color);
+}
+
+.custom-scrolltop.ui-scrolltop:hover {
+	background-color: var(- -primary-color);
+}
+
+.custom-scrolltop.ui-scrolltop .ui-scrolltop-icon {
+	font-size: 1rem;
+	color: var(- -primary-color-text);
+}
+</style>
+
+		<!-- <div align="center">
 			<p:linkButton outcome="/ps/painel.xhtml" value="Ver Painel"
 				target="_blank" style="margin-bottom:20px;"
 				styleClass="rounded-button ui-button-success" icon="pi pi-eye"
 				ajax="false" />
-		</div>
+		</div> -->
 
 		<!-- FORMULÁRIO DE VÍNCULO DOS MÉDICOS NO PLANTAO DO PS -->
 
 		<h:panelGrid columns="2">
 			<h:form id="formVinculoMedico">
-				<p:card id="cardMedico" style="margin-right: 15px; margin-bottom: 30px;">
+				<p:card id="cardMedico"
+					style="margin-right: 15px; margin-bottom: 30px;">
 					<f:facet name="title">
         				Vínculo de Médicos
     				</f:facet>
@@ -46,24 +66,27 @@
 					</p:selectOneMenu>
 
 					<f:facet name="footer">
-						<p:commandButton value="Vincular" icon="pi pi-link"
-							action="#{plantaoPsBean.vincularMedicoAoPlantao}"
-							process="@this selectMedico" ajax="false"
-							update="@form :formPlantaoCadastrado:tabelaMedicos" />
+						<h:panelGrid columns="2">
+							<p:commandButton value="Vincular" icon="pi pi-link"
+								action="#{plantaoPsBean.vincularMedicoAoPlantao}"
+								process="@this selectMedico" ajax="false"
+								update="@form :formPlantaoCadastrado:tabelaMedicos" />
 
-						<p:commandButton value="Cancelar"
-							action="#{plantaoPsBean.limparMedico}"
-							update="@form :selectMedico" icon="pi pi-times"
-							styleClass="ui-button-secondary" immediate="true" ajax="false"
-							style="margin-right:20px;">
-							<p:resetInput target="formVinculoMedico" />
-						</p:commandButton>
+							<p:commandButton value="Cancelar"
+								action="#{plantaoPsBean.limparMedico}"
+								update="@form :selectMedico" icon="pi pi-times"
+								styleClass="ui-button-secondary" immediate="true" ajax="false"
+								style="margin-right:20px;">
+								<p:resetInput target="formVinculoMedico" />
+							</p:commandButton>
+						</h:panelGrid>
 					</f:facet>
 				</p:card>
 			</h:form>
 
 			<h:form id="formVinculoAssistenteSocial">
-				<p:card id="cardAssistenteSocial" style="margin-left: 15px; margin-bottom: 30px;">
+				<p:card id="cardAssistenteSocial"
+					style="margin-left: 15px; margin-bottom: 30px;">
 					<f:facet name="title">
         			Vínculo de Assistentes Sociais
     			</f:facet>
@@ -86,17 +109,19 @@
 					</p:selectOneMenu>
 
 					<f:facet name="footer">
-						<p:commandButton value="Vincular" icon="pi pi-link"
-							action="#{plantaoPsBean.vincularAssistenteSocialAoPlantao}"
-							process="@form" ajax="false"
-							update="@form :formPlantaoCadastrado:tabelaAssistentesSociais" />
+						<h:panelGrid columns="2">
+							<p:commandButton value="Vincular" icon="pi pi-link"
+								action="#{plantaoPsBean.vincularAssistenteSocialAoPlantao}"
+								process="@form" ajax="false"
+								update="@form :formPlantaoCadastrado:tabelaAssistentesSociais" />
 
-						<p:commandButton value="Cancelar"
-							action="#{plantaoPsBean.limparAssistenteSocial}"
-							update="@form :selectAssistenteSocial" icon="pi pi-times"
-							styleClass="ui-button-secondary" immediate="true" ajax="false">
-							<p:resetInput target="formVinculoMedico" />
-						</p:commandButton>
+							<p:commandButton value="Cancelar"
+								action="#{plantaoPsBean.limparAssistenteSocial}"
+								update="@form :selectAssistenteSocial" icon="pi pi-times"
+								styleClass="ui-button-secondary" immediate="true" ajax="false">
+								<p:resetInput target="formVinculoMedico" />
+							</p:commandButton>
+						</h:panelGrid>
 					</f:facet>
 				</p:card>
 			</h:form>
@@ -105,11 +130,11 @@
 		<!-- TABELA DE MÉDICOS VINCULADOS AO PLANTAO PS -->
 
 		<p:fieldset>
-			
+
 			<div align="center">
 				<h2>Médicos de Plantão</h2>
 			</div>
-		
+
 			<h:form id="formPlantaoCadastrado">
 				<p:dataTable id="tabelaMedicos" var="medico"
 					value="#{plantaoPsBean.medicosPlantaoPs}"
@@ -168,6 +193,9 @@
 				</p:dataTable>
 			</h:form>
 		</p:fieldset>
+		
+		<p:scrollTop styleClass="custom-scrolltop" icon="pi pi-arrow-up" />
+		
 	</ui:define>
 </ui:composition>
 </html>

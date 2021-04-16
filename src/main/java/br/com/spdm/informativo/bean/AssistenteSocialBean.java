@@ -39,7 +39,7 @@ public class AssistenteSocialBean implements Serializable {
 
 	@Transactional
 	public void salvar() {
-		
+
 		boolean nomeExiste = assistenteSocialDao.nomeExiste(this.assistenteSocial);
 		boolean cressExiste = assistenteSocialDao.cressExiste(this.assistenteSocial);
 
@@ -64,10 +64,10 @@ public class AssistenteSocialBean implements Serializable {
 		try {
 			assistenteSocialDao.atualiza(this.assistenteSocial);
 			context.addMessage(null, new FacesMessage("Alterado com sucesso!"));
-		
+
 		} catch (PersistenceException e) {
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-					"Não foi possível alterar este cadastro! Verifique se não há duplicidade de nome ou CRESS.", null));
+					"Não foi possível alterar", null));
 		}
 		this.assistenteSocial = new AssistenteSocial();
 	}
@@ -87,22 +87,24 @@ public class AssistenteSocialBean implements Serializable {
 			return false;
 		}
 	}
-	
+
 	public void limpar() {
 		this.assistenteSocial = new AssistenteSocial();
-		PrimeFaces.current().resetInputs("formAssistenteSocial:cardCadastro");
+		PrimeFaces.current().resetInputs("formAssistenteSocial:panelGridCadastro");
 	}
 
 	@Transactional
 	public void remover(AssistenteSocial assistenteSocial) {
 		try {
-			System.out.println("Removendo Assistente Social " + assistenteSocial.getNome());
+			
 			assistenteSocialDao.remove(assistenteSocial);
 			context.addMessage(null, new FacesMessage("Removido com sucesso! "));
-		} catch (Exception ex) {
+			
+		} catch (PersistenceException ex) {
+			
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-					"Não foi possível remover a Assistente Social, pois o mesmo está vinculado a um plantão", null));
-		}
+					"Não foi possível remover", null));
+		} 
 	}
 
 	public AssistenteSocial getAssistenteSocial() {
