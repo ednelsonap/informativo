@@ -15,14 +15,13 @@
 
 	<link rel="stylesheet" type="text/css"
 		href="#{resource['css/normalize.css']}" />
-
 </h:head>
 
-<h:body>
+<h:body style="background-color: AliceBlue;">
 
 	<p:growl id="messages" life="3000" />
 	<div id="cabecalho"
-		style="background-image: linear-gradient(to bottom, DarkSeaGreen, white); height: 60px; margin-botton: 0px;">
+		style="background-image: linear-gradient(to bottom, DarkSeaGreen, AliceBlue); height: 100px; margin-botton: 0px;">
 
 		<div align="center">
 			<h:panelGrid columns="5">
@@ -35,7 +34,7 @@
 				<h1
 					style="text-align: center; font-family: verdana; font-weight: bold; 
 					color: DarkOliveGreen; font-size: 25px; margin-left: 50px; margin-right: 50px; 
-					margin-top: 12px; margin-botton: 2px; padding: 0;">
+					margin-top: 12px; margin-botton: 2px; padding: 0; text-transform: uppercase;">
 					#{painelUpaBean.plantao.nomeUnidade}</h1>
 
 				<h:graphicImage library="img" name="pais.png"
@@ -48,11 +47,6 @@
 	</div>
 
 	<div id="conteudo" style="font-size: 12px;">
-
-		<h1>
-			<ui:insert name="titulo"></ui:insert>
-		</h1>
-
 		<ui:insert name="conteudo">
 		</ui:insert>
 	</div>

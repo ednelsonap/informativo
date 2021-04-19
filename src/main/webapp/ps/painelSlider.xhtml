@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<ui:composition template="_template_painel_ps.xhtml">
+
+	<ui:define name="tituloDaPagina">
+		<title>Painel PS</title>
+	</ui:define>
+
+	<!-- ATUALIZA A PÁGINA A CADA 1 MINUTOS -->
+
+	<ui:define name="Atualiza Página">
+		<meta http-equiv="refresh" content="60" />
+	</ui:define>
+
+	<ui:define name="conteudo">
+
+		<!-- DADOS DA GERÊNCIA -->
+
+		<h:form>
+			<div align="center">
+				<p:outputPanel
+					style="margin-top: 0px; margin-botton:0px; text-transform: uppercase;">
+					<h:panelGrid columns="2">
+						<h3 style="margin-top: 0px; margin-bottom: 0px;">Coord.
+							Administrativa: #{painelPsBean.plantao.coordenadorAdministrativo}
+							| Coord. Médica: #{painelPsBean.plantao.coordenadorMedico}</h3>
+					</h:panelGrid>
+				</p:outputPanel>
+			</div>
+		</h:form>
+
+		<!-- MÉDICOS DO PLANTÃO -->
+		<p:fieldset>
+			<div class="card">
+
+				<div align="center">
+					<h2 style="margin-top: 15px; margin-bottom: 0px;">
+						MÉDICOS
+					</h2>
+				</div>
+
+				<p:imageSwitch effect="fade" speed="3000">
+					<ui:repeat value="#{painelPsBean.medicosPlantaoPrincipal}"
+						var="medico">
+						<p:card style="width: 100%">
+							<div align="center">
+								<h1 style="font-size: 40px; margin-top: 0px;">
+									<h:outputText value="#{medico.nome} | CRM: #{medico.crm}" />
+								</h1>
+								<h1 style="font-size: 30px; text-transform: uppercase;">
+									<h:outputText value="#{medico.especialidade.descricao}" />
+								</h1>
+								<h1 style="font-size: 30px; margin-bottom: 0px;">
+									<h:outputText value="#{medico.horaInicio} às #{medico.horaFim}" />
+								</h1>
+							</div>
+						</p:card>
+					</ui:repeat>
+				</p:imageSwitch>
+
+				<!-- ASSISTENTES SOCIAIS DO PLANTÃO -->
+				<div align="center">
+					<h2 style="margin-top: 30px; margin-bottom: 0px;">
+						ASSISTENTES SOCIAIS
+					</h2>
+				</div>
+
+				<p:imageSwitch effect="fade" speed="3000"
+					style="background-color: AliceBlue; margin-bottom: 20px;">
+					<ui:repeat
+						value="#{painelPsBean.assistentesSociaisPlantaoPrincipal}"
+						var="assistenteSocial">
+						<p:card style="width: 100%">
+							<div align="center">
+								<h1 style="font-size: 40px; margin-top: 0px;">
+									<h:outputText
+										value="#{assistenteSocial.nome} | CRESS: #{assistenteSocial.cress}" />
+								</h1>
+								<h1 style="font-size: 30px; margin-bottom: 0px;">
+									<h:outputText
+										value="#{assistenteSocial.horaInicio} às #{assistenteSocial.horaFim}" />
+								</h1>
+							</div>
+						</p:card>
+					</ui:repeat>
+				</p:imageSwitch>
+			</div>
+		</p:fieldset>
+	</ui:define>
+
+	<ui:define name="rodape">
+		<p:fieldset style="margin-top: 10px;">
+			<h:outputText style="font-size: 22px;" value="Obs: #{painelPsBean.plantao.observacao}" />
+		</p:fieldset>
+	</ui:define>
+
+</ui:composition>
+</html>

@@ -11,8 +11,6 @@
 		<class>br.com.spdm.informativo.model.Medico</class>
 		<class>br.com.spdm.informativo.model.Especialidade</class>
 		<class>br.com.spdm.informativo.model.Plantao</class>
-		<class>br.com.spdm.informativo.model.PlantaoUpa</class>
-		<class>br.com.spdm.informativo.model.Gerencia</class>
 		
 
 		<properties>

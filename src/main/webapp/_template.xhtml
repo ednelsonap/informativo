@@ -19,7 +19,7 @@
 </h:head>
 
 <h:body style="background-color: AliceBlue;">
-	
+
 	<p:growl id="messages" life="5000" />
 
 	<div id="cabecalho"
@@ -45,28 +45,31 @@
 	</div>
 
 	<div align="right">
-			<h:form id="menu">
-				<p:menuButton value="Menu" icon="fa fa-fw fa-list" style="margin-bottom: 0px;">
-					<p:menuitem value="Médicos" action="medico?faces-redirect=true" />
-					<p:menuitem value="Assistentes Sociais"
-						action="assistentesocial?faces-redirect=true" />
-					<p:menuitem value="Plantões"
-						action="plantoes?faces-redirect=true" />
-					<p:menuitem value="Plantao PS"
-						action="ps/plantao?faces-redirect=true" />
-					<p:menuitem value="Plantao UPA"
-						action="upa/plantao?faces-redirect=true" />
-					<p:menuitem value="Painel PS"
-						action="ps/painel?faces-redirect=true" />
-					<p:menuitem value="Painel UPA"
-						action="upa/painel?faces-redirect=true" />
-				</p:menuButton>
-			</h:form>
-		</div>
+		<h:form id="menu">
+			<p:menuButton value="Menu" icon="fa fa-fw fa-list"
+				style="margin-bottom: 0px;">
+				<p:menuitem value="Médicos" action="medico?faces-redirect=true" />
+				<p:menuitem value="Assistentes Sociais"
+					action="assistentesocial?faces-redirect=true" />
+				<p:menuitem value="Plantões" action="plantoes?faces-redirect=true" />
+				<p:menuitem value="Plantao PS"
+					action="ps/plantao?faces-redirect=true" />
+				<p:menuitem value="Plantao UPA"
+					action="upa/plantao?faces-redirect=true" />
+				<p:menuitem value="Painel PS" action="ps/painel?faces-redirect=true" />
+				<p:menuitem value="Painel UPA"
+					action="upa/painel?faces-redirect=true" />
+				<p:menuitem value="Painel Slider PS"
+					action="ps/painelSlider?faces-redirect=true" />
+				<p:menuitem value="Painel Slider UPA"
+					action="upa/painelSlider?faces-redirect=true" />
+			</p:menuButton>
+		</h:form>
+	</div>
 
 	<div id="conteudo" style="margin-left: 100px; margin-right: 100px;">
 
-		
+
 		<h1>
 			<ui:insert name="titulo"></ui:insert>
 		</h1>

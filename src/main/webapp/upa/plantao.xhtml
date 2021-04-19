@@ -6,9 +6,9 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-<ui:composition template="_template_ps.xhtml">
+<ui:composition template="_template_upa.xhtml">
 	<ui:define name="titulo">
-		<title>Plantão PS</title>
+		<title>Plantão UPA</title>
 	</ui:define>
 
 	<ui:define name="conteudo">
@@ -39,7 +39,7 @@
 				ajax="false" />
 		</div> -->
 
-		<!-- FORMULÁRIO DE VÍNCULO DOS MÉDICOS NO PLANTAO DO PS -->
+		<!-- FORMULÁRIO DE VÍNCULO DOS MÉDICOS NO PLANTAO DO UPA -->
 
 		<h:panelGrid columns="2">
 			<h:form id="formVinculoMedico">
@@ -49,18 +49,18 @@
         				Vínculo de Médicos
     				</f:facet>
 					<f:facet name="subtitle">
-        				Plantão da unidade #{plantaoPsBean.plantaoPrincipal.unidade}
+        				Plantão da unidade #{plantaoUpaBean.plantaoPrincipal.unidade}
     				</f:facet>
 
 					<p>Para vincular um médico ao plantão, selecione-o na lista e
 						clique em vincular</p>
 
-					<p:selectOneMenu value="#{plantaoPsBean.medicoId}"
+					<p:selectOneMenu value="#{plantaoUpaBean.medicoId}"
 						id="selectMedico" style="text-transform: uppercase" filter="true"
 						filterMatchMode="startsWith" required="true"
 						requiredMessage="Selecione um médico da lista">
 						<f:selectItem itemLabel="Selecione" itemValue="" />
-						<f:selectItems value="#{plantaoPsBean.medicos}" var="medico"
+						<f:selectItems value="#{plantaoUpaBean.medicos}" var="medico"
 							itemLabel="#{medico.nome} - #{medico.especialidade.descricao}"
 							itemValue="#{medico.id}" />
 					</p:selectOneMenu>
@@ -68,12 +68,12 @@
 					<f:facet name="footer">
 						<h:panelGrid columns="2">
 							<p:commandButton value="Vincular" icon="pi pi-link"
-								action="#{plantaoPsBean.vincularMedicoAoPlantao}"
+								action="#{plantaoUpaBean.vincularMedicoAoPlantao}"
 								process="@this selectMedico" ajax="false"
 								update="@form :formPlantaoCadastrado:tabelaMedicos" />
 
 							<p:commandButton value="Cancelar"
-								action="#{plantaoPsBean.limparMedico}"
+								action="#{plantaoUpaBean.limparMedico}"
 								update="@form :selectMedico" icon="pi pi-times"
 								styleClass="ui-button-secondary" immediate="true" ajax="false"
 								style="margin-right:20px;">
@@ -91,19 +91,19 @@
         			Vínculo de Assistentes Sociais
     			</f:facet>
 					<f:facet name="subtitle">
-        			Plantão da unidade #{plantaoPsBean.plantaoPrincipal.unidade}
+        			Plantão da unidade #{plantaoUpaBean.plantaoPrincipal.unidade}
     			</f:facet>
 
 					<p>Para vincular um assistente social ao plantão, selecione-o
 						na lista e clique em vincular</p>
 
-					<p:selectOneMenu value="#{plantaoPsBean.assistenteSocialId}"
+					<p:selectOneMenu value="#{plantaoUpaBean.assistenteSocialId}"
 						id="selectAssistenteSocial" style="text-transform: uppercase"
 						filter="true" required="true"
 						requiredMessage="Selecione um assistente social da lista"
 						filterMatchMode="startsWith">
 						<f:selectItem itemLabel="Selecione" itemValue="" />
-						<f:selectItems value="#{plantaoPsBean.assistentesSociais}"
+						<f:selectItems value="#{plantaoUpaBean.assistentesSociais}"
 							var="assistenteSocial" itemLabel="#{assistenteSocial.nome}"
 							itemValue="#{assistenteSocial.id}" />
 					</p:selectOneMenu>
@@ -111,12 +111,12 @@
 					<f:facet name="footer">
 						<h:panelGrid columns="2">
 							<p:commandButton value="Vincular" icon="pi pi-link"
-								action="#{plantaoPsBean.vincularAssistenteSocialAoPlantao}"
+								action="#{plantaoUpaBean.vincularAssistenteSocialAoPlantao}"
 								process="@form" ajax="false"
 								update="@form :formPlantaoCadastrado:tabelaAssistentesSociais" />
 
 							<p:commandButton value="Cancelar"
-								action="#{plantaoPsBean.limparAssistenteSocial}"
+								action="#{plantaoUpaBean.limparAssistenteSocial}"
 								update="@form :selectAssistenteSocial" icon="pi pi-times"
 								styleClass="ui-button-secondary" immediate="true" ajax="false">
 								<p:resetInput target="formVinculoMedico" />
@@ -137,7 +137,7 @@
 
 			<h:form id="formPlantaoCadastrado">
 				<p:dataTable id="tabelaMedicos" var="medico"
-					value="#{plantaoPsBean.medicosPlantaoPs}"
+					value="#{plantaoUpaBean.medicosPlantaoUpa}"
 					emptyMessage="Nenhum médico vinculado ao plantão"
 					style="margin-top: 20px; margin-bottom: 30px;">
 
@@ -156,14 +156,14 @@
 					<p:column headerText="Ações" style="width: 130px;">
 						<p:commandButton value="Desvincular" update="@form"
 							process="@this"
-							actionListener="#{plantaoPsBean.removerMedicoDoPlantao(medico)}"
+							actionListener="#{plantaoUpaBean.removerMedicoDoPlantao(medico)}"
 							title="Desvincular" icon="pi pi-link"
 							styleClass="rounded-button ui-button-danger ui-button-outlined" />
 					</p:column>
 				</p:dataTable>
 			</h:form>
 
-			<!-- TABELA DE ASSISTENTES SOCIAIS VINCULADOS AO PLANTAO PS -->
+			<!-- TABELA DE ASSISTENTES SOCIAIS VINCULADOS AO PLANTAO UPA -->
 
 			<div align="center">
 				<h2>Assistentes Sociais de Plantão</h2>
@@ -171,7 +171,7 @@
 
 			<h:form id="formAssistentesSociaisCadastrados">
 				<p:dataTable id="tabelaAssistentesSociais" var="assistenteSocial"
-					value="#{plantaoPsBean.assistentesSociaisPlantaoPs}"
+					value="#{plantaoUpaBean.assistentesSociaisPlantaoUpa}"
 					emptyMessage="Nenhum assistente social vinculado ao plantão"
 					style="margin-bottom: 30px;">
 
@@ -186,7 +186,7 @@
 					<p:column headerText="Ações" style="width: 130px;">
 						<p:commandButton value="Desvincular" update="@form"
 							process="@this"
-							actionListener="#{plantaoPsBean.removerAssistenteSocialDoPlantao(assistenteSocial)}"
+							actionListener="#{plantaoUpaBean.removerAssistenteSocialDoPlantao(assistenteSocial)}"
 							title="Desvincular" icon="pi pi-link"
 							styleClass="rounded-button ui-button-danger ui-button-outlined" />
 					</p:column>

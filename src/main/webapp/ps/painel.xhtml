@@ -8,17 +8,14 @@
 
 <ui:composition template="_template_painel_ps.xhtml">
 
-	<ui:define name="titulo">
+	<ui:define name="tituloDaPagina">
 		<title>Painel PS</title>
 	</ui:define>
 
 	<!-- ATUALIZA A PÁGINA A CADA 1 MINUTOS -->
+
 	<ui:define name="Atualiza Página">
 		<meta http-equiv="refresh" content="60" />
-	</ui:define>
-
-	<ui:define name="Título Página">
-		<title><ui:insert name="title">Painel</ui:insert></title>
 	</ui:define>
 
 	<ui:define name="conteudo">
@@ -27,11 +24,12 @@
 
 		<h:form>
 			<div align="center">
-				<p:outputPanel style="margin-top: 0px; margin-botton:0px; text-transform: uppercase;">
+				<p:outputPanel
+					style="margin-top: 0px; margin-botton:0px; text-transform: uppercase;">
 					<h:panelGrid columns="2">
-						<h3>Coord. Administrativa:
-							#{painelPsBean.plantao.coordenadorAdministrativo} | Coord.
-							Médica: #{painelPsBean.plantao.coordenadorMedico}</h3>
+						<h3 style="margin-top: 0px; margin-bottom: 0px;">Coord.
+							Administrativa: #{painelPsBean.plantao.coordenadorAdministrativo}
+							| Coord. Médica: #{painelPsBean.plantao.coordenadorMedico}</h3>
 					</h:panelGrid>
 				</p:outputPanel>
 			</div>
@@ -39,17 +37,20 @@
 
 		<!-- MÉDICOS DO PLANTÃO -->
 
-		<h:form id="medicosDePlantao">
+		<p:fieldset>
 
-			<p:fieldset>
+			<h:form id="medicosDePlantao">
+
 				<div align="center">
-					<h1 style="margin-top: 0px; margin-botton:0px;">MÉDICOS DE PLANTÃO</h1>
+					<h2 style="margin-top: 5px; margin-bottom: 15px;">MÉDICOS DE
+						PLANTÃO</h2>
 				</div>
 				<p:dataTable id="tabelaMedicosDoPlantao"
-					value="#{plainelPsBean.medicosPlantaoPrincipal}" var="medico" emptyMessage="Nenhum registro encontrado"
-					style="font-size: 25px; margin-top: 0px; margin-booton: 0px;">
+					value="#{painelPsBean.medicosPlantaoPrincipal}" var="medico"
+					emptyMessage="Nenhum registro encontrado"
+					style="font-size: 24px; margin-top: 0px; margin-bootom: 0px;">
 
-					<p:column headerText="Nome" style="width:600px;"> 
+					<p:column headerText="Nome" style="width:600px;">
 						<h:outputText value="#{medico.nome}" />
 					</p:column>
 
@@ -61,32 +62,36 @@
 						<h:outputText value="#{medico.especialidade.descricao}" />
 					</p:column>
 
-					<p:column headerText="Atendimento" style="text-align:center;">
+					<p:column headerText="Atendimento" style="width: 200px; text-align:center;">
 						<p:column headerText="Atendimento">
 							<h:outputText value="#{medico.horaInicio}" />
 					às <h:outputText value="#{medico.horaFim}" />
 						</p:column>
 					</p:column>
 				</p:dataTable>
-			</p:fieldset>
-		</h:form>
-		
-		<!-- ASSISTENTES SOCIAIS DO PLANTÃO -->
+			</h:form>
 
-		<h:form id="assistentesSociaisDePlantao">
-			<p:fieldset>
+			<!-- ASSISTENTES SOCIAIS DO PLANTÃO -->
+
+			<h:form id="assistentesSociaisDePlantao">
+
 				<div align="center">
-					<h1 style="margin-top: 0px; margin-botton:0px;">SERVIÇO SOCIAL</h1>
+					<h2 style="margin-top: 12px; margin-bottom: 15px;">SERVIÇO
+						SOCIAL</h2>
 				</div>
+
 				<p:dataTable id="tabelaAssistentesSociaisDoPlantao"
-					value="#{painelPsBean.assistentesSociaisPlantaoPrincipal}" var="assistentesSociais"
-					style="font-size: 25px; margin-top: 0px; margin-booton: 0px;" emptyMessage="Nenhum registro encontrado">
+					value="#{painelPsBean.assistentesSociaisPlantaoPrincipal}"
+					var="assistentesSociais"
+					style="font-size: 24px; margin-top: 0px; margin-bootom: 0px;"
+					emptyMessage="Nenhum registro encontrado">
 
 					<p:column headerText="Nome" style="width:600px;">
 						<h:outputText value="#{assistentesSociais.nome}" />
 					</p:column>
 
-					<p:column headerText="CRESS" style="width: 120px; text-align:center;">
+					<p:column headerText="CRESS"
+						style="width: 120px; text-align:center;">
 						<h:outputText value="#{assistentesSociais.cress}" />
 					</p:column>
 
@@ -97,14 +102,15 @@
 						</p:column>
 					</p:column>
 				</p:dataTable>
-			</p:fieldset>
-		</h:form>
-	</ui:define>
-	
-	<ui:define name="rodape">
-		<p:fieldset>
-			<h:outputText value="#{painelPsBean.plantao.observacao}" />
+			</h:form>
 		</p:fieldset>
 	</ui:define>
+
+	<ui:define name="rodape">
+		<p:fieldset style="margin-top: 10px;">
+			<h:outputText value="Obs: #{painelPsBean.plantao.observacao}" />
+		</p:fieldset>
+	</ui:define>
+
 </ui:composition>
 </html>

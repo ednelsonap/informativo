@@ -18,11 +18,11 @@
 
 </h:head>
 
-<h:body>
+<h:body style="background-color: AliceBlue;">
 
 	<p:growl id="messages" life="3000" />
 	<div id="cabecalho"
-		style="background-image: linear-gradient(to bottom, DarkSeaGreen, white);">
+		style="background-image: linear-gradient(to bottom, DarkSeaGreen, AliceBlue);">
 
 		<div align="center">
 			<h:panelGrid columns="5">
@@ -33,7 +33,7 @@
 
 				<h1
 					style="text-align: center; font-family: verdana; font-weight: bold; color: DarkOliveGreen; font-size: 25px; margin-left: 50px; margin-right: 50px; margin-top: 12px; margin-botton: 2px; padding: 0; text-transform: uppercase;">
-					#{painelPsBean.plantao.nomeUnidade}</h1>
+					#{plantaoPsBean.plantaoPrincipal.nomeUnidade}</h1>
 
 				<h:graphicImage library="img" name="pais.png"
 					style="margin-top:2px; margin-botton:2px;" />
@@ -47,9 +47,6 @@
 			<h:form id="menu">
 				<p:menuButton value="Menu" icon="fa fa-fw fa-list"
 					style="margin-bottom: 0px;">
-					<p:menuitem value="Médicos" action="/medico?faces-redirect=true" />
-					<p:menuitem value="Assistentes Sociais"
-						action="/assistentesocial?faces-redirect=true" />
 					<p:menuitem value="Plantao PS"
 						action="/ps/plantao?faces-redirect=true" />
 					<p:menuitem value="Painel PS"

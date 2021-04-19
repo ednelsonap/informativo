@@ -208,11 +208,20 @@ public class PlantaoBean implements Serializable {
 	@Transactional
 	public void remover(Plantao plantao) {
 
-		if ((plantao.getMedicos().isEmpty()) || (plantao.getAssistentesSociais().isEmpty())) {
+		System.out.println("o plantão passado é da unidade: " + plantao.getUnidade());
+		
+		if (!plantao.getMedicos().isEmpty()) {
 			context.addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_WARN,
-							"Não foi possível remover este plantão, pois há médicos e/ou assistentes sociais vinculados",
+							"Não foi possível remover este plantão, pois há médicos vinculados",
 							null));
+			
+		} else if (!plantao.getAssistentesSociais().isEmpty()){
+			context.addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_WARN,
+							"Não foi possível remover este plantão, pois há assistentes sociais vinculados",
+							null));
+			
 		} else {
 			plantaoDao.remove(plantao);
 			context.addMessage(null, new FacesMessage("Plantão removido!"));
