@@ -45,9 +45,12 @@
 	</div>
 
 	<div align="right">
-		<h:form id="menu">
+		<h:form id="menu" rendered="#{usuarioLogado != null}">
 			<p:menuButton value="Menu" icon="fa fa-fw fa-list"
 				style="margin-bottom: 0px;">
+				<p:menuitem style="font-weight: bold;"
+					value="usuário: #{usuarioLogado.nomeUsuario}" />
+				<p:separator />
 				<p:menuitem value="Médicos" action="medico?faces-redirect=true" />
 				<p:menuitem value="Assistentes Sociais"
 					action="assistentesocial?faces-redirect=true" />
@@ -63,6 +66,9 @@
 					action="ps/painelSlider?faces-redirect=true" />
 				<p:menuitem value="Painel Slider UPA"
 					action="upa/painelSlider?faces-redirect=true" />
+				<p:separator />
+				<p:menuitem style="font-weight: bold;" value="sair" action="#{loginBean.sair}"
+					icon="fa fa-fw fa-sign-out" />
 			</p:menuButton>
 		</h:form>
 	</div>
