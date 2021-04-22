@@ -51,6 +51,8 @@
 						action="/ps/plantao?faces-redirect=true" />
 					<p:menuitem value="Painel PS"
 						action="/ps/painel?faces-redirect=true" />
+					<p:menuitem value="Medico" rendered="#{usuarioLogado != null}"
+						action="/medico?faces-redirect=true" />
 				</p:menuButton>
 			</h:form>
 		</div>

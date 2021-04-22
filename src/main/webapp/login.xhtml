@@ -16,32 +16,28 @@
 
 
 		<h:form>
-			<p:card style="margin-left: 420px; margin-right: 420px;">
+			<p:card style="margin-left: auto; margin-right: auto; width: 21em">
 
 				<h1 class="p-mt-0">Login</h1>
 
-				<div class="p-field p-grid">
-					<p:outputLabel for="nomeUsuario" styleClass="p-col-fixed"
-						style="width:100px" value="Usuário:" />
-					<div class="p-col">
-						<p:inputText style="margin-top: 10px; margin-bottom: 10px;" size="35"
-							id="nomeUsuario" value="#{loginBean.usuario.nomeUsuario}"
-							required="true" requiredMessage="Usuário é necessário" />
-					</div>
-				</div>
+				<h:panelGrid>
 
-				<div class="p-field p-grid">
-					<p:outputLabel for="senha" styleClass="p-col-fixed"
-						style="width:100px; margin-top: 10px;" value="Senha:" />
-					<div class="p-col">
-						<p:password style="margin-top: 10px;" id="senha" toggleMask="true" size="32"
-							redisplay="true" value="#{loginBean.usuario.senha}" label="Senha"
-							required="true" requiredMessage="Senha é necessário" />
-					</div>
-				</div>
+					<p:outputLabel for="nomeUsuario" value="Usuário:" />
+					<p:inputText style="margin-top: 10px; margin-bottom: 10px;"
+						size="35" id="nomeUsuario"
+						value="#{loginBean.usuario.nomeUsuario}" required="true"
+						requiredMessage="Usuário é necessário" />
+
+					<p:outputLabel for="senha" style="margin-top: 10px;" value="Senha:" />
+					<p:password style="margin-top: 10px;" id="senha" toggleMask="true"
+						size="32" redisplay="true" value="#{loginBean.usuario.senha}"
+						label="Senha" required="true" requiredMessage="Senha é necessário" />
+
+				</h:panelGrid>
 
 				<p:commandButton style="margin-top: 20px;" value="Entrar"
-					update="@form" action="#{loginBean.entrar}" icon="fa fa-fw fa-sign-in" />
+					update="@form" action="#{loginBean.entrar}"
+					icon="fa fa-fw fa-sign-in" />
 
 				<p:messages id="messages">
 					<p:autoUpdate />

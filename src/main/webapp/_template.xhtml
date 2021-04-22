@@ -67,9 +67,49 @@
 				<p:menuitem value="Painel Slider UPA"
 					action="upa/painelSlider?faces-redirect=true" />
 				<p:separator />
-				<p:menuitem style="font-weight: bold;" value="sair" action="#{loginBean.sair}"
-					icon="fa fa-fw fa-sign-out" />
+				<p:menuitem style="font-weight: bold;" value="sair"
+					action="#{loginBean.sair}" icon="fa fa-fw fa-sign-out" />
 			</p:menuButton>
+		</h:form>
+		
+		<!-- NOVO MENU -->
+		
+		<h:form rendered="#{usuarioLogado != null}">
+			<p:commandButton id="botaoMenu" value="Menu" type="button"
+				icon="pi pi-list" />
+			<p:tieredMenu overlay="true" trigger="botaoMenu" my="left top"
+				at="left bottom" style="width:200px">
+				<p:menuitem style="font-weight: bold;"
+					value="usuário: #{usuarioLogado.nomeUsuario}" />
+				
+				<p:divider/>
+				
+				<p:menuitem value="Home" action="home?faces-redirect=true" icon="pi pi-fw pi-home" />
+				
+				<p:submenu label="Cadastros" icon="pi pi-fw pi-file">
+					<p:menuitem value="Médicos" action="medico?faces-redirect=true" icon="pi pi-fw pi-users" />
+					<p:menuitem value="Assistentes Sociais" action="assistentesocial?faces-redirect=true" icon="pi pi-fw pi-users" />
+					<p:menuitem value="Plantões" action="plantoes?faces-redirect=true" icon="pi pi-fw pi-sort-alt" />
+					<p:menuitem value="Usuários" action="usuarios?faces-redirect=true" icon="pi pi-fw pi-users" />
+					<p:menuitem value="Especialidades" icon="fa fa-fw fa-stethoscope" />
+				</p:submenu>
+
+				<p:submenu label="PS" icon="fa fa-fw fa-hospital-o">
+					<p:menuitem value="Plantão" action="ps/plantao?faces-redirect=true" icon="pi pi-fw pi-align-left" />
+					<p:menuitem value="Painel" action="ps/painel?faces-redirect=true" icon="pi pi-fw pi-align-right" />
+					<p:menuitem value="Painel Slider" action="ps/painelSlider?faces-redirect=true" icon="pi pi-fw pi-align-center" />
+				</p:submenu>
+				
+				<p:submenu label="UPA" icon="fa fa-fw fa-hospital-o">
+					<p:menuitem value="Plantão" action="upa/plantao?faces-redirect=true" icon="pi pi-fw pi-align-left" />
+					<p:menuitem value="Painel" action="upa/painel?faces-redirect=true" icon="pi pi-fw pi-align-right" />
+					<p:menuitem value="Painel Slider" action="upa/painelSlider?faces-redirect=true" icon="pi pi-fw pi-align-center" />
+				</p:submenu>	
+
+				<p:divider />
+
+				<p:menuitem value="Sair" action="#{loginBean.sair}" icon="pi pi-fw pi-power-off" />
+			</p:tieredMenu>
 		</h:form>
 	</div>
 

@@ -7,7 +7,7 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
 <ui:composition template="_template.xhtml">
-	
+
 	<ui:define name="titulo">
 		<title>Home</title>
 	</ui:define>
@@ -16,63 +16,59 @@
 
 		<!-- LINKS DE ACESSO AS PÁGINAS -->
 
-		<h:panelGrid columns="4">
-			<h:form>
+		<h:form>
+			<h:panelGrid style="margin-left: auto; margin-right: auto; width: 35em">
 				<p:card id="cardMedico">
 					<f:facet name="title">
-        				Cadastro de Médicos
-    				</f:facet>
-			
-					<p>Acesse o cadastro de médicos</p>
-
-					<f:facet name="footer">			
-						<p:commandButton value="Acessar" action="/medico?faces-redirect=true"></p:commandButton>
+						Bem vindo ao sistema de painel informativo!
 					</f:facet>
-				</p:card>
-			</h:form>
 
-			<h:form>
-				<p:card id="cardMedico">
-					<f:facet name="title">
-        				Cadastro de Assistentes Sociais
-    				</f:facet>
-			
-					<p>Acesse o cadastro de assistentes sociais</p>
-
-					<f:facet name="footer">			
-						<p:commandButton value="Acessar" action="/assistentesocial?faces-redirect=true"></p:commandButton>
+					<f:facet name="subtitle">
+						Para configurar o painel, realize os seguintes passos:
 					</f:facet>
-				</p:card>
-			</h:form>
-			
-			<h:form>
-				<p:card id="cardMedico">
-					<f:facet name="title">
-        				Cadastro de Médicos
-    				</f:facet>
-			
-					<p>Acesse o cadastro de médicos</p>
 
-					<f:facet name="footer">			
-						<p:commandButton value="Acessar"></p:commandButton>
-					</f:facet>
-				</p:card>
-			</h:form>
-			
-			<h:form>
-				<p:card id="cardMedico">
-					<f:facet name="title">
-        				Cadastro de Médicos
-    				</f:facet>
-			
-					<p>Acesse o cadastro de médicos</p>
+					<p>
+						<li>Cadastre os <p:link
+								outcome="/plantoes?faces-redirect=true" value="plantões" /> das
+							unidade.
+						</li>
+					</p>
+					<p>
+						<li>Faça o cadastro dos <p:link
+								outcome="/medico?faces-redirect=true" value="médicos" /> e dos
+							<p:link outcome="/assistentesocial?faces-redirect=true"
+								value="assistentes sociais" />.
+						</li>
+					</p>
+					<p>
+						<li>Vincule os profissionais ao plantão do <p:link
+								outcome="/ps/plantao?faces-redirect=true" value="PS" /> e da <p:link
+								outcome="/upa/plantao?faces-redirect=true" value="UPA" />.
+						</li>
+					</p>
 
-					<f:facet name="footer">			
-						<p:commandButton value="Acessar"></p:commandButton>
-					</f:facet>
+					<div class="card">
+						<div class="p-grid">
+
+							<div class="p-col-12 p-md-4">
+								<p:staticMessage rendered="#{homeBean.exibirMensagemPs()}"
+									severity="warn" summary="AVISO!"
+									detail="Cadastre um plantão para a unidade PS"
+									style="width: 100%" />
+							</div>
+							<div class="p-col-12 p-md-4">
+								<p:staticMessage rendered="#{homeBean.exibirMensagemUpa()}"
+									severity="warn" summary="AVISO!"
+									detail="Cadastre um plantão para a unidade UPA"
+									style="width: 100%" />
+							</div>
+						</div>
+					</div>
+
 				</p:card>
-			</h:form>
-		</h:panelGrid>
+			</h:panelGrid>
+		</h:form>
+
 	</ui:define>
 </ui:composition>
 </html>
