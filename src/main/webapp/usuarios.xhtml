@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="_template.xhtml">
+
+	<ui:define name="titulo">
+		<title>Usuários</title>
+	</ui:define>
+
+	<ui:define name="conteudo">
+
+		<p:fieldset style="margin-top: 0px;">
+			<div align="center">
+				<h2 style="margin-bottom: 5px; margin-top: 5px;">Usuários</h2>
+				<p:divider />
+			</div>
+
+			<p:commandButton value="Novo" type="button" icon="pi pi-plus"
+				onclick="PF('dialogUsuario').show()" style="margin-bottom: 5px;" />
+
+			<!-- TABELA DE USUÁRIOS CADASTRADOS -->
+
+			<h:form id="formTabelaUsuarios">
+
+				<p:dataTable value="#{usuarioBean.usuarios}" var="usuario"
+					emptyMessage="Nenhum registro encontrado" id="tabelaUsuarios"
+					paginator="true" rows="10" lazy="true">
+
+					<p:column headerText="Nome" style="width:500px;">
+						<h:outputText value="#{usuario.nomeUsuario}"
+							style="text-transform: uppercase;" />
+					</p:column>
+
+					<p:column headerText="Ações" style="width:100px;">
+						<p:commandButton update=":formUsuario" icon="pi pi-pencil"
+							styleClass="rounded-button ui-button-info ui-button-outlined"
+							title="Alterar" onclick="PF('dialogUsuario').show()"
+							render=":formUsuario:botaoAlterar">
+							<f:setPropertyActionListener value="#{medico}"
+								target="#{usuarioBean.usuario}" />
+						</p:commandButton>
+
+						<p:commandButton icon="pi pi-trash"
+							styleClass="rounded-button ui-button-danger ui-button-outlined"
+							action="#{usuarioBean.remover(usuario)}" title="Excluir" ajax="false"
+							update="@form :formTabelaUsuarios" render="messages" />
+					</p:column>
+
+				</p:dataTable>
+			</h:form>
+
+			<!-- DIÁLOGO COM O FORMULÁRIO DE CADASTRO DOS MÉDICOS-->
+
+			<p:dialog header="Usuário" widgetVar="dialogUsuario" minHeight="200"
+				width="500" height="500" showEffect="fade" modal="true"
+				closable="false" visible="#{facesContext.validationFailed}" >
+				<h:form id="formUsuario">
+					<div class="card">
+						<p:panelGrid id="panelGridCadastro" columns="4" layout="flex"
+							columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4"
+							contentStyleClass="ui-fluid" style="margin-top: 0px;">
+
+							<p:outputLabel for="nomeUsuario" value="Usuário:" />
+							<p:inputText id="nomeUsuario" type="text"
+								value="#{usuarioBean.usuario.nomeUsuario}" maxlength="100"
+								required="true" requiredMessage="Usuário é necessário" />
+							
+							<p:outputLabel for="senha" value="Senha:" />
+							<p:password style="margin-top: 10px;" id="senha" toggleMask="true" size="32"
+							redisplay="true" value="#{usuarioBean.usuario.senha}" label="Senha"
+							required="true" requiredMessage="Senha é necessário" />
+								
+						</p:panelGrid>
+
+						<div align="center">
+							<h:panelGrid columns="3">
+								<p:commandButton value="Salvar" id="botaoSalvar"
+									styleClass="ui-button-primary" icon="pi pi-check"
+									action="#{usuarioBean.salvar}" ajax="false" process="@form"
+									update="@form :formTabelaUsuarios:tabelaUsuarios" />
+
+								<p:commandButton value="Cancelar" action="#{usuarioBean.limpar}"
+									icon="pi pi-times" styleClass="ui-button-secondary" 
+									immediate="true" ajax="false">
+									<p:resetInput target="panelGridCadastro" />
+								</p:commandButton>
+							</h:panelGrid>
+						</div>
+					</div>
+				</h:form>
+			</p:dialog>
+		</p:fieldset>
+	</ui:define>
+</ui:composition>
+</html>

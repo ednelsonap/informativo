@@ -17,10 +17,34 @@ public class Autorizador implements PhaseListener {
 
 		FacesContext context = evento.getFacesContext();
 		String nomePagina = context.getViewRoot().getViewId();
-	
+		
 		System.out.println(nomePagina);
 		
 		if("/login.xhtml".equals(nomePagina)) {
+			return;
+		}
+			
+		if("/ps/plantao.xhtml".equals(nomePagina)) {
+			return;
+		}
+		
+		if("/ps/painel.xhtml".equals(nomePagina)) {
+			return;
+		}
+		
+		if("/upa/plantao.xhtml".equals(nomePagina)) {
+			return;
+		}
+		
+		if("/upa/painel.xhtml".equals(nomePagina)) {
+			return;
+		}
+		
+		if("/ps/painelSlider.xhtml".equals(nomePagina)) {
+			return;
+		}
+		
+		if("/upa/painelSlider.xhtml".equals(nomePagina)) {
 			return;
 		}
 		
