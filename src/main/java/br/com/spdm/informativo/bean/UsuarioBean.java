@@ -33,6 +33,10 @@ public class UsuarioBean implements Serializable {
 	@Inject
 	private UsuarioDao usuarioDao;
 
+	private String novaSenha;
+	
+	private String confirmaSenha;
+	
 	@Transactional
 	public void salvar() {
 		
@@ -55,9 +59,30 @@ public class UsuarioBean implements Serializable {
 	
 	}
 	
+	@Transactional
+	public void alterarSenha() {
+		
+		if(novaSenha.equals(confirmaSenha)){
+			this.usuario.setSenha(new PassGenerator().generate(novaSenha));
+			usuarioDao.atualiza(this.usuario);
+			context.addMessage(null, new FacesMessage("Senha alterada com sucesso!"));
+		} else {
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+					"As senhas digitadas não são iguais", null));
+		}
+	}
+	
 	public void limpar() {
 		this.usuario = new Usuario();
 		PrimeFaces.current().resetInputs("formUsuario:panelGridCadastro");
+	}
+	
+	public boolean desabilitarInputText(Usuario usuario) {
+		if (this.usuario.getId() == null) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 	
 	public Usuario getUsuario() {
@@ -72,6 +97,21 @@ public class UsuarioBean implements Serializable {
 		this.usuarios = usuarioDao .listaTodos();
 		return this.usuarios;
 	}
-	
+
+	public String getNovaSenha() {
+		return novaSenha;
+	}
+
+	public void setNovaSenha(String novaSenha) {
+		this.novaSenha = novaSenha;
+	}
+
+	public String getConfirmaSenha() {
+		return confirmaSenha;
+	}
+
+	public void setConfirmaSenha(String confirmaSenha) {
+		this.confirmaSenha = confirmaSenha;
+	}
 	
 }

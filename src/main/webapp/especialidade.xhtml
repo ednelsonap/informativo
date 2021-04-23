@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="_template.xhtml">
+
+	<ui:define name="titulo">
+		<title>Especialidade</title>
+	</ui:define>
+
+	<ui:define name="conteudo">
+
+		<p:fieldset style="margin-top: 0px;">
+			<div align="center">
+				<h2 style="margin-bottom: 5px; margin-top: 5px;">Especialidades</h2>
+				<p:divider />
+			</div>
+
+			<p:commandButton value="Novo" type="button" icon="pi pi-plus"
+				onclick="PF('dialogEspecialidade').show()" style="margin-bottom: 5px;" />
+
+			<!-- TABELA DE ESPECIALIDADES CADASTRADAS -->
+
+			<h:form id="formTabelaEspecialidades">
+
+				<p:dataTable value="#{especialidadeBean.especialidades}" var="especialidade"
+					emptyMessage="Nenhum registro encontrado" id="tabelaEspecialidades"
+					paginator="true" rows="10" lazy="true">
+
+					<p:column headerText="Descrição" style="width:500px;">
+						<h:outputText value="#{especialidade.descricao}"
+							style="text-transform: uppercase;" />
+					</p:column>
+
+					<p:column headerText="Ações" style="width:100px;">
+						<p:commandButton update=":formEspecialidade" icon="pi pi-pencil"
+							styleClass="rounded-button ui-button-info ui-button-outlined"
+							title="Alterar" onclick="PF('dialogEspecialidade').show()"
+							render=":formEspecialidade:botaoAlterar">
+							<f:setPropertyActionListener value="#{especialidade}"
+								target="#{especialidadeBean.especialidade}" />
+						</p:commandButton>
+
+						<p:commandButton icon="pi pi-trash"
+							styleClass="rounded-button ui-button-danger ui-button-outlined"
+							action="#{especialidadeBean.remover(especialidade)}" title="Excluir" ajax="false"
+							update="@form :formTabelaEspecialidades" render="messages" />
+					</p:column>
+
+				</p:dataTable>
+			</h:form>
+
+			<!-- DIÁLOGO COM O FORMULÁRIO DE CADASTRO DOS ESPECIALIDADES-->
+
+			<p:dialog header="Especialidade" widgetVar="dialogEspecialidade" minHeight="200"
+				width="500" height="500" showEffect="fade" modal="true"
+				closable="false" visible="#{facesContext.validationFailed}" >
+				<h:form id="formEspecialidade">
+					<div class="card">
+						<p:panelGrid id="panelGridCadastro" columns="4" layout="flex"
+							columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4"
+							contentStyleClass="ui-fluid" style="margin-top: 0px;">
+
+							<p:outputLabel for="descricao" value="Descrição:" />
+							<p:inputText id="descricao" type="text"
+								value="#{especialidadeBean.especialidade.descricao}" maxlength="100"
+								required="true" requiredMessage="Descrição é necessário" />
+
+						</p:panelGrid>
+
+						<div align="center">
+							<h:panelGrid columns="3">
+								<p:commandButton value="Salvar" id="botaoSalvar"
+									styleClass="ui-button-primary" icon="pi pi-check"
+									action="#{especialidadeBean.salvar}" ajax="false" process="@form"
+									update="@form :formTabelaEspecialidades:tabelaEspecialidades"
+									rendered="#{especialidadeBean.exibirBotaoSalvar(especialidade)}" />
+
+								<p:commandButton value="Alterar" id="botaoAlterar"
+									styleClass="ui-button-primary" icon="pi pi-pencil"
+									action="#{especialidadeBean.alterar}" ajax="false" process="@form"
+									update="@form :formTabelaEspecialidades:tabelaEspecialidades"
+									rendered="#{especialidadeBean.exibirBotaoAlterar(especialidade)}" />
+
+								<p:commandButton value="Cancelar" action="#{especialidadeBean.limpar}"
+									icon="pi pi-times" styleClass="ui-button-secondary"
+									immediate="true" ajax="false">
+									<p:resetInput target="panelGridCadastro" />
+								</p:commandButton>
+							</h:panelGrid>
+						</div>
+					</div>
+				</h:form>
+			</p:dialog>
+		</p:fieldset>
+	</ui:define>
+</ui:composition>
+</html>

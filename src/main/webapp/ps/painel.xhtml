@@ -25,11 +25,17 @@
 		<h:form>
 			<div align="center">
 				<p:outputPanel
-					style="margin-top: 0px; margin-botton:0px; text-transform: uppercase;">
-					<h:panelGrid columns="2">
-						<h3 style="margin-top: 0px; margin-bottom: 0px;">Coord.
-							Administrativa: #{painelPsBean.plantao.coordenadorAdministrativo}
-							| Coord. Médica: #{painelPsBean.plantao.coordenadorMedico}</h3>
+					style="margin-top: 0px; margin-bottom:0px; text-transform: uppercase;">
+					<h:panelGrid columns="3">
+						<h3 style="margin-top: 0px; margin-bottom: 0px;">
+						Coord. Administrativa: #{painelPsBean.plantao.coordenadorAdministrativo}
+						</h3>
+						
+						<p:divider layout="vertical" />
+						
+						<h3 style="margin-top: 0px; margin-bottom: 0px;">
+						Coord.Médica: #{painelPsBean.plantao.coordenadorMedico}
+						</h3>
 					</h:panelGrid>
 				</p:outputPanel>
 			</div>
@@ -62,7 +68,8 @@
 						<h:outputText value="#{medico.especialidade.descricao}" />
 					</p:column>
 
-					<p:column headerText="Atendimento" style="width: 200px; text-align:center;">
+					<p:column headerText="Atendimento"
+						style="width: 200px; text-align:center;">
 						<p:column headerText="Atendimento">
 							<h:outputText value="#{medico.horaInicio}" />
 					às <h:outputText value="#{medico.horaFim}" />

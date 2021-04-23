@@ -37,11 +37,11 @@
 					</p:column>
 
 					<p:column headerText="Ações" style="width:100px;">
-						<p:commandButton update=":formUsuario" icon="pi pi-pencil"
+						<p:commandButton update=":formNovaSenha" icon="pi pi-pencil"
 							styleClass="rounded-button ui-button-info ui-button-outlined"
-							title="Alterar" onclick="PF('dialogUsuario').show()"
+							title="Alterar" onclick="PF('dialogNovaSenha').show()"
 							render=":formUsuario:botaoAlterar">
-							<f:setPropertyActionListener value="#{medico}"
+							<f:setPropertyActionListener value="#{usuario}"
 								target="#{usuarioBean.usuario}" />
 						</p:commandButton>
 
@@ -77,10 +77,54 @@
 						</h:panelGrid>
 
 						<div align="center">
-							<h:panelGrid columns="3">
+							<h:panelGrid columns="3" style="margin-top: 20px;">
 								<p:commandButton value="Salvar" id="botaoSalvar"
 									styleClass="ui-button-primary" icon="pi pi-check"
 									action="#{usuarioBean.salvar}" ajax="false" process="@form"
+									update="@form :formTabelaUsuarios:tabelaUsuarios" />
+
+								<p:commandButton value="Cancelar" action="#{usuarioBean.limpar}"
+									icon="pi pi-times" styleClass="ui-button-secondary"
+									immediate="true" ajax="false">
+									<p:resetInput target="panelGridCadastro" />
+								</p:commandButton>
+							</h:panelGrid>
+						</div>
+					</div>
+				</h:form>
+			</p:dialog>
+			<p:dialog header="Redefinição de Senha" widgetVar="dialogNovaSenha" minHeight="200"
+				width="350" height="220" showEffect="fade" modal="true"
+				closable="false" visible="#{facesContext.validationFailed}">
+				<h:form id="formNovaSenha">
+					<div class="card">
+						<h:panelGrid id="panelGridCadastro">
+							<p:outputLabel for="nomeUsuario" value="Usuário:" />
+							<p:inputText style="margin-top: 10px; margin-bottom: 10px;"
+								size="35" id="nomeUsuario"
+								value="#{usuarioBean.usuario.nomeUsuario}" required="true"
+								requiredMessage="Usuário é necessário" disabled="#{usuarioBean.desabilitarInputText(usuario)}"/>
+
+							<p:outputLabel for="novaSenha" style="margin-top: 10px;"
+								value="Nova senha:" />
+							<p:password style="margin-top: 10px;" id="novaSenha"
+								toggleMask="true" size="32" redisplay="true"
+								value="#{usuarioBean.novaSenha}" label="Senha"
+								required="true" requiredMessage="Senha é necessário" />
+								
+							<p:outputLabel for="confirmaSenha" style="margin-top: 10px;"
+								value="Confirma senha:" />
+							<p:password style="margin-top: 10px;" id="confirmaSenha"
+								toggleMask="true" size="32" redisplay="true"
+								value="#{usuarioBean.confirmaSenha}" label="Senha"
+								required="true" requiredMessage="Senha é necessário" />
+						</h:panelGrid>
+
+						<div align="center">
+							<h:panelGrid columns="3" style="margin-top: 20px;">
+								<p:commandButton value="Salvar" id="botaoSalvar"
+									styleClass="ui-button-primary" icon="pi pi-check"
+									action="#{usuarioBean.alterarSenha}" ajax="false" process="@form" 
 									update="@form :formTabelaUsuarios:tabelaUsuarios" />
 
 								<p:commandButton value="Cancelar" action="#{usuarioBean.limpar}"

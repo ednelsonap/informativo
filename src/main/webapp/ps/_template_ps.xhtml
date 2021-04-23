@@ -44,18 +44,47 @@
 	</div>
 
 	<div align="right">
-			<h:form id="menu">
-				<p:menuButton value="Menu" icon="fa fa-fw fa-list"
-					style="margin-bottom: 0px;">
-					<p:menuitem value="Plantao PS"
-						action="/ps/plantao?faces-redirect=true" />
-					<p:menuitem value="Painel PS"
-						action="/ps/painel?faces-redirect=true" />
-					<p:menuitem value="Medico" rendered="#{usuarioLogado != null}"
-						action="/medico?faces-redirect=true" />
-				</p:menuButton>
-			</h:form>
-		</div>
+		
+		<!-- MENU -->
+		
+		<h:form id="menuTiered">
+			<p:commandButton id="botaoMenu" value="Menu" type="button"
+				icon="pi pi-list" />
+			<p:tieredMenu overlay="true" trigger="botaoMenu" my="left top"
+				at="left bottom" style="width:200px">
+				<p:menuitem style="font-weight: bold;"
+					value="Usuário: #{usuarioLogado.nomeUsuario}" rendered="#{usuarioLogado != null}"/>
+				
+				<p:divider/>
+				
+				<p:menuitem value="Home" action="home?faces-redirect=true" icon="pi pi-fw pi-home" rendered="#{usuarioLogado != null}"/>
+				
+				<p:submenu label="Cadastros" icon="pi pi-fw pi-file" rendered="#{usuarioLogado != null}">
+					<p:menuitem value="Médicos" action="medico?faces-redirect=true" icon="pi pi-fw pi-users" />
+					<p:menuitem value="Assistentes Sociais" action="assistentesocial?faces-redirect=true" icon="pi pi-fw pi-users" />
+					<p:menuitem value="Plantões" action="plantoes?faces-redirect=true" icon="pi pi-fw pi-sort-alt" />
+					<p:menuitem value="Usuários" action="usuario?faces-redirect=true" icon="pi pi-fw pi-users" />
+					<p:menuitem value="Especialidades" action="especialidade?faces-redirect=true" icon="fa fa-fw fa-stethoscope" />
+				</p:submenu>
+
+				<p:submenu label="PS" icon="fa fa-fw fa-hospital-o">
+					<p:menuitem value="Plantão" action="/ps/plantao?faces-redirect=true" icon="pi pi-fw pi-sort-alt" />
+					<p:menuitem value="Painel" action="/ps/painel?faces-redirect=true" icon="pi pi-fw pi-desktop" />
+					<p:menuitem value="Painel Slider" action="/ps/painelSlider?faces-redirect=true" icon="pi pi-fw pi-desktop" />
+				</p:submenu>
+				
+				<p:submenu label="UPA" icon="fa fa-fw fa-hospital-o" rendered="#{usuarioLogado != null}">
+					<p:menuitem value="Plantão" action="upa/plantao?faces-redirect=true" icon="pi pi-fw pi-sort-alt" />
+					<p:menuitem value="Painel" action="upa/painel?faces-redirect=true" icon="pi pi-fw pi-desktop" />
+					<p:menuitem value="Painel Slider" action="upa/painelSlider?faces-redirect=true" icon="pi pi-fw pi-desktop" />
+				</p:submenu>	
+
+				<p:divider />
+
+				<p:menuitem value="Sair" action="#{loginBean.sair}" icon="pi pi-fw pi-power-off" rendered="#{usuarioLogado != null}" />
+			</p:tieredMenu>
+		</h:form>
+	</div>
 
 	<div id="conteudo" style="margin-left: 100px; margin-right: 100px;">
 

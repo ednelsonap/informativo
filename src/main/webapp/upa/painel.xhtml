@@ -13,7 +13,7 @@
 	</ui:define>
 
 	<!-- ATUALIZA A PÁGINA A CADA 1 MINUTOS -->
-	
+
 	<ui:define name="Atualiza Página">
 		<meta http-equiv="refresh" content="60" />
 	</ui:define>
@@ -21,34 +21,40 @@
 	<ui:define name="conteudo">
 
 		<!-- DADOS DA GERÊNCIA -->
+	
+		<div align="center">
+			<p:outputPanel
+				style="margin-top: 0px; margin-bottom:0px; text-transform: uppercase;">
+				<h:panelGrid columns="3">
+					<h3 style="margin-top: 0px; margin-bottom: 0px;">Coord.
+						Administrativa: #{painelUpaBean.plantao.coordenadorAdministrativo}</h3>
+					
+					<p:divider layout="vertical" />
 
-		<h:form>
-			<div align="center">
-				<p:outputPanel style="margin-top: 0px; margin-botton:0px; text-transform: uppercase;">
-					<h:panelGrid columns="2">
-						<h3 style="margin-top: 0px; margin-bottom:0px;">Coord. Administrativa:
-							#{painelUpaBean.plantao.coordenadorAdministrativo} | Coord.
-							Médica: #{painelUpaBean.plantao.coordenadorMedico}</h3>
-					</h:panelGrid>
-				</p:outputPanel>
-			</div>
-		</h:form>
+					<h3 style="margin-top: 0px; margin-bottom: 0px;">Coord.
+						Médica: #{painelUpaBean.plantao.coordenadorMedico}</h3>
+
+				</h:panelGrid>
+			</p:outputPanel>
+		</div>
 
 		<!-- MÉDICOS DO PLANTÃO -->
 
 		<p:fieldset>
-		
-		<h:form id="medicosDePlantao">
+
+			<h:form id="medicosDePlantao">
 
 				<div align="center">
-					<h2 style="margin-top: 5px; margin-bottom:15px;">MÉDICOS DE PLANTÃO</h2>
+					<h2 style="margin-top: 5px; margin-bottom: 15px;">MÉDICOS DE
+						PLANTÃO</h2>
 				</div>
-				
+
 				<p:dataTable id="tabelaMedicosDoPlantao"
-					value="#{painelUpaBean.medicosPlantaoPrincipal}" var="medico" emptyMessage="Nenhum registro encontrado"
+					value="#{painelUpaBean.medicosPlantaoPrincipal}" var="medico"
+					emptyMessage="Nenhum registro encontrado"
 					style="font-size: 24px; margin-top: 0px; margin-bootom: 0px;">
 
-					<p:column headerText="Nome" style="width:600px;"> 
+					<p:column headerText="Nome" style="width:600px;">
 						<h:outputText value="#{medico.nome}" />
 					</p:column>
 
@@ -67,25 +73,29 @@
 						</p:column>
 					</p:column>
 				</p:dataTable>
-	
-		</h:form>
-		
-		<!-- ASSISTENTES SOCIAIS DO PLANTÃO -->
 
-		<h:form id="assistentesSociaisDePlantao">
-			
+			</h:form>
+
+			<!-- ASSISTENTES SOCIAIS DO PLANTÃO -->
+
+			<h:form id="assistentesSociaisDePlantao">
+
 				<div align="center">
-					<h2 style="margin-top: 12px; margin-bottom:15px;">SERVIÇO SOCIAL</h2>
+					<h2 style="margin-top: 12px; margin-bottom: 15px;">SERVIÇO
+						SOCIAL</h2>
 				</div>
 				<p:dataTable id="tabelaAssistentesSociaisDoPlantao"
-					value="#{painelUpaBean.assistentesSociaisPlantaoPrincipal}" var="assistentesSociais"
-					style="font-size: 24px; margin-top: 0px; margin-bootom: 0px;" emptyMessage="Nenhum registro encontrado">
+					value="#{painelUpaBean.assistentesSociaisPlantaoPrincipal}"
+					var="assistentesSociais"
+					style="font-size: 24px; margin-top: 0px; margin-bootom: 0px;"
+					emptyMessage="Nenhum registro encontrado">
 
 					<p:column headerText="Nome" style="width:600px;">
 						<h:outputText value="#{assistentesSociais.nome}" />
 					</p:column>
 
-					<p:column headerText="CRESS" style="width: 120px; text-align:center;">
+					<p:column headerText="CRESS"
+						style="width: 120px; text-align:center;">
 						<h:outputText value="#{assistentesSociais.cress}" />
 					</p:column>
 
@@ -96,11 +106,11 @@
 						</p:column>
 					</p:column>
 				</p:dataTable>
-		
-		</h:form>
+
+			</h:form>
 		</p:fieldset>
 	</ui:define>
-	
+
 	<ui:define name="rodape">
 		<p:fieldset style="margin-top: 10px;">
 			<h:outputText value="#{painelUpaBean.plantao.observacao}" />
