@@ -7,7 +7,7 @@ import org.apache.tomcat.util.codec.binary.Base64;
 public class PassGenerator {
 
 	public static void main(String[] args) {
-		System.out.println(new PassGenerator().generate("1nf0rm4t1v02021"));
+		System.out.println(new PassGenerator().generate("admin"));
 	}
 	
 	public String generate(String senha){

@@ -48,7 +48,7 @@
 			<h:form id="medicosDePlantao">
 
 				<div align="center">
-					<h2 style="margin-top: 5px; margin-bottom: 15px;">MÉDICOS DE
+					<h2 style="margin-top: 5px; margin-bottom: 15px; color: green;">MÉDICOS DE
 						PLANTÃO</h2>
 				</div>
 				<p:dataTable id="tabelaMedicosDoPlantao"
@@ -56,7 +56,7 @@
 					emptyMessage="Nenhum registro encontrado"
 					style="font-size: 24px; margin-top: 0px; margin-bootom: 0px;">
 
-					<p:column headerText="Nome" style="width:600px;">
+					<p:column headerText="Nome" style="width:600px; text-transform: uppercase;">
 						<h:outputText value="#{medico.nome}" />
 					</p:column>
 
@@ -64,12 +64,12 @@
 						<h:outputText value="#{medico.crm}" />
 					</p:column>
 
-					<p:column headerText="Especialidade" style="text-align:center;">
+					<p:column headerText="Especialidade" style="text-align:center; text-transform: uppercase;">
 						<h:outputText value="#{medico.especialidade.descricao}" />
 					</p:column>
 
-					<p:column headerText="Atendimento"
-						style="width: 200px; text-align:center;">
+					<p:column headerText="ATENDIMENTO"
+						style="width: 180px; text-align:center;">
 						<p:column headerText="Atendimento">
 							<h:outputText value="#{medico.horaInicio}" />
 					às <h:outputText value="#{medico.horaFim}" />
@@ -83,7 +83,7 @@
 			<h:form id="assistentesSociaisDePlantao">
 
 				<div align="center">
-					<h2 style="margin-top: 12px; margin-bottom: 15px;">SERVIÇO
+					<h2 style="margin-top: 12px; margin-bottom: 15px; color: green;">SERVIÇO
 						SOCIAL</h2>
 				</div>
 
@@ -93,7 +93,7 @@
 					style="font-size: 24px; margin-top: 0px; margin-bootom: 0px;"
 					emptyMessage="Nenhum registro encontrado">
 
-					<p:column headerText="Nome" style="width:600px;">
+					<p:column headerText="Nome" style="width:600px; text-transform: uppercase;">
 						<h:outputText value="#{assistentesSociais.nome}" />
 					</p:column>
 
@@ -102,7 +102,7 @@
 						<h:outputText value="#{assistentesSociais.cress}" />
 					</p:column>
 
-					<p:column headerText="Atendimento" style="text-align:center;">
+					<p:column headerText="ATENDIMENTO" style="text-align:center;">
 						<p:column headerText="Atendimento">
 							<h:outputText value="#{assistentesSociais.horaInicio}" />
 					às <h:outputText value="#{assistentesSociais.horaFim}" />
@@ -110,6 +110,12 @@
 					</p:column>
 				</p:dataTable>
 			</h:form>
+			
+			<div align="center"
+				style="margin-top: 15px; margin-bottom: 15px; font-weight: bold; font-size: 20px;">
+				<h:outputText value="Obs: #{painelPsBean.plantao.observacao}" />
+			</div>
+			
 		</p:fieldset>
 	</ui:define>
 

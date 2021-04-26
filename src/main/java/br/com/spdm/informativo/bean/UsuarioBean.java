@@ -72,6 +72,23 @@ public class UsuarioBean implements Serializable {
 		}
 	}
 	
+	@Transactional
+	public void remover(Usuario usuario) {
+		Usuario usuarioLogado = (Usuario) context.getExternalContext().getSessionMap().get("usuarioLogado");
+		try {
+			if(usuarioLogado.equals(usuario)) {
+				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+						"Não é possível remover um usuário em uso!", null));
+			} else {
+				usuarioDao.remove(usuario);
+				context.addMessage(null, new FacesMessage("Usuário removido! "));
+			}
+		} catch (PersistenceException ex) {
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+					"Não foi possível remover", null));
+		}
+	}
+	
 	public void limpar() {
 		this.usuario = new Usuario();
 		PrimeFaces.current().resetInputs("formUsuario:panelGridCadastro");
@@ -94,7 +111,7 @@ public class UsuarioBean implements Serializable {
 	}
 
 	public List<Usuario> getUsuarios() {
-		this.usuarios = usuarioDao .listaTodos();
+		this.usuarios = usuarioDao.listaTodos();
 		return this.usuarios;
 	}
 

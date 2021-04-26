@@ -60,11 +60,11 @@
 				<p:menuitem value="Home" action="home?faces-redirect=true" icon="pi pi-fw pi-home" rendered="#{usuarioLogado != null}"/>
 				
 				<p:submenu label="Cadastros" icon="pi pi-fw pi-file" rendered="#{usuarioLogado != null}">
-					<p:menuitem value="Médicos" action="medico?faces-redirect=true" icon="pi pi-fw pi-users" />
-					<p:menuitem value="Assistentes Sociais" action="assistentesocial?faces-redirect=true" icon="pi pi-fw pi-users" />
-					<p:menuitem value="Plantões" action="plantoes?faces-redirect=true" icon="pi pi-fw pi-sort-alt" />
-					<p:menuitem value="Usuários" action="usuario?faces-redirect=true" icon="pi pi-fw pi-users" />
-					<p:menuitem value="Especialidades" action="especialidade?faces-redirect=true" icon="fa fa-fw fa-stethoscope" />
+					<p:menuitem value="Médicos" action="/medico?faces-redirect=true" icon="pi pi-fw pi-users" />
+					<p:menuitem value="Assistentes Sociais" action="/assistentesocial?faces-redirect=true" icon="pi pi-fw pi-users" />
+					<p:menuitem value="Plantões" action="/plantoes?faces-redirect=true" icon="pi pi-fw pi-sort-alt" />
+					<p:menuitem value="Usuários" action="/usuario?faces-redirect=true" icon="pi pi-fw pi-users" />
+					<p:menuitem value="Especialidades" action="/especialidade?faces-redirect=true" icon="fa fa-fw fa-stethoscope" />
 				</p:submenu>
 
 				<p:submenu label="PS" icon="fa fa-fw fa-hospital-o">
@@ -74,9 +74,9 @@
 				</p:submenu>
 				
 				<p:submenu label="UPA" icon="fa fa-fw fa-hospital-o" rendered="#{usuarioLogado != null}">
-					<p:menuitem value="Plantão" action="upa/plantao?faces-redirect=true" icon="pi pi-fw pi-sort-alt" />
-					<p:menuitem value="Painel" action="upa/painel?faces-redirect=true" icon="pi pi-fw pi-desktop" />
-					<p:menuitem value="Painel Slider" action="upa/painelSlider?faces-redirect=true" icon="pi pi-fw pi-desktop" />
+					<p:menuitem value="Plantão" action="/upa/plantao?faces-redirect=true" icon="pi pi-fw pi-sort-alt" />
+					<p:menuitem value="Painel" action="/upa/painel?faces-redirect=true" icon="pi pi-fw pi-desktop" />
+					<p:menuitem value="Painel Slider" action="/upa/painelSlider?faces-redirect=true" icon="pi pi-fw pi-desktop" />
 				</p:submenu>	
 
 				<p:divider />

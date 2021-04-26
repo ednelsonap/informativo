@@ -27,84 +27,78 @@
 				<p:outputPanel
 					style="margin-top: 0px; margin-bottom:0px; text-transform: uppercase;">
 					<h:panelGrid columns="3">
-						<h3 style="margin-top: 0px; margin-bottom: 0px;">
-						Coord. Administrativa: #{painelPsBean.plantao.coordenadorAdministrativo}
+						<h3 style="margin-top: 0px; margin-bottom: 0px;">Coord.
+							Administrativa: #{painelPsBean.plantao.coordenadorAdministrativo}
 						</h3>
-						
+
 						<p:divider layout="vertical" />
-						
+
 						<h3 style="margin-top: 0px; margin-bottom: 0px;">
-						Coord.Médica: #{painelPsBean.plantao.coordenadorMedico}
-						</h3>
+							Coord.Médica: #{painelPsBean.plantao.coordenadorMedico}</h3>
 					</h:panelGrid>
 				</p:outputPanel>
 			</div>
 		</h:form>
 
 		<!-- MÉDICOS DO PLANTÃO -->
-		<p:fieldset>
-			<div class="card">
+		<p:fieldset style="padding: 5px;">
 
-				<div align="center">
-					<h2 style="margin-top: 15px; margin-bottom: 0px;">
-						MÉDICOS
-					</h2>
-				</div>
-
-				<p:imageSwitch effect="fade" speed="3000">
-					<ui:repeat value="#{painelPsBean.medicosPlantaoPrincipal}"
-						var="medico">
-						<p:card style="width: 100%">
-							<div align="center">
-								<h1 style="font-size: 40px; margin-top: 0px;">
-									<h:outputText value="#{medico.nome} | CRM: #{medico.crm}" />
-								</h1>
-								<h1 style="font-size: 30px; text-transform: uppercase;">
-									<h:outputText value="#{medico.especialidade.descricao}" />
-								</h1>
-								<h1 style="font-size: 30px; margin-bottom: 0px;">
-									<h:outputText value="#{medico.horaInicio} às #{medico.horaFim}" />
-								</h1>
-							</div>
-						</p:card>
-					</ui:repeat>
-				</p:imageSwitch>
-
-				<!-- ASSISTENTES SOCIAIS DO PLANTÃO -->
-				<div align="center">
-					<h2 style="margin-top: 30px; margin-bottom: 0px;">
-						ASSISTENTES SOCIAIS
-					</h2>
-				</div>
-
-				<p:imageSwitch effect="fade" speed="3000"
-					style="background-color: AliceBlue; margin-bottom: 20px;">
-					<ui:repeat
-						value="#{painelPsBean.assistentesSociaisPlantaoPrincipal}"
-						var="assistenteSocial">
-						<p:card style="width: 100%">
-							<div align="center">
-								<h1 style="font-size: 40px; margin-top: 0px;">
-									<h:outputText
-										value="#{assistenteSocial.nome} | CRESS: #{assistenteSocial.cress}" />
-								</h1>
-								<h1 style="font-size: 30px; margin-bottom: 0px;">
-									<h:outputText
-										value="#{assistenteSocial.horaInicio} às #{assistenteSocial.horaFim}" />
-								</h1>
-							</div>
-						</p:card>
-					</ui:repeat>
-				</p:imageSwitch>
+			<div align="center">
+				<h1 style="margin-top: 10px; margin-bottom: 0px; color: green;">
+					MÉDICOS
+				</h1>
 			</div>
+
+			<p:imageSwitch effect="fade" speed="3000">
+				<ui:repeat value="#{painelPsBean.medicosPlantaoPrincipal}"
+					var="medico">
+					<p:card style="width: 100%; margin-bottom: 0px; padding: 0px;">
+						<div align="center">
+							<h1 style="font-size: 48px; margin-top: 0px;">
+								<h:outputText value="#{medico.nome} | CRM: #{medico.crm}" />
+							</h1>
+							<h1
+								style="font-size: 35px; color: #696969">
+								<h:outputText value="#{medico.especialidade.descricao} | #{medico.horaInicio} às #{medico.horaFim}" />
+							</h1>
+						</div>
+					</p:card>
+				</ui:repeat>
+			</p:imageSwitch>
+
+			<!-- ASSISTENTES SOCIAIS DO PLANTÃO -->
+			
+			<div align="center">
+				<h1 style="margin-top: 15px; margin-bottom: 0px; color: green;">
+					ASSISTENTES SOCIAIS</h1>
+			</div>
+
+			<p:imageSwitch effect="fade" speed="3000">
+				<ui:repeat
+					value="#{painelPsBean.assistentesSociaisPlantaoPrincipal}"
+					var="assistenteSocial">
+					<p:card style="width: 100%; margin-bottom: 0px; padding: 0px;">
+						<div align="center" style="margin-bottom: 0px;">
+							<h1 style="font-size: 48px; margin-top: 0px;">
+								<h:outputText
+									value="#{assistenteSocial.nome} | CRESS: #{assistenteSocial.cress}" />
+							</h1>
+							<h1 style="font-size: 35px; margin-bottom: 0px; color: #696969;">
+								<h:outputText
+									value="#{assistenteSocial.horaInicio} às #{assistenteSocial.horaFim}" />
+							</h1>
+						</div>
+					</p:card>
+				</ui:repeat>
+			</p:imageSwitch>
+
+			<div align="center"
+				style="margin-top: 15px; margin-bottom: 12px; font-weight: bold; font-size: 20px;">
+				<h:outputText value="Obs: #{painelPsBean.plantao.observacao}" />
+			</div>
+
+
 		</p:fieldset>
 	</ui:define>
-
-	<ui:define name="rodape">
-		<p:fieldset style="margin-top: 10px;">
-			<h:outputText style="font-size: 22px;" value="Obs: #{painelPsBean.plantao.observacao}" />
-		</p:fieldset>
-	</ui:define>
-
 </ui:composition>
 </html>

@@ -28,18 +28,16 @@
 			<h:form id="formTabelaUsuarios">
 
 				<p:dataTable value="#{usuarioBean.usuarios}" var="usuario"
-					emptyMessage="Nenhum registro encontrado" id="tabelaUsuarios"
-					paginator="true" rows="10" lazy="true">
+					emptyMessage="Nenhum registro encontrado" id="tabelaUsuarios">
 
 					<p:column headerText="Nome" style="width:500px;">
-						<h:outputText value="#{usuario.nomeUsuario}"
-							style="text-transform: uppercase;" />
+						<h:outputText value="#{usuario.nomeUsuario}" />
 					</p:column>
 
 					<p:column headerText="Ações" style="width:100px;">
 						<p:commandButton update=":formNovaSenha" icon="pi pi-pencil"
 							styleClass="rounded-button ui-button-info ui-button-outlined"
-							title="Alterar" onclick="PF('dialogNovaSenha').show()"
+							title="Alterar Senha" onclick="PF('dialogNovaSenha').show()"
 							render=":formUsuario:botaoAlterar">
 							<f:setPropertyActionListener value="#{usuario}"
 								target="#{usuarioBean.usuario}" />
@@ -64,7 +62,7 @@
 						<h:panelGrid id="panelGridCadastro">
 							<p:outputLabel for="nomeUsuario" value="Usuário:" />
 							<p:inputText style="margin-top: 10px; margin-bottom: 10px;"
-								size="35" id="nomeUsuario"
+								size="35" maxlength="20" id="nomeUsuario"
 								value="#{usuarioBean.usuario.nomeUsuario}" required="true"
 								requiredMessage="Usuário é necessário" />
 
@@ -94,7 +92,7 @@
 				</h:form>
 			</p:dialog>
 			<p:dialog header="Redefinição de Senha" widgetVar="dialogNovaSenha" minHeight="200"
-				width="350" height="220" showEffect="fade" modal="true"
+				width="350" height="300" showEffect="fade" modal="true" draggable="false"
 				closable="false" visible="#{facesContext.validationFailed}">
 				<h:form id="formNovaSenha">
 					<div class="card">
