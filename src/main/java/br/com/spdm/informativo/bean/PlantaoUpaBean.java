@@ -52,18 +52,6 @@ public class PlantaoUpaBean implements Serializable {
 		return this.assistenteSocialDao.listaTodos();
 	}
 
-	/*public void gravarMedico() {
-		Medico medico = this.medicoDao.buscaPorId(this.medicoId);
-		this.plantao.adicionaMedico(medico);
-		System.out.println("Gravando médico " + medico.getNome() + " no plantão.");
-	}
-
-	public void gravarAssistenteSocial() {
-		AssistenteSocial assistenteSocial = this.assistenteSocialDao.buscaPorId(this.assistenteSocialId);
-		this.plantao.adicionaAssistenteSocial(assistenteSocial);
-		System.out.println("Gravando Assistente Social " + assistenteSocial.getNome() + " no plantão.");
-	}*/
-
 	@Transactional
 	public void vincularMedicoAoPlantao() {
 
@@ -120,7 +108,7 @@ public class PlantaoUpaBean implements Serializable {
 	public void removerMedicoDoPlantao(Medico medico) {
 		this.plantao = plantaoDao.buscaPlantaoUpa();
 		this.plantao.removeMedico(medico);
-		plantaoDao.atualiza(this.plantao);
+		plantaoDao.atualiza(this.plantao);	
 	}
 
 	@Transactional

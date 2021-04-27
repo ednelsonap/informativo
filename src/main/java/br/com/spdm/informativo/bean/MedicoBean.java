@@ -27,7 +27,7 @@ public class MedicoBean implements Serializable {
 	private Medico medico = new Medico();
 	
 	private List<Medico> medicos;
-
+	
 	@Inject
 	private MedicoDao medicoDao;
 	@Inject

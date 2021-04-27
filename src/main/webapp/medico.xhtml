@@ -29,18 +29,20 @@
 
 				<p:dataTable value="#{medicoBean.medicos}" var="medico"
 					emptyMessage="Nenhum registro encontrado" id="tabelaMedicos"
-					paginator="true" rows="10" lazy="true">
+					paginator="true" rows="10">
 
-					<p:column headerText="Nome" style="width:500px;">
-						<h:outputText value="#{medico.nome}"
-							style="text-transform: uppercase;" />
+					<p:column headerText="Nome" style="width:500px;" 
+						sortBy="#{medico.nome}" filterBy="#{medico.nome}" filterMatchMode="contains">
+						<h:outputText value="#{medico.nome}" />
 					</p:column>
 
-					<p:column headerText="CRM" style="width:100px;">
+					<p:column headerText="CRM" style="width:100px;" filterBy="#{medico.crm}" 
+						filterMatchMode="contains">
 						<h:outputText value="#{medico.crm}" />
 					</p:column>
 
-					<p:column headerText="Especialidade">
+					<p:column headerText="Especialidade" sortBy="#{medico.especialidade.descricao}" 
+						filterBy="#{medico.especialidade.descricao}" filterMatchMode="contains">
 						<h:outputText value="#{medico.especialidade.descricao}" />
 					</p:column>
 
@@ -61,7 +63,7 @@
 						<p:commandButton icon="pi pi-trash"
 							styleClass="rounded-button ui-button-danger ui-button-outlined"
 							action="#{medicoBean.remover(medico)}" title="Excluir" ajax="false"
-							update="@form :formTabelaMedicos" render="messages" />
+							process="@this" update="@form :formTabelaMedicos" render="messages" />
 					</p:column>
 
 				</p:dataTable>

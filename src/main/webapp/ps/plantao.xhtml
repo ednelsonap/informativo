@@ -13,31 +13,26 @@
 
 	<ui:define name="conteudo">
 
-		<style type="text/css">
-.custom-scrolltop.ui-scrolltop {
-	width: 2rem;
-	height: 2rem;
-	border-radius: 4px;
-	outline: 0 none;
-	background-color: var(- -primary-color);
-}
+	<!-- STILO DO SCROLLTOP -->
 
-.custom-scrolltop.ui-scrolltop:hover {
-	background-color: var(- -primary-color);
-}
+	<style type="text/css">
+		.custom-scrolltop.ui-scrolltop {
+			width: 2rem;
+			height: 2rem;
+			border-radius: 4px;
+			outline: 0 none;
+			background-color: var(- -primary-color);
+		}
 
-.custom-scrolltop.ui-scrolltop .ui-scrolltop-icon {
-	font-size: 1rem;
-	color: var(- -primary-color-text);
-}
-</style>
+		.custom-scrolltop.ui-scrolltop:hover {
+			background-color: var(- -primary-color);
+		}
 
-		<!-- <div align="center">
-			<p:linkButton outcome="/ps/painel.xhtml" value="Ver Painel"
-				target="_blank" style="margin-bottom:20px;"
-				styleClass="rounded-button ui-button-success" icon="pi pi-eye"
-				ajax="false" />
-		</div> -->
+		.custom-scrolltop.ui-scrolltop .ui-scrolltop-icon {
+			font-size: 1rem;
+			color: var(- -primary-color-text);
+		}
+	</style>
 
 		<!-- FORMULÁRIO DE VÍNCULO DOS MÉDICOS NO PLANTAO DO PS -->
 
@@ -98,7 +93,7 @@
 						na lista e clique em vincular</p>
 
 					<p:selectOneMenu value="#{plantaoPsBean.assistenteSocialId}"
-						id="selectAssistenteSocial" style="text-transform: uppercase"
+						id="selectAssistenteSocial"
 						filter="true" required="true"
 						requiredMessage="Selecione um assistente social da lista"
 						filterMatchMode="startsWith">
@@ -155,8 +150,8 @@
 
 					<p:column headerText="Ações" style="width: 130px;">
 						<p:commandButton value="Desvincular" update="@form"
-							process="@this"
-							actionListener="#{plantaoPsBean.removerMedicoDoPlantao(medico)}"
+							process="@form"
+							action="#{plantaoPsBean.removerMedicoDoPlantao(medico)}"
 							title="Desvincular" icon="pi pi-link"
 							styleClass="rounded-button ui-button-danger ui-button-outlined" />
 					</p:column>
@@ -185,8 +180,8 @@
 
 					<p:column headerText="Ações" style="width: 130px;">
 						<p:commandButton value="Desvincular" update="@form"
-							process="@this"
-							actionListener="#{plantaoPsBean.removerAssistenteSocialDoPlantao(assistenteSocial)}"
+							process="@form"
+							action="#{plantaoPsBean.removerAssistenteSocialDoPlantao(assistenteSocial)}"
 							title="Desvincular" icon="pi pi-link"
 							styleClass="rounded-button ui-button-danger ui-button-outlined" />
 					</p:column>
